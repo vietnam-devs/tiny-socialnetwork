@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Include="scss\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,17 +49,17 @@
   </Target>
 
   <Target Name="CopyAssetToOutputLinux" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And !Exists('wwwroot/index.html') ">
-    <Message Importance="high" Text="[CRMCore][Not Windows] Yarn is installing..." />
+    <!--<Message Importance="high" Text="[CRMCore][Not Windows] Yarn is installing..." />
     <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="yarn install" />
     <Message Importance="high" Text="[CRMCore][Not Windows] Yarn is building..." />
     <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="yarn build" />
     <Message Importance="high" Text="[CRMCore][Not Windows] Copying assets to Host project..." />
-    <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="cp -rfv  build/* ../CRMCore.WebApp/wwwroot/" />
+    <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="cp -rfv  build/* ../CRMCore.WebApp/wwwroot/" />-->
   </Target>
 
   <ItemGroup>
     <ProjectReference Include="..\..\framework\CRMCore.Framework.MvcCore\CRMCore.Framework.MvcCore.csproj" />
-    <ProjectReference Include="..\..\targets\CRMCore.Application.Crm.targets\CRMCore.Application.Crm.targets.csproj" />
+    <ProjectReference Include="..\..\targets\CRMCore.Application.SocialNetwork.targets\CRMCore.Application.SocialNetwork.targets.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CRMCertificate.pfx" />

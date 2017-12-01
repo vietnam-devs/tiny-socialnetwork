@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CRMCore.Module.Identity.Extensions
 {
@@ -16,7 +17,6 @@ namespace CRMCore.Module.Identity.Extensions
     {
         public static IServiceCollection RegisterIdentityAndID4(
             this IServiceCollection services,
-            IConfigurationSection options,
             Action<ConfigurationStoreOptions> configurationstoreOptionsAction,
             Action<OperationalStoreOptions> operationalStoreOptionsAction)
         {
@@ -28,24 +28,31 @@ namespace CRMCore.Module.Identity.Extensions
                 .AddDefaultTokenProviders();
 
             // Adds IdentityServer
-            services.AddIdentityServer(x =>
+            var identityServerBuilder = services.AddIdentityServer(x =>
             {
                 x.IssuerUri = "null";
                 x.UserInteraction.LoginUrl = "/identity/account/login";
                 x.UserInteraction.ConsentUrl = "/identity/consent/index";
 
             })
-            //.AddDeveloperSigningCredential()
-            .AddCertificateFromFile(options)
             .AddAspNetIdentity<ApplicationUser>()
             .AddConfigurationStore(configurationstoreOptionsAction)
             .AddOperationalStore(operationalStoreOptionsAction)
             .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
 
+            var env = services.BuildServiceProvider().GetService<IHostingEnvironment>();
+            if(env.IsDevelopment()){
+                identityServerBuilder.AddDeveloperSigningCredential();
+            }
+            else{
+                var options = services.BuildServiceProvider().GetService<IConfiguration>().GetSection("Certificate");
+                identityServerBuilder.AddCertificateFromFile(options);
+            }
+
             return services;
         }
 
-        public static IIdentityServerBuilder AddCertificateFromFile( this IIdentityServerBuilder builder, IConfigurationSection options)
+        public static IIdentityServerBuilder AddCertificateFromFile(this IIdentityServerBuilder builder, IConfigurationSection options)
         {
             var keyFilePath = options.GetValue<string>("FileName");
             var keyFilePassword = options.GetValue<string>("Password");

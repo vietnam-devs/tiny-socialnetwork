@@ -12,9 +12,16 @@ namespace CRMCore.WebApp
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args){
+            var config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("hosting.json", optional: true)
+            .AddCommandLine(args)
+            .Build();
+            
+            return WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(k => { k.AddServerHeader = false; })
+                .UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
                 .ConfigureAppConfiguration((hostContext, options) =>
@@ -30,5 +37,7 @@ namespace CRMCore.WebApp
                     options.AddCommandLine(args);
                 })
                 .Build();
+        }
+            
     }
 }

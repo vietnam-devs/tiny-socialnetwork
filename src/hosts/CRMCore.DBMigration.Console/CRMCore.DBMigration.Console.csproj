@@ -23,9 +23,9 @@
 		<DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\..\targets\CRMCore.Application.Crm.targets\CRMCore.Application.Crm.targets.csproj" />
+	  <Folder Include="Seeder\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Seeder\" />
+	  <ProjectReference Include="..\..\targets\CRMCore.Application.SocialNetwork.targets\CRMCore.Application.SocialNetwork.targets.csproj" />
 	</ItemGroup>
 </Project>

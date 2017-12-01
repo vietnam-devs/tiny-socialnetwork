@@ -27,7 +27,8 @@ module.exports = {
   output: {
     path: WWWROOT_PATH + '/server',
     filename: '[name].js',
-    library: '[name]_[hash]'
+    library: '[name]_[hash]',
+     "publicPath": "/server/"
   },
 
   module: {

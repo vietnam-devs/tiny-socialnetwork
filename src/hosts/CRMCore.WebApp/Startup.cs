@@ -17,6 +17,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.SpaServices.Webpack;
+using System.IO;
 
 namespace CRMCore.WebApp
 {
@@ -79,7 +81,6 @@ namespace CRMCore.WebApp
             services.AddRouteAnalyzer();
 
             services.RegisterIdentityAndID4(
-                Configuration.GetSection("Certificate"),
                 options =>
                 {
                     options.ConfigureDbContext = builder =>
@@ -100,89 +101,27 @@ namespace CRMCore.WebApp
             return services.InitServices(Configuration);
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
+                    HotModuleReplacement = true,
+                    ProjectPath = Path.GetFullPath("../../modules/CRMCore.Module.Spa"),
+                    
+                });
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
             app.UseStaticFiles();
 
-            //Todo: need to refactor code, need to use authentication before MVC
             app.UseAuthentication();
             app.UseIdentityServer();
-
-            MapAndUseIdSrv(app);
-            MapAndUseWebApp(app);
-            MapAndUseFrontend(app);
-
-            // TODO: consider moving this up
-            app.UseModules();
-        }
-
-        private void MapAndUseIdSrv(IApplicationBuilder app)
-        {
-            app.Map(Constants.IdentityPrefix, identityApp =>
-            {
-                if (Environment.IsDevelopment())
-                {
-                    identityApp.UseDeveloperExceptionPage();
-                }
-                else
-                {
-                    identityApp.UseExceptionHandler("/error");
-                }
-
-                // TODO: aPhuong will add more configurations for IdSrv 
-                // TODO: ...
-
-                /*identityApp.MapWhen(x => IsIdentityRequest(x), mvcApp =>
-                {
-                    mvcApp.UseMvc();
-                });*/
-            });
-        }
-
-        private void MapAndUseWebApp(IApplicationBuilder app)
-        {
-            app.Map(Constants.ApiPrefix, appApi =>
-            {
-                if (Environment.IsDevelopment())
-                {
-                    appApi.UseDeveloperExceptionPage();
-                }
-                else
-                {
-                    appApi.UseExceptionHandler("/Home/Error");
-                }
-
-                app.UseCors("CorsPolicy");
-
-                /*appApi.MapWhen(x => !IsIdentityRequest(x), webApp =>
-                {
-                    // TODO: Thang will map Swagger here
-                    // TODO: ...
-
-                    webApp.UseMvc(routes =>
-                        {
-                            routes.MapRoute(
-                            name: "default",
-                            template: "{controller=Home}/{action=Index}/{id?}");
-
-                            routes.MapSpaFallbackRoute(
-                                name: "spa-fallback",
-                                defaults: new { controller = "Home", action = "Index" });
-                        });
-                });*/
-            });
-        }
-
-        private void MapAndUseFrontend(IApplicationBuilder app)
-        {
-            app.Use((context, next) =>
-            {
-                if (context.Request.Path.Value == "/")
-                {
-                    context.Request.Path = new PathString("/home");
-                }
-                return next();
-            });
 
             app.UseMvc(routes =>
             {
@@ -190,18 +129,15 @@ namespace CRMCore.WebApp
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    template: "{area:exists}/{controller}/{action}/{id?}",
+                    defaults: new {area = "CRMCore.Module.spa", controller = "Home", action= "Index"});
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new {area = "CRMCore.Module.spa", controller = "Home", action = "Index" });
             });
-        }
 
-        private static bool IsIdentityRequest(HttpContext context)
-        {
-            return IdSrvPaths.Any(p => context.Request.Path.StartsWithSegments(p));
+            app.UseModules();
         }
     }
 }
