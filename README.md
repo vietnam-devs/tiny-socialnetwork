@@ -35,30 +35,25 @@
 ### Real world demo
 
 You can access to the application on Azure as following links:
-- http://crmcore.southeastasia.cloudapp.azure.com
-- http://crmcore.southeastasia.cloudapp.azure.com/swagger
-- http://crmcore.southeastasia.cloudapp.azure.com/docs
+
+*Coming soon...*
 
 ### Docker
 
 #### Linux / Unix
 
-```bash
-docker run -p 80:5000 --name crmcore  crmcore/crm-linux
-```
+*Coming soon...*
 
 #### Windows
 
-```bash
-docker run -p 80:5000 --name crmcore  crmcore/crm-window
-```
+*Coming soon...*
 
 For more information, you can check out [CRM Core on Docker Hub](https://hub.docker.com/u/crmcore)
 
 ### Manual
 
 - Download the latest .NET SDK (2.x) & NodeJS
-- Clone the repo: `git clone https://github.com/crm-core/crmcore.git`
+- Clone the repo: `git clone https://github.com/crm-core/tiny-socialnetwork.git`
 - Change location to `\crmcore\src\Hosts\CRMCore.WebApp`, then run command `dotnet run`
 
 ## What's included
@@ -66,26 +61,28 @@ For more information, you can check out [CRM Core on Docker Hub](https://hub.doc
 *Coming soon...*
 
 ## Bugs and feature requests
-Have a bug or a feature request? Please first read the issue guidelines and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/crm-core/crmcore/issues/new).
+Have a bug or a feature request? Please first read the issue guidelines and search for existing and closed issues. If your problem or idea is not addressed yet, [please open a new issue](https://github.com/crm-core/tiny-socialnetwork/issues/new).
 
 ## Dependencies
 
 - [.NET Core SDK 2.0](https://www.microsoft.com/net/download)
-- [Create-React-App](https://github.com/facebookincubator/create-react-app)
+- [Angular CLI](https://github.com/angular/angular-cli)
 - [React CoreUI](https://github.com/mrholek/CoreUI-React)
 
 ## Community
 Get updates on CRMCore' development and chat with the project maintainers and community members:
 - Follow [Phuong Le on GitHub](https://github.com/tungphuong)
 - Follow [@thangchung on Twitter](https://twitter.com/thangchung)
+- Follow [Le Cao on GitHub](https://github.com/hoanglecao)
+- Follow [Ha Hoang on GitHub](https://github.com/sau-lanvy)
 
 ## Development
 
 ### Get code
 
 ```bash
-git clone git@github.com:crm-core/crmcore.git
-cd crmcore
+git clone https://github.com/crm-core/tiny-socialnetwork.git
+cd tiny-socialnetwork
 ```
 
 ### Back-end Development environment
@@ -95,7 +92,7 @@ cd crmcore
 It will be organize the initial project structure and install the transitive dependencies:
 
 ```
-crm-core
+tiny-socialnetwork
 ├── README.md
 ├── LICENSE
 ├── .gitignore
@@ -106,23 +103,17 @@ crm-core
 ├── crmcore.sln
 ├── art
 └── src
-    └── crm
-        └── CRMCore.Module.Common
-        └── CRMCore.Module.Contact
-        └── CRMCore.Module.Setup
-        └── CRMCore.Module.Spa
-        └── Directory.Build.props
     └── framework
         └── CRMCore.Framework.CqrsLite
         └── CRMCore.Framework.Entities
         └── CRMCore.Framework.MvcCore
     └── hosts
-        └── CRMCore.ClientApp
         └── CRMCore.WebApp
     └── modules
         └── CRMCore.Module.Communication
         └── CRMCore.Module.Data
         └── CRMCore.Module.Identity
+        └── CRMCore.Module.Spa
     └── targets
         └── CRMCore.Application.Crm.targets
         └── CRMCore.Application.Targets
@@ -134,7 +125,7 @@ crm-core
 
 ```bash
 
-cd <your path>crmcore\src\hosts\CRMCore.WebApp
+cd <your path>tiny-socialnetwork\src\hosts\CRMCore.WebApp
 dotnet restore
 yarn run build
 dotnet build
@@ -142,64 +133,13 @@ dotnet run
 
 ```
 
-![Server Project Structure](https://raw.githubusercontent.com/crm-core/crmcore/master/art/server-project-structure.PNG)
-
 ### Front-end Development environment
 
 **You’ll need to have Node >= 6 on your machine.**
 
 It will organize the initial project structure and install the transitive dependencies:
 
-```
-crm-core\src\hosts\CRMCore.ClientApp
-├── node_modules
-├── package.json
-├── yarn.lock
-├── .gitignore
-├── public
-│   └── favicon.ico
-│   └── index.html
-│   └── manifest.json
-└── src
-    └── components
-    └── configs
-    └── containers
-    └── redux
-        └── middlewares
-        └── modules
-    └── styles
-        └── bootstrap
-        └── core
-        └── vendors
-        └── images
-        └── style.scss
-    └── index.js
-    └── logo.svg
-    └── registerServiceWorker.js
-```
-
-We need several packages that were installed in global scope as following commands
-
-```bash
-
-npm i react-scripts npm-run-all cpx node-sass-chokidar -g
-
-```
-
-Then, we can run following commands
-
-```bash
-
-cd <your path>crmcore\src\hosts\CRMCore.ClientApp
-yarn install
-yarn start
-
-```
-
-![Client Project Structure](https://raw.githubusercontent.com/crm-core/crmcore/master/art/client-project-structure.PNG)
-
-> When you build **CRMCore.WebApp**, then it will call MSBuild script inside to automatically build the assets for the front-end.
-> You need to remove the **index.html** inside wwwroot folder to make it happen.
+**Coming soon...**
 
 ### Database Development environment
 
@@ -227,4 +167,4 @@ dotnet ef migrations add <message>  -c ApplicationDbContext  -o Data/Migrations/
 
 ## Copyright and license
 
-Code and documentation copyright 2017 [CRMCore](https://github.com/crm-core). Code released under the [MIT License](https://github.com/crm-core/crmcore/blob/master/LICENSE).
+Code and documentation copyright 2017 [CRMCore](https://github.com/crm-core). Code released under the [MIT License](https://github.com/crm-core/tiny-socialnetwork/blob/master/LICENSE).
