@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	<IgnorePackageAssets>false</IgnorePackageAssets>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\modules\CRMCore.Module.Swagger\CRMCore.Module.Swagger.csproj" />
+    <ProjectReference Include="..\CRMCore.Application.Targets\CRMCore.Application.Targets.csproj" />
+    <ProjectReference Include="..\..\themes\CRMCore.Theme\CRMCore.Theme.csproj" />
+    <ProjectReference Include="..\..\modules\CRMCore.Module.Spa\CRMCore.Module.Spa.csproj" />
+  </ItemGroup>
+  
+</Project>

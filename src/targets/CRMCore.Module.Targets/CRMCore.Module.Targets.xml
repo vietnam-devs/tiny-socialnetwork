@@ -2,7 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
 		<ModuleManifest>Name: $(MSBuildProjectName)</ModuleManifest>
-		<ExcludedFiles>**\*.cs;*.csproj*;obj\**;bin\**;Assets.json;Assets\**;Properties\**;*.props;*.targets;.vs\**</ExcludedFiles>
+		<ExcludedFiles>**\*.cs;*.csproj*;obj\**;bin\**;Assets.json;Assets\**;Properties\**;*.props;*.targets;.vs\**;e2e\**;src\**;node_modules\**;wwwroot\**</ExcludedFiles>
 		<ModuleType Condition="'$(ModuleType)' == ''">Module</ModuleType>
 	</PropertyGroup>
 	

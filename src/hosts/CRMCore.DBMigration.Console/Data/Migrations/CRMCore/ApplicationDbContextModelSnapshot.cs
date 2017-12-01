@@ -97,24 +97,6 @@ namespace CRMCore.DBMigration.Console.Data.Migrations.CRMCore
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("CRMCore.Module.CustomCollection.Entity.Morphism", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ContentStr");
-
-                    b.Property<DateTime>("Created");
-
-                    b.Property<string>("SchemaStr");
-
-                    b.Property<DateTime>("Updated");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("crm_Morphisms");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
