@@ -46,8 +46,6 @@
     <Exec Command="yarn build" />
   </Target>
 
-    
-
   <ItemGroup>
     <ProjectReference Include="..\..\framework\CRMCore.Framework.MvcCore\CRMCore.Framework.MvcCore.csproj" />
     <ProjectReference Include="..\..\targets\CRMCore.Application.SocialNetwork.targets\CRMCore.Application.SocialNetwork.targets.csproj" />

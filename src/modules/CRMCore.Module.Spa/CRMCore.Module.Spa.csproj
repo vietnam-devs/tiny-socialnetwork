@@ -14,6 +14,7 @@
 		<ProjectReference Include="..\..\framework\CRMCore.Framework.MvcCore\CRMCore.Framework.MvcCore.csproj" />
 	</ItemGroup>
 	<Target Name="AngularBuild" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And !Exists('../../hosts/CRMCore.WebApp/wwwroot/spa')" >
-        <Exec Command="npm run build" />
+		<Exec Command="yarn install" />
+        <Exec Command="yarn build" />
     </Target>
 </Project>
