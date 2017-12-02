@@ -47,6 +47,18 @@ module.exports = {
         })
       },
       {
+            test: /\.scss$/,
+            use: extractCSS.extract({
+                use: [{
+                    loader: "css-loader"
+                }, {
+                    loader: "sass-loader"
+                }],
+                // use style-loader in development
+                fallback: "style-loader"
+            })
+        },
+      {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
         use: 'file-loader?name=images/[name].[ext]'
       },
@@ -54,7 +66,8 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf)(\?|$)/,
         use: 'file-loader?name=fonts/[name].[ext]'
       },
-      { test: /\.(cshtml|txt)$/, loader: 'ignore-loader' }
+      { test: /\.(cshtml|txt)$/, loader: 'ignore-loader' },
+      { test: /CRMCore.Module.Spa/, loader: 'ignore-loader' }
     ]
   },
 

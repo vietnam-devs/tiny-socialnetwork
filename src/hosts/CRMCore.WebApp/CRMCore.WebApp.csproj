@@ -38,24 +38,15 @@
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
   </Target>
-  
-  <Target Name="CopyAssetToOutputWindow" AfterTargets="Build" Condition="'$(BuildingInsideVisualStudio)' == 'true' And '$(OS)' == 'Windows_NT' And !Exists('wwwroot\index.html') ">
-    <Message Importance="high" Text="[CRMCore][Windows] Yarn is installing..." />
-    <Exec WorkingDirectory="..\CRMCore.ClientApp\" Command="yarn install" />
-    <Message Importance="high" Text="[CRMCore][Windows] Yarn is building..." />
-    <Exec WorkingDirectory="..\CRMCore.ClientApp\" Command="yarn build" />
-    <Message Importance="high" Text="[CRMCore][Windows] Copying assets to Host project..." />
-    <Exec WorkingDirectory="..\CRMCore.ClientApp\" Command="xcopy.exe /S /R /Y /E build ..\CRMCore.WebApp\wwwroot" />
+
+  <Target Name="BuildAssest" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And !Exists('wwwroot/server') ">    
+	<Message Importance="high" Text="[Server][Not Windows] Yarn install..." />
+    <Exec Command="yarn install" />
+	<Message Importance="high" Text="[Server][Not Windows] Yarn is building..." />
+    <Exec Command="yarn build" />
   </Target>
 
-  <Target Name="CopyAssetToOutputLinux" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And !Exists('wwwroot/index.html') ">
-    <!--<Message Importance="high" Text="[CRMCore][Not Windows] Yarn is installing..." />
-    <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="yarn install" />
-    <Message Importance="high" Text="[CRMCore][Not Windows] Yarn is building..." />
-    <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="yarn build" />
-    <Message Importance="high" Text="[CRMCore][Not Windows] Copying assets to Host project..." />
-    <Exec WorkingDirectory="../CRMCore.ClientApp/" Command="cp -rfv  build/* ../CRMCore.WebApp/wwwroot/" />-->
-  </Target>
+    
 
   <ItemGroup>
     <ProjectReference Include="..\..\framework\CRMCore.Framework.MvcCore\CRMCore.Framework.MvcCore.csproj" />
