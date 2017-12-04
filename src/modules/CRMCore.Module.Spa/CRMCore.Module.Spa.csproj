@@ -13,7 +13,7 @@
 		<ProjectReference Include="..\..\framework\CRMCore.Framework.Entities\CRMCore.Framework.Entities.csproj" />
 		<ProjectReference Include="..\..\framework\CRMCore.Framework.MvcCore\CRMCore.Framework.MvcCore.csproj" />
 	</ItemGroup>
-	<Target Name="AngularBuild" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And !Exists('../../hosts/CRMCore.WebApp/wwwroot/spa')">
+	<Target Name="AngularBuild" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And (!Exists('../../hosts/CRMCore.WebApp/wwwroot/spa') OR !Exists('..\..\hosts\CRMCore.WebApp\wwwroot\spa'))">
 		<Exec Command="yarn install" />
         <Exec Command="yarn build" />
     </Target>

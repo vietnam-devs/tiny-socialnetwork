@@ -39,7 +39,7 @@
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
   </Target>
 
-  <Target Name="BuildAssest" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And !Exists('wwwroot/server') ">    
+  <Target Name="BuildAssest" AfterTargets="Build" Condition="'$(OS)' != 'Windows_NT' And (!Exists('wwwroot/server') Or !Exists('wwwroot\server'))">    
 	<Message Importance="high" Text="[Server][Not Windows] Yarn install..." />
     <Exec Command="yarn install" />
 	<Message Importance="high" Text="[Server][Not Windows] Yarn is building..." />
