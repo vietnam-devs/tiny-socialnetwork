@@ -10,6 +10,7 @@
     <ProjectReference Include="..\CRMCore.Application.Targets\CRMCore.Application.Targets.csproj" />
     <ProjectReference Include="..\..\themes\CRMCore.Theme\CRMCore.Theme.csproj" />
     <ProjectReference Include="..\..\modules\CRMCore.Module.Spa\CRMCore.Module.Spa.csproj" />
+    <ProjectReference Include="..\..\modules\CRMCore.Module.Post\CRMCore.Module.Post.csproj" />
   </ItemGroup>
   
 </Project>
