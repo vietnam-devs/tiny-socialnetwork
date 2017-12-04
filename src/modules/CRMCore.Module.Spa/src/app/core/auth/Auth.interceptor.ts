@@ -9,10 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private injector: Injector) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>,next: HttpHandler): Observable<HttpEvent<any>> {
     let requestToForward = req;
     if (this.oidcSecurityService === undefined) {
       this.oidcSecurityService = this.injector.get(OidcSecurityService);

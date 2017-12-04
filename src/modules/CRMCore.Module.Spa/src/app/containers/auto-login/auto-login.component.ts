@@ -7,7 +7,7 @@ import { OidcSecurityService } from 'angular-auth-oidc-client';
 })
 
 export class AutoLoginComponent implements OnInit, OnDestroy {
-    constructor(public oidcSecurityService: OidcSecurityService
+    constructor(private oidcSecurityService: OidcSecurityService
     ) {
         this.oidcSecurityService.onModuleSetup.subscribe(() => { this.onModuleSetup(); });
     }
