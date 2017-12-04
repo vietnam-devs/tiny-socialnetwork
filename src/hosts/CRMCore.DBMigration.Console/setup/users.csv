@@ -1,0 +1,11 @@
+﻿email;lastname;firstname;phonenumber;username;normalizedemail;normalizedusername;password
+user1@nomail.com;User1;User1;01010101;user1@nomail.com;user1@nomail.com;user1@nomail.com;P@ssw0rd
+user2@nomail.com;User2;User2;01010101;user2@nomail.com;user2@nomail.com;user2@nomail.com;P@ssw0rd
+user3@nomail.com;User3;User3;01010101;user3@nomail.com;user3@nomail.com;user3@nomail.com;P@ssw0rd
+user4@nomail.com;User4;User4;01010101;user4@nomail.com;user4@nomail.com;user4@nomail.com;P@ssw0rd
+user5@nomail.com;User5;User5;01010101;user5@nomail.com;user5@nomail.com;user5@nomail.com;P@ssw0rd
+user6@nomail.com;User6;User6;01010101;user6@nomail.com;user6@nomail.com;user6@nomail.com;P@ssw0rd
+user7@nomail.com;User7;User7;01010101;user7@nomail.com;user7@nomail.com;user7@nomail.com;P@ssw0rd
+user8@nomail.com;User8;User8;01010101;user8@nomail.com;user8@nomail.com;user8@nomail.com;P@ssw0rd
+user9@nomail.com;User9;User9;01010101;user9@nomail.com;user0@nomail.com;user9@nomail.com;P@ssw0rd
+user10@nomail.com;User10;User10;01010101;user10@nomail.com;user10@nomail.com;user10@nomail.com;P@ssw0rd

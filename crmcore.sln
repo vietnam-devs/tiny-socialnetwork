@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMCore.Module.Spa", "src\m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMCore.Module.Common", "src\modules\CRMCore.Module.Common\CRMCore.Module.Common.csproj", "{354AB5FE-36C4-40A9-85A2-473413F0EFC5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMCore.Module.Post", "src\modules\CRMCore.Module.Post\CRMCore.Module.Post.csproj", "{4022AFED-4267-4132-8172-6CCDCF7E0220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,6 +140,10 @@ Global
 		{354AB5FE-36C4-40A9-85A2-473413F0EFC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{354AB5FE-36C4-40A9-85A2-473413F0EFC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{354AB5FE-36C4-40A9-85A2-473413F0EFC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4022AFED-4267-4132-8172-6CCDCF7E0220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4022AFED-4267-4132-8172-6CCDCF7E0220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4022AFED-4267-4132-8172-6CCDCF7E0220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4022AFED-4267-4132-8172-6CCDCF7E0220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -161,6 +167,7 @@ Global
 		{8A90086D-496F-4D58-811C-06DBBED68686} = {801A9F75-24F6-4D8C-A884-98C6BE76986B}
 		{1BA64AF2-7B85-41D5-B151-1EA6B56E4594} = {74D2F004-44D9-4BEE-AEA7-51DFA9FD027C}
 		{354AB5FE-36C4-40A9-85A2-473413F0EFC5} = {74D2F004-44D9-4BEE-AEA7-51DFA9FD027C}
+		{4022AFED-4267-4132-8172-6CCDCF7E0220} = {74D2F004-44D9-4BEE-AEA7-51DFA9FD027C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3171C67F-EFB1-46FF-A566-6DC6C1E80FC5}
