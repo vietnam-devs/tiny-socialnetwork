@@ -35,7 +35,7 @@ export class ClientConfigService {
         // id_token C8: The iat Claim can be used to reject tokens that were issued too far away from the current time,
         // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
         openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = this.clientConfiguration.max_id_token_iat_offset_allowed_in_seconds;
-     //   this.configService.api_url = this.clientConfiguration.apiServer;
+        this.configService.api_url = this.clientConfiguration.apiServer;
         this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration);     
         });    
 }  
