@@ -1,74 +1,79 @@
-import { CommonModule } from '@angular/common';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import {
-  HttpClientModule,
-  HttpClient,
-  HTTP_INTERCEPTORS
-} from '@angular/common/http';
-
-import {
-  AuthModule,
-  OidcSecurityService,
-  OpenIDImplicitFlowConfiguration
-} from 'angular-auth-oidc-client';
-
+import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { AuthInterceptor } from '../core/auth/Auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ClientConfigService } from '../core/services/client.config.service';
 import { ConfigService } from './services/config.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import {
+  AppAsideComponent,
+  AppBreadcrumbsComponent,
+  AppFooterComponent,
+  AppHeaderComponent,
+  AppSidebarComponent,
+  AppSidebarFooterComponent,
+  AppSidebarFormComponent,
+  AppSidebarHeaderComponent,
+  AppSidebarMinimizerComponent,
+  APP_SIDEBAR_NAV
+} from './components';
 
-@NgModule({
-  imports: [CommonModule]
-})
+const APP_COMPONENTS = [
+  AppAsideComponent,
+  AppBreadcrumbsComponent,
+  AppFooterComponent,
+  AppHeaderComponent,
+  AppSidebarComponent,
+  AppSidebarFooterComponent,
+  AppSidebarFormComponent,
+  AppSidebarHeaderComponent,
+  AppSidebarMinimizerComponent,
+  APP_SIDEBAR_NAV
+];
 
-export class CoreModule {
-  clientConfiguration: any;
+import {
+  AsideToggleDirective,
+  NAV_DROPDOWN_DIRECTIVES,
+  ReplaceDirective,
+  SIDEBAR_TOGGLE_DIRECTIVES
+} from './directives';
 
-  constructor(
-    public oidcSecurityService: OidcSecurityService,
-    private http: HttpClient,
-    configService: ConfigService
-  ) {
-    this.configClient().subscribe((config: any) => {
-      this.clientConfiguration = config;
+const APP_DIRECTIVES = [
+  AsideToggleDirective,
+  NAV_DROPDOWN_DIRECTIVES,
+  ReplaceDirective,
+  SIDEBAR_TOGGLE_DIRECTIVES
+];
 
-      const openIDImplicitFlowConfiguration = new OpenIDImplicitFlowConfiguration();
-
-      openIDImplicitFlowConfiguration.stsServer = this.clientConfiguration.stsServer;
-      openIDImplicitFlowConfiguration.redirect_url = this.clientConfiguration.redirect_url;
-      openIDImplicitFlowConfiguration.client_id = this.clientConfiguration.client_id;
-      openIDImplicitFlowConfiguration.response_type = this.clientConfiguration.response_type;
-      openIDImplicitFlowConfiguration.scope = this.clientConfiguration.scope;
-      openIDImplicitFlowConfiguration.post_logout_redirect_uri = this.clientConfiguration.post_logout_redirect_uri;
-      openIDImplicitFlowConfiguration.start_checksession = this.clientConfiguration.start_checksession;
-      openIDImplicitFlowConfiguration.silent_renew = this.clientConfiguration.silent_renew;
-      openIDImplicitFlowConfiguration.post_login_route = this.clientConfiguration.startup_route;
-      // HTTP 403
-      openIDImplicitFlowConfiguration.forbidden_route = this.clientConfiguration.forbidden_route;
-      // HTTP 401
-      openIDImplicitFlowConfiguration.unauthorized_route = this.clientConfiguration.unauthorized_route;
-      openIDImplicitFlowConfiguration.log_console_warning_active = this.clientConfiguration.log_console_warning_active;
-      openIDImplicitFlowConfiguration.log_console_debug_active = this.clientConfiguration.log_console_debug_active;
-      // id_token C8: The iat Claim can be used to reject tokens that were issued too far away from the current time,
-      // limiting the amount of time that nonces need to be stored to prevent attacks.The acceptable range is Client specific.
-      openIDImplicitFlowConfiguration.max_id_token_iat_offset_allowed_in_seconds = this.clientConfiguration.max_id_token_iat_offset_allowed_in_seconds;
-
-      configService.api_url = this.clientConfiguration.apiServer;
-
-      this.oidcSecurityService.setupModule(openIDImplicitFlowConfiguration);
-    });
-  }
-
-  configClient() {
-    console.log('window.location', window.location);
-    console.log('window.location.href', window.location.href);
-    console.log('window.location.origin', window.location.origin);
-    console.log(`${window.location.origin}/api/ClientAppSettings`);
-
-    return this.http.get(`${window.location.origin}/api/ClientAppSettings`);
-  }
-
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: CoreModule,
-      providers: [ConfigService]
-    };
-  }
+function init(config: ClientConfigService) {  
+  return () => config.loadClientConfig();
 }
+@NgModule({
+    declarations: [
+      ...APP_COMPONENTS,
+      ...APP_DIRECTIVES
+    ]  ,
+    imports: [
+      CommonModule,
+      RouterModule
+    ],
+   providers: [   
+     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },        
+    ConfigService,  
+    ClientConfigService, { provide: APP_INITIALIZER, useFactory: init, deps: [ClientConfigService], multi: true }
+    ],
+    exports:[
+      AppHeaderComponent,
+      AppSidebarComponent,
+      AppBreadcrumbsComponent,
+      AppFooterComponent,
+      AppFooterComponent,
+      AppAsideComponent
+    ]
+
+})
+export class CoreModule {}
