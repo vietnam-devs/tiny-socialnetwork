@@ -9,9 +9,11 @@
 		<ProjectReference Include="..\..\framework\CRMCore.Framework.Entities\CRMCore.Framework.Entities.csproj" />
 		<ProjectReference Include="..\..\framework\CRMCore.Framework.MvcCore\CRMCore.Framework.MvcCore.csproj" />
 		<ProjectReference Include="..\..\targets\CRMCore.Module.Targets\CRMCore.Module.Targets.csproj" />
+		<ProjectReference Include="..\CRMCore.Module.Data\CRMCore.Module.Data.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Controllers\" />
 	  <Folder Include="Models\" />
+	  <Folder Include="ViewModels\" />
 	</ItemGroup>
 </Project>

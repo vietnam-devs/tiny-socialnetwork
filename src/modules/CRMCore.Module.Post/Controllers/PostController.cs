@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CRMCore.Framework.Entities;
+using CRMCore.Module.Data;
+using CRMCore.Module.Post.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,11 +17,27 @@ namespace CRMCore.Module.Post.Controllers
     [Authorize]
     public class PostController : Controller
     {
+        private readonly IEfRepositoryAsync<Models.Post> _postRepo;
+
+        public PostController(IUnitOfWorkAsync unitOfWork)
+        {
+            _postRepo = unitOfWork.Repository<Models.Post>() as IEfRepositoryAsync<Models.Post>;
+        }
+
         // GET: api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<PostViewModel>> Get()
         {
-            return new string[] { "value1", "value2" };
+            var response = await _postRepo.ListAsync();
+            return  response.Select(x => new PostViewModel()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Content,
+                OwnerName = x.OwnerName,
+                CreatedDate = x.Created
+            });
+
         }
 
         // GET api/values/5
@@ -30,20 +49,59 @@ namespace CRMCore.Module.Post.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<PostViewModel> Post([FromBody]PostInputModel model)
         {
+            var post = new Models.Post
+            {
+                Id = Guid.NewGuid(),
+                Content = model.Description,
+                Title = model.Title,
+                Created = DateTime.UtcNow,
+                Updated = DateTime.UtcNow,
+                OwnerName = User.Identity.Name
+            };
+
+            await _postRepo.AddAsync(post);
+
+            return new PostViewModel()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Description = post.Content,
+                OwnerName = post.OwnerName,
+                CreatedDate = post.Created
+            };
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Put(Guid id, [FromBody]PostInputModel model)
         {
+            var post = await _postRepo.GetByIdAsync(id);
+            if(post == null){
+                return NotFound();
+            }
+
+            post.Content = model.Description;
+            post.Title = model.Title;
+            post.Updated = DateTime.UtcNow;
+
+            await _postRepo.UpdateAsync(post);
+
+            return new NoContentResult();
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            var post = await _postRepo.GetByIdAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            await _postRepo.DeleteAsync(post);
+
+            return new NoContentResult();
         }
     }
 }

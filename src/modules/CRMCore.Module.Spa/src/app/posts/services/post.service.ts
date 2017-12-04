@@ -13,7 +13,7 @@ export class PostService {
     postUrl: string;
 
     constructor(private http: HttpClient, private configService: ConfigService) {
-     this.postUrl =   `${configService.api_url}/api/task`;
+     this.postUrl =   `${configService.api_url}/api/post`;
     }
 
     getPosts(): Observable<Post[]> {
