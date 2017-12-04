@@ -11,7 +11,7 @@ namespace CRMCore.Module.Swagger
 {
     public class Startup : StartupBase
     {
-        public override int Order => 100;
+        public override int Order => 0;
         private string _uri = string.Empty;
 
         public Startup(IConfiguration config)
@@ -21,7 +21,6 @@ namespace CRMCore.Module.Swagger
 
         public override void ConfigureServices(IServiceCollection services)
         {
-
             services.AddSwaggerGen(options =>
             {
                 options.DescribeAllEnumsAsStrings();

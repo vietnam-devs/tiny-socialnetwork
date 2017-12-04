@@ -24,6 +24,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="1.1.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.1" />
   </ItemGroup>
 
   <ItemGroup>
