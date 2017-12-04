@@ -127,6 +127,7 @@ tiny-socialnetwork
 
 cd <your path>tiny-socialnetwork\src\hosts\CRMCore.WebApp
 dotnet restore
+dotnet clean
 dotnet build
 dotnet run
 

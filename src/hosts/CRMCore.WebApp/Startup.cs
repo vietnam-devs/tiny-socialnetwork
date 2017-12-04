@@ -123,6 +123,16 @@ namespace CRMCore.WebApp
             app.UseAuthentication();
             app.UseIdentityServer();
 
+            app.Use((context, next) =>
+            {
+                if (context.Request.Path.Value == "/")
+                {
+                    context.Request.Path = new PathString("/home");
+                }
+                return next();
+            });
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRouteAnalyzer("/routes");

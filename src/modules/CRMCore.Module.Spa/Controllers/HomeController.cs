@@ -15,8 +15,8 @@ namespace CRMCore.Module.Spa.Controllers
     public class HomeController : Controller
     {
         //[Route("")]
-        //[Route("Home")]
-        //[Route("Home/Index")]
+        [Route("Home")]
+        [Route("Home/Index")]
         public IActionResult Index()
         {
             return new VirtualFileResult("/spa/index.html", "text/html");

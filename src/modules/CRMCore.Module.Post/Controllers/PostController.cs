@@ -10,8 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CRMCore.Module.Post.Controllers
 {
     [Area("CRMCore.Module.Post")]
-    [Route("[controller]")]
-    [ApiExplorerSettings(IgnoreApi = true)]
+    [Route("api/[controller]")]
     [Authorize]
     public class PostController : Controller
     {
