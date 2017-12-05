@@ -12,8 +12,9 @@
 		<ProjectReference Include="..\CRMCore.Module.Data\CRMCore.Module.Data.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Controllers\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="ViewModels\" />
+	  <Folder Include="Features\" />
+	  <Folder Include="Features\GetPosts\" />
 	</ItemGroup>
 </Project>

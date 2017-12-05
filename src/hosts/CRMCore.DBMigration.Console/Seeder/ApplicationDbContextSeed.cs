@@ -44,7 +44,6 @@ namespace CRMCore.DBMigration.Console.Seeder
             foreach (var post in importetPosts)
             {
                 var rnd = new Random().Next(users.Count());
-                post.Id = Guid.NewGuid();
                 post.OwnerId = users[rnd].Id;
                 post.OwnerName = users[rnd].Email;
                 for (int i = 0; i < rnd; i++)
@@ -57,16 +56,12 @@ namespace CRMCore.DBMigration.Console.Seeder
                         PostId = post.Id,
                         OwnerId = users[commentRnd].Id,
                         OwnerName = users[commentRnd].Email,
-                        Created = DateTime.UtcNow,
-                        Updated = DateTime.UtcNow
                     });
                     likes.Add(new PostLike()
                     {
                         PostId = post.Id,
                         OwnerId = users[likeRnd].Id,
-                        OwnerName = users[likeRnd].Email,
-                        Created = DateTime.UtcNow,
-                        Updated = DateTime.UtcNow
+                        OwnerName = users[likeRnd].Email
                     });
                 }
 
@@ -141,11 +136,8 @@ namespace CRMCore.DBMigration.Console.Seeder
 
             var post = new Post
             {
-                Id = Guid.NewGuid(),
                 Title = column[Array.IndexOf(headers, "title")].Trim('"').Trim(),
                 Content = column[Array.IndexOf(headers, "content")].Trim('"').Trim(),
-                Created = DateTime.UtcNow,
-                Updated = DateTime.UtcNow
             };
 
             return post;

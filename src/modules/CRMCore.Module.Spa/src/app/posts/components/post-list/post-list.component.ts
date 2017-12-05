@@ -6,7 +6,8 @@ import { Post } from '../../models/post.model';
 
 @Component({
     selector: 'app-post-list',
-    templateUrl: './post-list.component.html'
+    templateUrl: './post-list.component.html',
+    styleUrls: ['./style.css']
 })
 
 export class PostListComponent {
@@ -48,4 +49,7 @@ export class PostListComponent {
      this.sharedService.publishData(true);
   }
 
+  onScroll() {
+    console.log('scrolled!!');
+  }
 }

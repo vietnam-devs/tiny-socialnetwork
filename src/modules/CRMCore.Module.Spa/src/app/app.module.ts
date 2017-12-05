@@ -6,6 +6,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+
 import { CoreModule } from './core/core.module';
 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';

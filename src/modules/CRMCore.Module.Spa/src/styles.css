@@ -2377,4 +2377,8 @@ html, body {
         content: "\f11c";
     }
   
+    .search-results{
+      height: 99%;
+      /* overflow-y: scroll; */
+    }
   

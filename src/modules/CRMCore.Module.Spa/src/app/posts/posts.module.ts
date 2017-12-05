@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
@@ -39,7 +39,7 @@ const components = [
 ];
 @NgModule({
   declarations: [components],
-  imports: [PostsRoutingModule, SharedModule],
+  imports: [PostsRoutingModule, SharedModule, InfiniteScrollModule],
   providers: [PostService]
 })
 export class PostsModule {}
