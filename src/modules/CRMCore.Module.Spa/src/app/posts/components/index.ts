@@ -5,4 +5,4 @@ export * from './post-follow-user/post-follow-user.component';
 export * from './post-add/addpost.component';
 export * from './post-list/post-list.component';
 export * from './post-search/searchpost.component';
-
+export * from './post-comment';

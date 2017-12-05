@@ -7,7 +7,7 @@
           <a href="timeline.html" class="profile-link">Alexis Clark</a>
           <span class="following">following</span>
         </h5>
-        <p class="text-muted">Published a photo about 3 mins ago</p>
+        <p class="text-muted">Posted on {{post.createdDate | date:'short':'GMT-7'}}</p>
       </div>
       <div class="reaction">
         <a class="btn text-green">
@@ -21,23 +21,8 @@
         <p>{{post.description}}</p>
       </div>
       <div class="line-divider"></div>
-      <div class="post-comment">
-        <img src="http://placehold.it/300x300" alt="" class="profile-photo-sm pull-left" />
-        <p>
-          <a href="timeline.html" class="profile-link">Diana </a>
-          <i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
-      </div>
-      <div class="post-comment">
-        <img src="http://placehold.it/300x300" alt="" class="profile-photo-sm pull-left" />
-        <p>
-          <a href="timeline.html" class="profile-link">John</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
-      </div>
-      <div class="post-comment">
-        <img src="http://placehold.it/300x300" alt="" class="profile-photo-sm pull-left" />
-        <input type="text" class="form-control" placeholder="Post a comment">
-      </div>
+      <app-post-comment-list></app-post-comment-list>
+      <app-post-add-comment></app-post-add-comment>
     </div>
   </div>
 </div>
