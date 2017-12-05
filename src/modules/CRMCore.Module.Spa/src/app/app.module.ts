@@ -10,11 +10,14 @@ import { CoreModule } from './core/core.module';
 
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
+import { UnauthorizedComponent, AutoLoginComponent } from './containers';
+
+const components = [AppComponent,UnauthorizedComponent, AutoLoginComponent];
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppRoutingModule.components
+    components
   ],
   imports: [
     BrowserModule,
@@ -30,8 +33,7 @@ import { AppComponent } from './app.component';
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
-    },
-    
+    }    
   ],
   bootstrap: [AppComponent]
 })

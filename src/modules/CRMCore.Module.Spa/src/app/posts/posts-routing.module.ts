@@ -1,12 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import {
-  AddPostComponent,
-  SearchPostComponent,
-  PostEditComponent } from './components/post-list';
-
-import { PostListComponent, PostDetailsComponent, PostsComponent } from './containers';
+import {PostListComponent, PostDetailsComponent, PostsComponent} from './containers';
 
 const routes: Routes = [
   {
@@ -19,17 +13,8 @@ const routes: Routes = [
   }
 ];
 
-@NgModule({
+@NgModule({  
   imports: [ RouterModule.forChild(routes) ],
   exports: [ RouterModule ],
 })
-export class PostsRoutingModule {
-  static components = [
-    PostsComponent,
-    PostListComponent,
-    PostDetailsComponent,
-    PostEditComponent,
-    AddPostComponent,
-    SearchPostComponent
-  ];
-}
+export class PostsRoutingModule {}
