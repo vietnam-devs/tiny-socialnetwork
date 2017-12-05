@@ -29,7 +29,7 @@ export class AddPostComponent  implements OnInit {
   createPost() {
     this.postService.createPost(this.post)
       .subscribe((res) => {
-        this.postCreatedEvent.emit(res);
+        this.postCreatedEvent.emit(res);        
         this.reset();
       })
   }

@@ -18,11 +18,7 @@ export class PostListComponent implements OnInit {
     this.postService.getPosts()
       .subscribe(result => { this.posts = result; });
   }
-
-  postCreatedListen(newPost: Post) {
-    this.posts.push(newPost);
-  }
-
+  
   listenSearchEvent(searchTerm: string) {
     this.searchTerm = searchTerm;
   }
