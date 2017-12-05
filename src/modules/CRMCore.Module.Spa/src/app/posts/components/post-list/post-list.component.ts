@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 
 import { PostService } from '../../services/post.service';
+import { SharedService } from '../../../shared/services/sharedService';
 import { Post } from '../../models/post.model';
 
 @Component({
@@ -14,7 +15,7 @@ export class PostListComponent {
     toggleAddPost: boolean = false;
     editPosts: Post[] = [];
 
-    constructor(private postService: PostService) {}
+    constructor(private postService: PostService,private sharedService: SharedService ) {}
 
     handlePost() {
         this.toggleAddPost = !this.toggleAddPost;
@@ -42,8 +43,9 @@ export class PostListComponent {
     });
   }
 
-  postCreatedListen(post: Post) {
+  postCreatedListen(post: Post) {   
      this.posts.push(post);
+     this.sharedService.publishData(true);
   }
 
 }
