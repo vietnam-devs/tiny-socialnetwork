@@ -98,13 +98,14 @@ module.exports = {
     "styles": [
       "./node_modules/font-awesome/css/font-awesome.css",
       "./node_modules/simple-line-icons/css/simple-line-icons.css",
+      "./node_modules/ionicons/dist/css/ionicons.min.css",
       "./src/scss/style.scss",
       "./src/styles.css"
     ]
   },
   "output": {
     "path": path.join(process.cwd(), "../../hosts/CRMCore.WebApp/wwwroot/spa"),
-    "publicPath": "spa/",
+    "publicPath": "/spa/",
     "filename": "[name].bundle.js",
     "chunkFilename": "[id].chunk.js",
     "crossOriginLoading": false
@@ -135,6 +136,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -162,6 +164,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -197,6 +200,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -230,6 +234,7 @@ module.exports = {
         "exclude": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -264,6 +269,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -291,6 +297,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -326,6 +333,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],
@@ -359,6 +367,7 @@ module.exports = {
         "include": [
           path.join(process.cwd(), "node_modules/font-awesome/css/font-awesome.css"),
           path.join(process.cwd(), "node_modules/simple-line-icons/css/simple-line-icons.css"),
+          path.join(process.cwd(), "node_modules/ionicons/dist/css/ionicons.min.css"),
           path.join(process.cwd(), "src/scss/style.scss"),
           path.join(process.cwd(), "src/styles.css")
         ],

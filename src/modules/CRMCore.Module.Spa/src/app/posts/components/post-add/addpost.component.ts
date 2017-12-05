@@ -6,7 +6,8 @@ import { Post } from '../../models/post.model';
 
 @Component({
     selector: 'app-add-post',
-    templateUrl: './addpost.component.html'
+    templateUrl: './addpost.component.html',
+    styleUrls: ['./style.css']
 })
 export class AddPostComponent  implements OnInit {
   @Input() toggleAddPost;

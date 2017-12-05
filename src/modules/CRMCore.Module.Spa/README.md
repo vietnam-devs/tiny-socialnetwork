@@ -21,3 +21,5 @@ Run `dotnet run` for a dev server. Navigate to `http://localhost:5001/`. The app
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+ ng eject --deploy-url="/spa/" --force

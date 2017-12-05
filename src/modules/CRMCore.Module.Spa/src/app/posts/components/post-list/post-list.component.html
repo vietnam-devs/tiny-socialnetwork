@@ -1,0 +1,107 @@
+<div class="post-content" *ngFor="let post of posts | filter : searchTerm">
+  <div class="post-container">
+    <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
+    <div class="post-detail">
+      <div class="user-info">
+        <h5>
+          <a href="timeline.html" class="profile-link">Alexis Clark</a>
+          <span class="following">following</span>
+        </h5>
+        <p class="text-muted">Published a photo about 3 mins ago</p>
+      </div>
+      <div class="reaction">
+        <a class="btn text-green">
+          <i class="icon ion-thumbsup"></i> 13</a>
+        <a class="btn text-red">
+          <i class="fa fa-thumbs-down"></i> 0</a>
+      </div>
+      <div class="line-divider"></div>
+      <div class="post-text">
+        <span>{{post.title}}</span>
+        <p>{{post.description}}</p>
+      </div>
+      <div class="line-divider"></div>
+      <div class="post-comment">
+        <img src="http://placehold.it/300x300" alt="" class="profile-photo-sm pull-left" />
+        <p>
+          <a href="timeline.html" class="profile-link">Diana </a>
+          <i class="em em-laughing"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+      </div>
+      <div class="post-comment">
+        <img src="http://placehold.it/300x300" alt="" class="profile-photo-sm pull-left" />
+        <p>
+          <a href="timeline.html" class="profile-link">John</a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud </p>
+      </div>
+      <div class="post-comment">
+        <img src="http://placehold.it/300x300" alt="" class="profile-photo-sm pull-left" />
+        <input type="text" class="form-control" placeholder="Post a comment">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <table class="table table-bordered table-striped table-sm">
+  <thead>
+    <tr>
+      <th>
+        <i class="fa fa-text-width fa-2x" aria-hidden="true"></i>Title</th>
+      <th>
+        <i class="fa fa-paragraph fa-2x" aria-hidden="true"></i>Description</th>
+      <th>Option</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr (dblclick)="editPost(post)" *ngFor="let post of posts | filter : searchTerm">
+      <ng-container *ngIf="!editPosts.includes(post); else editTD">
+        <td>{{post.title}}</td>
+        <td>{{post.description}}</td>
+      </ng-container>
+
+      <ng-template #editTD>
+        <td>
+          <input type="text" name="title" id="title" [(ngModel)]="post.title" placeholder="Title" class="form-control">
+        </td>
+        <td>
+          <input type="text" name="description" id="description" [(ngModel)]="post.description" placeholder="Description" class="form-control">
+        </td>
+      </ng-template>
+
+
+      <td class="o">
+        <button class="btn btn-primary" (click)="viewPost(post)">Detail
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-primary" (click)="editPost(post)">
+          <ng-container *ngIf="!editPosts.includes(post); else editTemplate">
+            Edit
+            <i class="fa fa-pencil"></i>
+          </ng-container>
+
+          <ng-template #editTemplate>
+            Submit
+            <i class="fa fa-dot-circle-o"></i>
+          </ng-template>
+
+        </button>
+        <button class="btn btn-danger" (click)="deletePost(post)">Delete
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="padding-left:75%">
+        <button class="btn btn-primary" (click)="handlePost()">
+          {{toggleAddPost ? 'Cancel' : 'New' }}
+          <i class="fa fa-edit fa-lg " aria-hidden="true"></i>
+        </button>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<app-add-post [toggleAddPost]=toggleAddPost (postCreatedEvent)="postCreatedListen($event)"></app-add-post> -->

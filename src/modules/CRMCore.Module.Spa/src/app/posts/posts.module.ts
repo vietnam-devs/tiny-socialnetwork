@@ -4,14 +4,38 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
 
-import { AddPostComponent, SearchPostComponent, PostEditComponent } from './components/post-list';
-import { PostListComponent, PostDetailsComponent, PostsComponent } from './containers';
+import {
+  NewsFeedComponent,
+  PostDetailsComponent,
+  PostsComponent
+} from './containers';
 
-const components = [AddPostComponent,SearchPostComponent, PostEditComponent,
-                   PostListComponent, PostDetailsComponent, PostsComponent]
+import {
+  PostProfileComponent,
+  PostNewsFeedMenuComponent,
+  PostChatOnlineComponent,
+  PostFollowUserComponent,
+  AddPostComponent,
+  PostListComponent,
+  SearchPostComponent
+} from './components';
+
+const components = [
+  AddPostComponent,
+  AddPostComponent,
+  PostListComponent,
+  NewsFeedComponent,
+  PostDetailsComponent,
+  PostsComponent,
+  PostProfileComponent,
+  PostNewsFeedMenuComponent,
+  PostChatOnlineComponent,
+  PostFollowUserComponent,
+  SearchPostComponent
+];
 @NgModule({
-  declarations: [ components ],
-  imports: [ PostsRoutingModule, SharedModule ],
-  providers: [ PostService ]
+  declarations: [components],
+  imports: [PostsRoutingModule, SharedModule],
+  providers: [PostService]
 })
 export class PostsModule {}

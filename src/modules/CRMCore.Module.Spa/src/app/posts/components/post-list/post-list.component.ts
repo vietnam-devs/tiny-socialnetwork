@@ -4,11 +4,11 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
 
 @Component({
-    selector: 'app-post-edit',
-    templateUrl: './post-edit.component.html'
+    selector: 'app-post-list',
+    templateUrl: './post-list.component.html'
 })
 
-export class PostEditComponent {
+export class PostListComponent {
     @Input() posts;
     @Input() searchTerm: string;
     toggleAddPost: boolean = false;

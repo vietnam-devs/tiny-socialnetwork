@@ -4,11 +4,12 @@ import { PostService } from '../services/post.service';
 import { Post } from '../models/post.model';
 
 @Component({
-    selector: 'app-post-list',
-    templateUrl: './post-list.component.html'
+    selector: 'app-news-feed',
+    templateUrl: './news-feed.component.html',
+    styleUrls: ['./style.css']
 })
 
-export class PostListComponent implements OnInit {
+export class NewsFeedComponent implements OnInit {
   posts: Post[] = [];
   searchTerm: string;
 

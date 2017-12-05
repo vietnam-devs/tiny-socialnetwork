@@ -1,4 +1,43 @@
-<div class="card animated fadeIn" *ngIf="toggleAddPost" >
+<div class="create-post">
+  <div class="row">
+    <div class="col-md-7 col-sm-7">
+      <div class="form-group">
+        <img src="spa/assets/user-1.jpg" alt="" class="profile-photo-md" />
+        <textarea name="texts" id="exampleTextarea" cols="30" rows="1" class="form-control" placeholder="Write what you wish"></textarea>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-5">
+      <div class="tools">
+        <ul class="publishing-tools list-inline">
+          <li>
+            <a href="#">
+              <i class="fa fa-pencil-square-o"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-picture-o"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="ion-ios-videocam"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-map"></i>
+            </a>
+          </li>
+        </ul>
+        <button class="btn btn-primary pull-right">Publish</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Post Create Box End-->
+
+<!-- <div class="card animated fadeIn" *ngIf="toggleAddPost" >
         <div class="card-header">
           <strong>Add post</strong>
         </div>
@@ -25,4 +64,4 @@
           <button type="submit" class="btn btn-sm btn-primary" (click)="createPost()" [disabled] ="!postForm.valid"><i class="fa fa-dot-circle-o"></i> Submit</button>
           <button type="reset" class="btn btn-sm btn-danger" (click)="reset()"><i class="fa fa-ban"></i> Reset1</button>
         </div>
-</div>
+</div> -->
