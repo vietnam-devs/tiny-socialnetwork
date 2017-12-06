@@ -8,17 +8,11 @@
       </div>
 
       <div class="col-md-7">
-          <div class="search-results"  data-infinite-scroll
-          
-          [infiniteScrollDistance]="1"
-          [infiniteScrollThrottle]="10"
-          [scrollWindow] = "false"
-          (wheel)="onScrollDown()">
-          
-        <app-add-post></app-add-post>
-        <app-post-list [posts]="posts"></app-post-list> 
+        <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">
+          <app-add-post></app-add-post>
+          <app-post-list [posts]="posts"></app-post-list>
         </div>
-       
+
 
       </div>
       <div class="col-md-2 static">

@@ -19,6 +19,7 @@ using System.Text.Encodings.Web;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using System.IO;
+using IdentityServer4.AccessTokenValidation;
 
 namespace CRMCore.WebApp
 {
@@ -98,6 +99,19 @@ namespace CRMCore.WebApp
                         });
                 });
 
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(
+                o =>
+                {
+                    o.Authority = Configuration["OAuth:AuthorityUrl"];
+                o.RequireHttpsMetadata = Boolean.Parse(Configuration["OAuth:RequireHttps"]);
+                o.ApiName = Configuration["OAuth:ScopeName"];
+                    o.SupportedTokens = SupportedTokens.Both;
+                    o.RequireHttpsMetadata = false;
+                    o.EnableCaching = true;
+                    o.CacheDuration = TimeSpan.FromMinutes(10); //default
+                });
+
             return services.InitServices(Configuration);
         }
 
@@ -122,6 +136,7 @@ namespace CRMCore.WebApp
 
             app.UseAuthentication();
             app.UseIdentityServer();
+
 
             app.Use((context, next) =>
             {

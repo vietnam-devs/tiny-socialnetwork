@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import 'rxjs/add/operator/delay';
 
 import { PostService } from '../services/post.service';
 import { Post } from '../models/post.model';
 import { debug } from 'util';
+import { PaginatedItem } from '../../shared/models/paginateditem.model';
 
 @Component({
   selector: 'app-news-feed',
@@ -19,18 +21,24 @@ export class NewsFeedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.page += 1;
-    this.postService.getPosts(this.page).subscribe(result => {
-      this.posts = result.items;
-    });
+   // this.loadPosts();
   }
 
   listenSearchEvent(searchTerm: string) {
     this.searchTerm = searchTerm;
   }
 
-  onScrollDown(ev) {
-    console.log('scrolled!!')
-    //console.log(ev);
+  loadPosts(): void{
+    this.page += 1;
+    this.postService.getPosts(this.page)
+      .subscribe((result:PaginatedItem<Post>) => {
+      if(result.items.length > 0){
+        this.posts.push(...result.items);
+      }
+    });
+  }
+
+  onScrollDown() {
+    this.loadPosts();
   }
 }
