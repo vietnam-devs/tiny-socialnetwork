@@ -39,6 +39,10 @@ export class PostListComponent {
     });
   }
 
+  postCreatedListen(post: Post) {   
+     this.posts.push(post);
+     this.sharedService.publishData(true);
+  }
 
   onScroll() {
     console.log('scrolled!!');

@@ -175,6 +175,13 @@ html, body {
     position: relative;
 }
 
+
+
+.container-1{
+  width: 300px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
 .custom-icon {
     border-radius: 100%;
     width: -2px;
@@ -186,32 +193,62 @@ html, body {
     background-color: #f8f8f8;
 }
 
-.fix-editor {
-  display: none;
-}
-.icon-wrapper {
-  display: inline-block;
-      margin-top: 25%;
+.container-1 input#search{
+  width: 226px;
+  height: 26px;   
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #63717f;
+  padding-left: 30px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #e6e6e6;
 }
 
-.add-on .input-group-btn > .btn {
-  border-left-width:0;left:-2px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+.container-1 input#search::-webkit-input-placeholder {
+   color: #65737e;
 }
-/* stop the glowing blue shadow */
-.add-on .form-control:focus {
- box-shadow:none;
- -webkit-box-shadow:none;
- border-color:#cccccc;
+ 
+.container-1 input#search:-moz-placeholder { /* Firefox 18- */
+   color: #65737e;  
 }
-.form-control{width:20%}
-.navbar-nav > li > a {
-  border-right: 1px solid #ddd;
-  padding-bottom: 15px;
-  padding-top: 15px;
+ 
+.container-1 input#search::-moz-placeholder {  /* Firefox 19+ */
+   color: #65737e;  
 }
-.navbar-nav:last-child{ border-right:0}
+ 
+.container-1 input#search:-ms-input-placeholder {  
+   color: #65737e;  
+}
+.container-1 .icon{
+  position: absolute;
+  top: 50%;
+  margin-left: 8px;  
+  z-index: 1;
+  color: #4f5b66;
+}
+.search-add{
+      float: left;
+    margin-right: 10px;
+}
+
+.text-align-right {
+  text-align: right;
+  height: 5px !important;
+ 
+}
+
+#wrapper .visible {
+position:relative;
+
+visibility:hidden !important;
+}
+
+#wrapper:hover .visible {
+visibility:visible !important;
+}
 
   /*==================================================
     Common

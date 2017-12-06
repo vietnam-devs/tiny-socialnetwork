@@ -24,9 +24,11 @@ export class NewsFeedComponent implements OnInit {
   toggleAddPost: boolean;
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private store: Store<fromPost.State>
   ) {
-    this.page = 0;   
+    this.page = 0;
+    this.posts$ = store.select(fromPost.getPostCollection);
   }
 
   ngOnInit(): void {   
@@ -47,7 +49,8 @@ export class NewsFeedComponent implements OnInit {
       .getPosts(this.page)
       .subscribe((result: PaginatedItem<Post>) => {
         if (result.items.length > 0) {
-          this.posts.push(...result.items);        
+         // this.posts.push(...result.items);       
+          this.store.dispatch(new postAction.Load(result.items)); 
         }
       });
   }
