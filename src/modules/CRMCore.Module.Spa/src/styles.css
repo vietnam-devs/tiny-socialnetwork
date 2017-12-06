@@ -122,7 +122,82 @@ html, body {
     margin-left: 20px;
   }
   
-  
+  .link-accent {
+   color: #33444c;
+    text-decoration: none;
+    font-size: 19px;
+    text-decoration: underline;
+}
+  .link-detail-accent {
+   color: #33444c;
+    text-decoration: none;
+    font-size: 19px;  
+}
+
+  .button--smaller, 
+  .button--smaller.button--chromeless,
+  .button--smaller.button--link {
+    font-size: 13px;
+    font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;    }
+  .button--chromeless, 
+  .button--link {
+      border-width: 0;
+      padding: 2;
+      text-align: left;
+      vertical-align: baseline;
+      white-space: normal;
+      background-color: #f8f8f8;
+      margin-left: 9px;
+      margin-right: 9px;
+  }
+ .svgIcon--25px {
+    line-height: 25px;
+    height: 25px;
+    fill:#03a87c
+ }
+ .none-line-divider {
+     background: none; 
+     height: 1px;    
+     width: 100%;
+     margin: auto; 
+     margin-top: 10px;
+ }
+ .float-left{
+   float:left
+ }
+.add-post-content {
+    background: floralwhite;
+    border-radius: 4px;
+    width: 100%;
+    border: 1px solid #f1f2f2;   
+    overflow: hidden;
+    position: relative;
+}
+
+.custom-icon {     
+    border-radius: 100%;
+   
+     width: -2px;    
+     height: 60px;
+     padding: 8px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.46);
+    
+    display: table-cell;    
+    height: 60px;
+    padding: 8px;
+    text-align: center;        
+   
+    background-color: #f8f8f8;
+}
+
+.fix-editor {
+  display: none;
+}
+.icon-wrapper {
+  display: inline-block;
+      margin-top: 25%;
+}
+
   /*==================================================
     Common
     ==================================================*/
@@ -1197,6 +1272,7 @@ html, body {
     display: inline-flex;
     margin: 10px auto;
     width: 100%;
+    
   }
 
   .post-content .post-container .post-detail .post-comment img.profile-photo-sm{

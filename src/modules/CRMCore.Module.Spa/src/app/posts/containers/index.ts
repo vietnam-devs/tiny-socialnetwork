@@ -1,3 +1,3 @@
-export * from './post-details.component';
+
 export * from './news-feed.component';
-export * from './posts.component';
+export * from './news-feed-details.component';

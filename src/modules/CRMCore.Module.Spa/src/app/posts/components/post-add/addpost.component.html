@@ -1,13 +1,23 @@
-<div class="create-post">
-  <div class="row">
-    <div class="col-md-7 col-sm-7">
-      <div class="form-group">
-        <img src="spa/assets/user-1.jpg" alt="" class="profile-photo-md" />
-        <textarea name="texts" id="exampleTextarea" cols="30" rows="1" class="form-control" placeholder="Write what you wish"></textarea>
-      </div>
-    </div>
-    <div class="col-md-5 col-sm-5">
-      <div class="tools">
+<div class="create-post add-post-content">
+ 
+ <form [formGroup]="postForm">
+    <img src="spa/assets/user-1.jpg" alt="" class="profile-photo-md" />   
+          <div class="form-group">             
+                      <input   id="title" [(ngModel)]="post.title"  formControlName="title" class="form-control" placeholder="Title..">    
+                      <div *ngIf="postForm.controls['title'].dirty  && postForm.controls['title'].errors" class="alert alert-danger">                 
+                            <p *ngIf="postForm.controls['title'].errors.required"> Please enter title</p>
+                        </div>          
+          </div>
+
+          <div class="form-group">             
+              <textarea id="description" [(ngModel)]="post.description" formControlName="description" class="form-control" placeholder="Share what you wish.." ></textarea>
+               <div *ngIf="postForm.controls['description'].dirty  && postForm.controls['description'].errors" class="alert alert-danger">                 
+                  <p *ngIf="postForm.controls['description'].errors.required"> Please enter description</p>
+              </div>                   
+          </div>   
+           <div class="form-group">       
+
+             <div class="tools">
         <ul class="publishing-tools list-inline">
           <li>
             <a href="#">
@@ -32,8 +42,14 @@
         </ul>
         <button class="btn btn-primary pull-right">Publish</button>
       </div>
-    </div>
-  </div>
+
+             
+          </div>    
+          
+           
+  </form>
+     
+   
 </div>
 <!-- Post Create Box End-->
 

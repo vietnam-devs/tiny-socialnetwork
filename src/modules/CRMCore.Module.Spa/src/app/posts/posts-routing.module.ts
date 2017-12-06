@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {NewsFeedComponent, PostDetailsComponent, PostsComponent} from './containers';
+import {NewsFeedComponent, NewsFeedDetailsComponent} from './containers';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: PostsComponent,
-    children: [
-      { path: '',  component: NewsFeedComponent },
-      { path: ':id', component: PostDetailsComponent },
-    ]
-  }
+const routes: Routes = [ 
+  { path: '', component: NewsFeedComponent},
+  { path: ':id', component: NewsFeedDetailsComponent },
 ];
 
 @NgModule({  
@@ -18,3 +12,4 @@ const routes: Routes = [
   exports: [ RouterModule ],
 })
 export class PostsRoutingModule {}
+

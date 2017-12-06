@@ -4,7 +4,7 @@ import { PostService } from '../services/post.service';
 import { Post } from '../models/post.model';
 
 @Component({
-    selector: 'app-news-feed',
+    selector: 'news-feed',
     templateUrl: './news-feed.component.html',
     styleUrls: ['./style.css']
 })

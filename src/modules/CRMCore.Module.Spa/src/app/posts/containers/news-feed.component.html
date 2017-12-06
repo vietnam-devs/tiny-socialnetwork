@@ -2,18 +2,16 @@
     <div class="container">
       <div class="row">
         <div class="col-md-3 static">
-          <app-post-profile></app-post-profile>
-          <app-post-news-feed-menu></app-post-news-feed-menu>
-          <app-post-chat-online></app-post-chat-online>
+          <post-profile></post-profile>        
+          <post-news-feed-menu></post-news-feed-menu>
+          <post-follow-user></post-follow-user>
+        
         </div>
   
-        <div class="col-md-7">
-          <app-add-post></app-add-post>
-          <app-post-list [posts]="posts"></app-post-list>
-        </div>
-        <div class="col-md-2 static">
-          <app-post-follow-user></app-post-follow-user>
-        </div>
+        <div class="col-md-9">
+          <add-post></add-post>
+          <post-list [posts]="posts"></post-list>
+        </div>              
       </div>
     </div>
   </div>

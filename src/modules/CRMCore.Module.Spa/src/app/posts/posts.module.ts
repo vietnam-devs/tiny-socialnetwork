@@ -4,11 +4,8 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
 
-import {
-  NewsFeedComponent,
-  PostDetailsComponent,
-  PostsComponent
-} from './containers';
+import {NewsFeedComponent, NewsFeedDetailsComponent} from './containers';
+
 
 import {
   PostProfileComponent,
@@ -27,19 +24,18 @@ const components = [
   AddPostComponent,
   PostListComponent,
   NewsFeedComponent,
-  PostDetailsComponent,
-  PostsComponent,
+  NewsFeedDetailsComponent,
   PostProfileComponent,
   PostNewsFeedMenuComponent,
   PostChatOnlineComponent,
   PostFollowUserComponent,
   SearchPostComponent,
   PostAddCommmentComponent,
-  PostCommmentListComponent
+  PostCommmentListComponent  
 ];
 @NgModule({
   declarations: [components],
   imports: [PostsRoutingModule, SharedModule],
-  providers: [PostService]
+  providers: [PostService]  
 })
 export class PostsModule {}

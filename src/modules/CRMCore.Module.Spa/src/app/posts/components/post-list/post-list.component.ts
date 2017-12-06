@@ -5,7 +5,7 @@ import { SharedService } from '../../../shared/services/sharedService';
 import { Post } from '../../models/post.model';
 
 @Component({
-    selector: 'app-post-list',
+    selector: 'post-list',
     templateUrl: './post-list.component.html'
 })
 

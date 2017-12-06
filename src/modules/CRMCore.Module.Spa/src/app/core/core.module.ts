@@ -1,5 +1,5 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { AuthInterceptor } from '../core/auth/Auth.interceptor';
+import { AuthInterceptor } from '../core/interceptor/auth.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClientConfigService } from '../core/services/client.config.service';
 import { ConfigService } from './services/config.service';
