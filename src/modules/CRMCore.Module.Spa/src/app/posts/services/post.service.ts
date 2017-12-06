@@ -18,7 +18,7 @@ export class PostService {
   }
 
   getPosts(page: number): Observable<PaginatedItem<Post>> {
-    debugger;
+    
     return this.http.get<PaginatedItem<Post>>(`${this.postUrl}?Page=${page}`)
     .map(res => {
       return res;
