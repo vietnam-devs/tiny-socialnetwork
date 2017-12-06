@@ -15,6 +15,7 @@ export class NewsFeedComponent implements OnInit {
   posts: Post[] = [];
   searchTerm: string;
   page: number;
+  toggleAddPost: boolean;
 
   constructor(private postService: PostService) {
     this.page = 0;
@@ -40,5 +41,9 @@ export class NewsFeedComponent implements OnInit {
 
   onScrollDown() {
     this.loadPosts();
+  }
+
+  handleToggleAddPost(){
+    this.toggleAddPost = !this.toggleAddPost;
   }
 }

@@ -1,33 +1,32 @@
-<div id="page-contents">
-    <div class="container">
+<div id="page-contents">          
+    <div class="container">       
       <div class="row">
         <div class="col-md-3 static">
           <post-profile></post-profile>        
           <post-news-feed-menu></post-news-feed-menu>
-          <post-follow-user></post-follow-user>
-        
+          <post-follow-user></post-follow-user>        
+        </div>  
+        <div class="col-md-9">  
+                  
+          <div class="float-right">            
+           <search-post (searchEvent) ="listenSearchEvent($event)"></search-post>
+           
+          </div>  
+         <div class="search-add">
+            <label class="switch switch-icon switch-pill switch-primary-outline-alt">
+            <input type="checkbox" class="switch-input" checked="" (change)="handleToggleAddPost()">
+            <span class="switch-label" data-on="" data-off=""></span>
+            <span class="switch-handle"></span>
+          </label>           
+          </div>    
+
+           <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">               
+          <add-post [toggleAddPost] ='toggleAddPost'></add-post>
+          <post-list [posts]="posts" [searchTerm] ="searchTerm"></post-list>
         </div>
-  
-        <div class="col-md-9">
-           <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">        
-          <add-post></add-post>
-          <post-list [posts]="posts"></post-list>
-        </div>
-        </div>              
+      </div>    
+     
+
 </div>
 
 
-
-<!-- <div class="row animated fadeIn">
-  <div class="col-lg-12">
-    <div class="card">
-      <div class="card-header">
-        <i class="fa fa-align-justify"></i> Angular Posts
-      </div>
-      <div class="card-body">
-        <search-post (searchEvent) ="listenSearchEvent($event)"></search-post>
-        <app-post-edit [posts]="posts" [searchTerm] ="searchTerm"></app-post-edit>
-      </div>
-    </div>
-</div>
-</div> -->
