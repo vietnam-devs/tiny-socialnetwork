@@ -1,5 +1,7 @@
 import { NgModule,  } from '@angular/core';
 import { FormsModule , ReactiveFormsModule} from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 import { FilterPipe } from './pipe';
 import { CommonModule  } from '@angular/common';
 import { TruncateModule } from 'ng2-truncate';
@@ -13,6 +15,7 @@ import { PostClapComponent } from './components/post-clap/post-clap.component';
     ],
     imports: [
       FormsModule,
+      InfiniteScrollModule,
       ReactiveFormsModule,    
       CommonModule  ,
       TruncateModule
@@ -21,13 +24,13 @@ import { PostClapComponent } from './components/post-clap/post-clap.component';
       SharedService
     ],
     exports: [
-      PostClapComponent      ,
+      PostClapComponent  ,
       ReactiveFormsModule,      
       FormsModule,
       CommonModule,
       TruncateModule,
-      FilterPipe ,
-      
+      InfiniteScrollModule,
+      FilterPipe       
     ]
 })
 

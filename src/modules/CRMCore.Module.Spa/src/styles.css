@@ -56,6 +56,7 @@ html, body {
     line-height: 26px;
       color: #6d6e71;
       font-size: 13px;
+      background-color: white
   }
   
   
@@ -197,6 +198,25 @@ html, body {
   display: inline-block;
       margin-top: 25%;
 }
+
+.add-on .input-group-btn > .btn {
+  border-left-width:0;left:-2px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+/* stop the glowing blue shadow */
+.add-on .form-control:focus {
+ box-shadow:none;
+ -webkit-box-shadow:none; 
+ border-color:#cccccc; 
+}
+.form-control{width:20%}
+.navbar-nav > li > a {
+  border-right: 1px solid #ddd;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+.navbar-nav:last-child{ border-right:0}
 
   /*==================================================
     Common
@@ -2453,4 +2473,8 @@ html, body {
         content: "\f11c";
     }
   
+    .search-results{
+      height: 99%;
+      /* overflow-y: scroll; */
+    }
   

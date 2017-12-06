@@ -9,12 +9,12 @@
         </div>
   
         <div class="col-md-9">
+           <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">        
           <add-post></add-post>
           <post-list [posts]="posts"></post-list>
+        </div>
         </div>              
-      </div>
-    </div>
-  </div>
+</div>
 
 
 
