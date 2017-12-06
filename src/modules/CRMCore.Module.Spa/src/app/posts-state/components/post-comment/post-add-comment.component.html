@@ -1,3 +1,26 @@
-<div class="post-comment">    
-  <input type="text" class="form-control" placeholder="Post a comment...">
+<div class="post-comment">
+  <div>
+    <strong>Comments</strong>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <form novalidate [formGroup]="comment" (ngSubmit)="onSubmit(comment)"  class="form-horizontal">
+        <div class="form-group row">
+          <div class="col-md-12">
+            <textarea id="comment" rows="2" class="form-control" formControlName="content" placeholder="Write your comment at here..."></textarea>
+            <div class="error" *ngIf="comment.get('content').touched && comment.get('content').hasError('required')">
+                Please write your comment
+              </div>
+              <div class="error" *ngIf="comment.get('content').touched && comment.get('content').hasError('minlength')">
+                Minimum of 5 characters
+              </div>
+          </div>
+        </div>
+        <div>
+          <button type="submit" [disabled]="comment.invalid" class="btn btn-sm btn-primary"><i class="fa fa-comment-o"></i> Comment</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
 </div>

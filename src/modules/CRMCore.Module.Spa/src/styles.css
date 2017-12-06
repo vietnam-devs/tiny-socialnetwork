@@ -175,14 +175,13 @@ html, body {
     position: relative;
 }
 
-
-
 .container-1{
   width: 300px;
   vertical-align: middle;
   white-space: nowrap;
   position: relative;
 }
+
 .custom-icon {
     border-radius: 100%;
     width: -2px;
@@ -192,6 +191,46 @@ html, body {
     display: table-cell;
     text-align: center;
     background-color: #f8f8f8;
+}
+
+.icon-wrapper {
+  padding-top: 65px;
+}
+
+.post-comment div.error {
+  font-size: 13px;
+  color: #c7254e;
+  padding: 5px 0px;
+}
+
+.post-comment form button {
+  float: right;
+}
+
+.post-back-list {
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  z-index: 9999;
+}
+.post-back-list>.post-back-btn{
+  border:none;
+  display:inline-block;
+  outline:0;
+  padding:8px 16px;
+  vertical-align:middle;
+  overflow:hidden;
+  text-decoration:none;
+  border: 1px solid #cccccc;
+  background-color: #ffffff;
+  color: #000000;
+  text-align:center;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.post-back-list>.post-back-btn:hover{
+  box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
 }
 
 .container-1 input#search{
