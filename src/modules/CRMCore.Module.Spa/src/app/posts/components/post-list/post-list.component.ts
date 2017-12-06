@@ -17,11 +17,7 @@ export class PostListComponent {
     editPosts: Post[] = [];
 
     constructor(private postService: PostService,private sharedService: SharedService ) {}
-
-    handlePost() {
-        this.toggleAddPost = !this.toggleAddPost;
-    }
-
+   
    editPost(post: Post) {
       if (this.posts.includes(post)) {
         if (!this.editPosts.includes(post)) {

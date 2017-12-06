@@ -18,11 +18,10 @@
             <span class="switch-handle"></span>
           </label>           
           </div>    
-
-           <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">               
-          <add-post [toggleAddPost] ='toggleAddPost'></add-post>
+           <add-post [toggleAddPost] ='toggleAddPost'></add-post>
+           <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">                         
           <post-list [posts]="posts$ | async" [searchTerm] ="searchTerm"></post-list>
-        </div>
+           </div>
       </div>    
      
 
