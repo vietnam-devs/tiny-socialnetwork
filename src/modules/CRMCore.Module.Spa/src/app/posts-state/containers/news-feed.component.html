@@ -20,7 +20,7 @@
           </div>    
            <add-post [toggleAddPost] ='toggleAddPost' (postCreatedEvent) ="postCreatedListen($event)"></add-post>
            <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">                         
-            <post-list [posts]="posts" [searchTerm] ="searchTerm" ></post-list>
+          <post-list [posts]="posts$ | async" [searchTerm] ="searchTerm"></post-list>
            </div>
       </div>    
      

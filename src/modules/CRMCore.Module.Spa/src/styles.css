@@ -225,7 +225,21 @@ html, body {
     margin-right: 10px;
 }
 
+.text-align-right {
+  text-align: right;
+  height: 5px !important;
+ 
+}
 
+#wrapper .visible {
+position:relative;
+
+visibility:hidden !important;
+}
+
+#wrapper:hover .visible {
+visibility:visible !important;
+}
 
   /*==================================================
     Common
