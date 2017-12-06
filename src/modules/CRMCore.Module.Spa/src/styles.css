@@ -182,6 +182,7 @@ html, body {
   vertical-align: middle;
   white-space: nowrap;
   position: relative;
+}
 .custom-icon {
     border-radius: 100%;
     width: -2px;
@@ -195,7 +196,7 @@ html, body {
 
 .container-1 input#search{
   width: 226px;
-  height: 26px;   
+  height: 26px;
   border: none;
   font-size: 10pt;
   float: left;
@@ -210,22 +211,22 @@ html, body {
 .container-1 input#search::-webkit-input-placeholder {
    color: #65737e;
 }
- 
+
 .container-1 input#search:-moz-placeholder { /* Firefox 18- */
-   color: #65737e;  
+   color: #65737e;
 }
- 
+
 .container-1 input#search::-moz-placeholder {  /* Firefox 19+ */
-   color: #65737e;  
+   color: #65737e;
 }
- 
-.container-1 input#search:-ms-input-placeholder {  
-   color: #65737e;  
+
+.container-1 input#search:-ms-input-placeholder {
+   color: #65737e;
 }
 .container-1 .icon{
   position: absolute;
   top: 50%;
-  margin-left: 8px;  
+  margin-left: 8px;
   z-index: 1;
   color: #4f5b66;
 }
@@ -237,7 +238,7 @@ html, body {
 .text-align-right {
   text-align: right;
   height: 5px !important;
- 
+
 }
 
 #wrapper .visible {
