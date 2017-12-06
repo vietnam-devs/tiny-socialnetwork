@@ -9,8 +9,7 @@
         <div class="col-md-9">  
                   
           <div class="float-right">            
-           <search-post (searchEvent) ="listenSearchEvent($event)"></search-post>
-           
+           <search-post (searchEvent) ="listenSearchEvent($event)"></search-post>           
           </div>  
          <div class="search-add">
             <label class="switch switch-icon switch-pill switch-primary-outline-alt">
@@ -22,7 +21,7 @@
 
            <div infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" [scrollWindow]="true" (scrolled)="onScrollDown()">               
           <add-post [toggleAddPost] ='toggleAddPost'></add-post>
-          <post-list [posts]="posts" [searchTerm] ="searchTerm"></post-list>
+          <post-list [posts]="posts$ | async" [searchTerm] ="searchTerm"></post-list>
         </div>
       </div>    
      

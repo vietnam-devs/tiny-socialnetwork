@@ -1,6 +1,7 @@
 
 <div class="post-content" *ngIf="toggleAddPost">
-      <div class="card-body">
+      <div class="card">        
+        <div class="card-body">
           <form [formGroup]="postForm" action="" method="post" class="form-horizontal">
             <div class="form-group row">            
               <div class="col-md-5">
@@ -23,5 +24,6 @@
         <div class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary" (click)="createPost()" [disabled] ="!postForm.valid"><i class="fa fa-dot-circle-o"></i> Publish</button>         
         </div>
+      </div>
 </div>
 
