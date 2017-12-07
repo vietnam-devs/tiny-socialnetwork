@@ -30,7 +30,7 @@ export class PostService {
     return this.http.put<Post>(editUrl, post);
   }
 
-  deletePost(id: number): Observable<Post> {
+  deletePost(id: string): Observable<Post> {
     let deleteUrl = `${this.postUrl}/${id}`;
     return this.http.delete<Post>(deleteUrl).map(res => {
       return res;
