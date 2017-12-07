@@ -1338,6 +1338,12 @@ visibility:visible !important;
     overflow: hidden;
     position: relative;
   }
+  .post-add{
+    width: 100%;
+    border: 1px solid white;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
 
   .post-content img.post-image, video.post-video, .google-maps{
     width: 100%;
