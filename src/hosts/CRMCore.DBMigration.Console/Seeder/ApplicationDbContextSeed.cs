@@ -26,7 +26,10 @@ namespace CRMCore.DBMigration.Console.Seeder
             try
             {
                 await ImportUsers(context, logger, contentRootPath);
-                await ImportPosts(context, logger, contentRootPath);
+                for (int i = 0; i < 100; i++)
+                {
+                    await ImportPosts(context.Set<Post>().Count() + 1, context, logger, contentRootPath);
+                }
             }
             catch (Exception ex)
             {
@@ -34,9 +37,9 @@ namespace CRMCore.DBMigration.Console.Seeder
             }
         }
 
-        private async Task ImportPosts(ApplicationDbContext context, ILogger<ApplicationDbContextSeed> logger, string contentRootPath)
+        private async Task ImportPosts(int startIdx,ApplicationDbContext context, ILogger<ApplicationDbContextSeed> logger, string contentRootPath)
         {
-            var importetPosts = GetPostsFromFile(contentRootPath, logger);
+            var importetPosts = GetPostsFromFile(startIdx, contentRootPath, logger);
             IList<ApplicationUser> users = context.Users.ToList();
             IList<PostComment> commnets = new List<PostComment>();
             IList<PostLike> likes = new List<PostLike>();
@@ -52,7 +55,7 @@ namespace CRMCore.DBMigration.Console.Seeder
                     var likeRnd = new Random().Next(users.Count());
                     commnets.Add(new PostComment()
                     {
-                        Comment = $"Commnet @{post.Title}",
+                        Comment = $"Commnet {i} - {post.Title}",
                         PostId = post.Id,
                         OwnerId = users[commentRnd].Id,
                         OwnerName = users[commentRnd].Email,
@@ -85,7 +88,7 @@ namespace CRMCore.DBMigration.Console.Seeder
             }
         }
 
-        private IEnumerable<Post> GetPostsFromFile(string contentRootPath, ILogger logger)
+        private IEnumerable<Post> GetPostsFromFile(int postIdx, string contentRootPath, ILogger logger)
         {
             string csvFileUsers = Path.Combine(contentRootPath, "Setup", "posts.csv");
 
@@ -98,7 +101,7 @@ namespace CRMCore.DBMigration.Console.Seeder
             List<Post> posts = File.ReadAllLines(csvFileUsers)
                         .Skip(1) // skip header column
                         .Select(row => Regex.Split(row, ";(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"))
-                       .SelectTry(column => CreatePost(column, csvheaders))
+                                   .SelectTry(column => CreatePost(postIdx++,column, csvheaders))
                         .OnCaughtException(ex => { logger.LogError(ex.Message); return null; })
                         .Where(x => x != null)
                         .ToList();
@@ -127,16 +130,17 @@ namespace CRMCore.DBMigration.Console.Seeder
             return users;
         }
 
-        private Post CreatePost(string[] column, string[] headers)
+        private Post CreatePost(int postIdx, string[] column, string[] headers)
         {
             if (column.Count() != headers.Count())
             {
                 throw new Exception($"column count '{column.Count()}' not the same as headers count'{headers.Count()}'");
             }
 
+            var title = column[Array.IndexOf(headers, "title")].Trim('"').Trim();
             var post = new Post
             {
-                Title = column[Array.IndexOf(headers, "title")].Trim('"').Trim(),
+                Title = $"Post{postIdx} - {title}",
                 Content = column[Array.IndexOf(headers, "content")].Trim('"').Trim(),
             };
 

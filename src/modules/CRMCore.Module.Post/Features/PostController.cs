@@ -33,7 +33,7 @@ namespace CRMCore.Module.Post.Features
         [HttpGet()]
         public async Task<PaginatedItem<GetPostsResponse>> Get([FromQuery] GetPostsRequest request)
         {
-            var criterion = new Criterion(request.Page, _pagingOption.Value.PageSize, _pagingOption.Value);
+            var criterion = new Criterion(request.Page, _pagingOption.Value.PageSize, _pagingOption.Value, "Created", "desc");
             var response = await _postRepo.QueryAsync(criterion, x => new GetPostsResponse{
                 Id = x.Id,
                 Title = x.Title,

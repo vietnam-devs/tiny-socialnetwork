@@ -18,11 +18,11 @@ export class PostService {
   }
 
   getPosts(page: number): Observable<PaginatedItem<Post>> {
-    
-    return this.http.get<PaginatedItem<Post>>(`${this.postUrl}?Page=${page}`)
-    .map(res => {
-      return res;
-    });
+    return this.http
+      .get<PaginatedItem<Post>>(`${this.postUrl}?Page=${page}`)
+      .map((res) => {
+        return res;
+      })      
   }
 
   editPost(post: Post): Observable<Post> {

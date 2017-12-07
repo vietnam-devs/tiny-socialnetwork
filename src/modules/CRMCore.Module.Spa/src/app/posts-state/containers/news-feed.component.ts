@@ -8,7 +8,7 @@ import { Post } from '../models/post.model';
 import { debug } from 'util';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
 import * as fromPost from '../store/reducers';
-import * as postAction from '../store/actions/post.action';
+import { PostActionCreators } from '../store/actions/post.action';
 
 @Component({
   selector: 'app-news-feed',
@@ -27,39 +27,29 @@ export class NewsFeedComponent implements OnInit {
     private postService: PostService,
     private store: Store<fromPost.State>
   ) {
-    this.page = 0;
     this.posts$ = store.select(fromPost.getPostCollection);
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.loadPosts();
   }
 
   listenSearchEvent(searchTerm: string) {
     this.searchTerm = searchTerm;
   }
-  postCreatedListen(post: Post) {   
-     this.posts.push(post);    
+  postCreatedListen(post: Post) {
+    this.posts.push(post);
   }
 
-
   loadPosts(): void {
-    this.page += 1;
-    this.postService
-      .getPosts(this.page)
-      .subscribe((result: PaginatedItem<Post>) => {
-        if (result.items.length > 0) {
-         // this.posts.push(...result.items);       
-          this.store.dispatch(new postAction.Load(result.items)); 
-        }
-      });
+    this.store.dispatch(PostActionCreators.load());
   }
 
   onScrollDown() {
     this.loadPosts();
   }
 
-  handleToggleAddPost(){
+  handleToggleAddPost() {
     this.toggleAddPost = !this.toggleAddPost;
   }
 }

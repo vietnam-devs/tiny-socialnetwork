@@ -7,9 +7,9 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
 
-import {NewsFeedComponent, NewsFeedDetailsComponent} from './containers';
+import { NewsFeedComponent, NewsFeedDetailsComponent } from './containers';
 import { reducers } from './store/reducers';
-
+import { PostEffects } from './store/effects/posts.effect';
 import {
   PostProfileComponent,
   PostNewsFeedMenuComponent,
@@ -34,13 +34,13 @@ const components = [
   PostFollowUserComponent,
   SearchPostComponent,
   PostAddCommmentComponent,
-  PostCommmentListComponent  
+  PostCommmentListComponent
 ];
 @NgModule({
   declarations: [components],
 
   imports: [
-    PostsRoutingModule, 
+    PostsRoutingModule,
     SharedModule,
     /**
      * StoreModule.forFeature is used for composing state
@@ -49,8 +49,8 @@ const components = [
      * the existing state.
      */
     StoreModule.forFeature('PostFeature', reducers),
+    EffectsModule.forFeature([PostEffects])
   ],
-  providers: [PostService]  
-
+  providers: [PostService]
 })
 export class PostsModule {}
