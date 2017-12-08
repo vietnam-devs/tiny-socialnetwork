@@ -23,8 +23,13 @@ export interface PostState {
   );
   
 
-  export const getPostCollection = createSelector(
+  export const getPostIdsCollection = createSelector(
     getPostEntitiesState,
-    fromPost.getPosts
+    fromPost.getPostIds
   );
+
+  export const getPostEntities = createSelector(getPostEntitiesState, fromPost.getPosts);
   
+  export const getPostCollection = createSelector(getPostEntities, getPostIdsCollection, (entities, ids) => {
+    return ids.map(id => entities[id]);
+  });

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CRMCore.Framework.Entities;
 
 namespace CRMCore.Module.Post.Models
@@ -24,6 +25,12 @@ namespace CRMCore.Module.Post.Models
         }
 
         public string OwnerName
+        {
+            get;
+            set;
+        }
+
+        public List<PostComment> Comments
         {
             get;
             set;

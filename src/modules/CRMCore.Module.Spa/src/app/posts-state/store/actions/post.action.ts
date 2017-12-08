@@ -18,7 +18,7 @@ interface LoadStarted extends Action {
 
 interface LoadSuccess extends Action {
   type: typeof LOAD_SUCCESS;
-  payload: PaginatedItem<Post>;
+  payload: any;
 }
 
 interface LoadFail extends Action {
@@ -31,7 +31,7 @@ export const PostActionCreators = {
 
   loadStarted: (): Action => <LoadStarted>{ type: LOAD_STARTED },
 
-  loadSuccess: (payload: PaginatedItem<Post>): Action => <LoadSuccess>{ type: LOAD_SUCCESS, payload },
+  loadSuccess: (payload: any): Action => <LoadSuccess>{ type: LOAD_SUCCESS, payload },
 
   loadFail: (payload: any): Action => <any>{ type: LOAD_FAIL, payload }
 };

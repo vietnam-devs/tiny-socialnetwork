@@ -3,6 +3,8 @@ export class Post {
     title: string;
     description: string;
     createdDate: Date;
+    comments: string[];
+
     constructor(){
         this.title = ""
         this.description = ""       

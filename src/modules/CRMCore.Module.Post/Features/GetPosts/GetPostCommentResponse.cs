@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-
 namespace CRMCore.Module.Post.Features.GetPosts
 {
-    public class GetPostsResponse
+    public class GetPostCommentResponse
     {
         public Guid Id
         {
@@ -11,31 +9,25 @@ namespace CRMCore.Module.Post.Features.GetPosts
             set;
         }
 
-        public string Title
+        public Guid PostId
         {
             get;
             set;
         }
 
-        public string Description
+        public string Comment
+        {
+            get;
+            set;
+        }
+
+        public Guid OwnerId
         {
             get;
             set;
         }
 
         public string OwnerName
-        {
-            get;
-            set;
-        }
-
-        public DateTime CreatedDate
-        {
-            get;
-            set;
-        }
-
-        public List<GetPostCommentResponse> Comments
         {
             get;
             set;

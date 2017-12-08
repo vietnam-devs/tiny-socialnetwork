@@ -34,16 +34,37 @@ namespace CRMCore.Module.Post.Features
         public async Task<PaginatedItem<GetPostsResponse>> Get([FromQuery] GetPostsRequest request)
         {
             var criterion = new Criterion(request.Page, _pagingOption.Value.PageSize, _pagingOption.Value, "Created", "desc");
-            var response = await _postRepo.QueryAsync(criterion, x => new GetPostsResponse{
+            //var response = await _postRepo.QueryAsync(criterion, x => new GetPostsResponse
+            //{
+            //    Id = x.Id,
+            //    Title = x.Title,
+            //    OwnerName = x.OwnerName,
+            //    Description = x.Content,
+            //    CreatedDate = x.Created,
+            //    CommentIds = x.Comments.Select(c=>c.Id).ToList()
+            //}, x => x.Comments);
+
+            var posts = await _postRepo.QueryAsync(criterion, x => x, x => x.Comments);
+
+            var result = posts.Items.Select(x => new GetPostsResponse
+            {
                 Id = x.Id,
                 Title = x.Title,
                 OwnerName = x.OwnerName,
                 Description = x.Content,
-                CreatedDate =x.Created
-            }, null);
+                CreatedDate = x.Created,
+                Comments = x.Comments
+                            .Where(c => c.PostId == x.Id)
+                            .Select(c => new GetPostCommentResponse
+                            {
+                                Id = c.Id,
+                                PostId = c.PostId,
+                                Comment = c.Comment,
+                                OwnerName = c.OwnerName
+                            }).ToList()
+            }).ToList();
 
-
-            return response;
+            return new PaginatedItem<GetPostsResponse>(posts.TotalItems, posts.TotalPages, result);
         }
 
         [HttpGet("{id}")]
@@ -79,7 +100,8 @@ namespace CRMCore.Module.Post.Features
         public async Task<IActionResult> Put(Guid id, [FromBody]PostInputModel model)
         {
             var post = await _postRepo.GetByIdAsync(id);
-            if(post == null){
+            if (post == null)
+            {
                 return NotFound();
             }
 

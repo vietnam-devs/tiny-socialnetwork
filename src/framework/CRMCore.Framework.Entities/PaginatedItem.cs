@@ -13,7 +13,7 @@ namespace CRMCore.Framework.Entities
 
         public int TotalItems { get; private set; }
 
-        public long TotalPages { get; private set; }
+        public int TotalPages { get; private set; }
 
         public IReadOnlyList<TResponse> Items { get; private set; }
 

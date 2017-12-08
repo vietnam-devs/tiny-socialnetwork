@@ -1,18 +1,21 @@
 import * as postAction from '../actions/post.action';
-import { Post } from '../../models/post.model';
+import { Post, Comment } from '../../models';
+import { stat } from 'fs';
 
 export interface State {
   currentPage: number;
   loading: boolean;
   postIds: string[];
-  posts: Post[];
+  posts: {[id: string]: Post};
+  comments: {[id: string]: Comment};
 }
 
 const initialState: State = {
   currentPage: 1,
   loading: false,
   postIds: [],
-  posts: []
+  posts: {},
+  comments: {}
 };
 
 export function reducer(
@@ -31,8 +34,9 @@ export function reducer(
         ...state,
         currentPage: state.currentPage + 1,
         loading: false,
-        posts: [...state.posts, ...action.payload.items],
-        postIds:[...state.postIds,  ...action.payload.items.map((post:Post) => post.id)]        
+        posts: {...state.posts, ...action.payload.entities.posts},
+        comments: {...state.comments, ...action.payload.entities.comments},
+        postIds: [...state.postIds, ...action.payload.result]
       }
     }
     default: {
@@ -41,4 +45,8 @@ export function reducer(
   }
 }
 
+export const getPostIds = (state: State) => state.postIds;
+
 export const getPosts = (state: State) => state.posts;
+
+export const getComments = (state: State) => state.comments;
