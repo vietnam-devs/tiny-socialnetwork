@@ -19,7 +19,9 @@ import {
   PostListComponent,
   SearchPostComponent,
   PostAddCommmentComponent,
-  PostCommmentListComponent
+  PostCommmentListComponent,
+  PostDetailsComponent,
+  PostItemComponent
 } from './components';
 
 const components = [
@@ -34,7 +36,9 @@ const components = [
   PostFollowUserComponent,
   SearchPostComponent,
   PostAddCommmentComponent,
-  PostCommmentListComponent
+  PostCommmentListComponent,
+  PostDetailsComponent,
+  PostItemComponent,
 ];
 @NgModule({
   declarations: [components],

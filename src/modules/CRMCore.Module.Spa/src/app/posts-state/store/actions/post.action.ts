@@ -1,12 +1,14 @@
 import { Action } from '@ngrx/store';
 
 import { PaginatedItem } from '../../../shared/models/paginateditem.model';
-import { Post } from '../../models/post.model';
+import { Post, Comment } from '../../models';
 
 export const LOAD = '[Post] Load';
 export const LOAD_STARTED = '[Post] Load Started';
 export const LOAD_SUCCESS = '[Post] Load Success';
 export const LOAD_FAIL = '[Post] Load Fail';
+export const SELECT = '[Post] Select';
+export const ADD_COMMENT = '[Post] Add Comment';
 
 interface Load extends Action {
   type: typeof LOAD;
@@ -26,6 +28,18 @@ interface LoadFail extends Action {
   payload: any;
 }
 
+export class Select implements Action {
+  readonly type = SELECT;
+
+  constructor(public payload: string) {}
+}
+
+export class AddComment implements Action {
+  readonly type = ADD_COMMENT;
+
+  constructor(public payload: Comment) {}
+}
+
 export const PostActionCreators = {
   load: (): Action => <Load>{ type: LOAD },
 
@@ -36,4 +50,4 @@ export const PostActionCreators = {
   loadFail: (payload: any): Action => <any>{ type: LOAD_FAIL, payload }
 };
 
-export type Actions = Load | LoadStarted | LoadSuccess | LoadFail;
+export type Actions = Load | LoadStarted | LoadSuccess | LoadFail | Select | AddComment;

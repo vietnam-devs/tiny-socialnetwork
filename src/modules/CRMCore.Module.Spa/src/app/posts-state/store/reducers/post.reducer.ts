@@ -1,6 +1,6 @@
 import * as postAction from '../actions/post.action';
 import { Post, Comment } from '../../models';
-import { stat } from 'fs';
+// import { stat } from 'fs';
 
 export interface State {
   currentPage: number;
@@ -8,6 +8,7 @@ export interface State {
   postIds: string[];
   posts: {[id: string]: Post};
   comments: {[id: string]: Comment};
+  selectedPostId: string | null;
 }
 
 const initialState: State = {
@@ -15,7 +16,8 @@ const initialState: State = {
   loading: false,
   postIds: [],
   posts: {},
-  comments: {}
+  comments: {},
+  selectedPostId: null
 };
 
 export function reducer(
@@ -37,7 +39,18 @@ export function reducer(
         posts: {...state.posts, ...action.payload.entities.posts},
         comments: {...state.comments, ...action.payload.entities.comments},
         postIds: [...state.postIds, ...action.payload.result]
-      }
+      };
+    }
+
+    case postAction.SELECT: {
+      return {
+        ...state,
+        selectedPostId: action.payload,
+      };
+    }
+
+    case postAction.ADD_COMMENT: {
+      return AddComment(state, action);
     }
     default: {
       return state;
@@ -45,8 +58,33 @@ export function reducer(
   }
 }
 
+function AddComment(state: State, action) {
+  const {payload} = action;
+  const {postId, commentId, comment, ownerName } = payload;
+  // Look up the correct post, to simplify the rest of the code
+  const post = state.posts[postId];
+
+  return {
+    ...state,
+    // Update our Post object with a new "comments" array
+    posts : {...state.posts,
+      [postId]: { ...post, comments : post.comments.concat(commentId)}
+    },
+    comments: { ...state.comments,
+      [commentId]: {
+      id : commentId,
+      postId: postId,
+      comment : comment,
+      ownerId : '00000000-0000-0000-0000-000000000000',
+      ownerName: ownerName
+    }
+  }};
+}
+
 export const getPostIds = (state: State) => state.postIds;
 
 export const getPosts = (state: State) => state.posts;
 
 export const getComments = (state: State) => state.comments;
+
+export const getSelectedId = (state: State) => state.selectedPostId;
