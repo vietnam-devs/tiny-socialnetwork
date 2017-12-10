@@ -1,7 +1,7 @@
 ﻿using System;
-namespace CRMCore.Module.Post.Features.GetPosts
+namespace CRMCore.Module.Post.Features.CreateCommment
 {
-    public class GetPostCommentResponse
+    public class CreateCommentResponse
     {
         public Guid Id
         {
@@ -21,19 +21,7 @@ namespace CRMCore.Module.Post.Features.GetPosts
             set;
         }
 
-        public Guid OwnerId
-        {
-            get;
-            set;
-        }
-
         public string OwnerName
-        {
-            get;
-            set;
-        }
-
-        public DateTime CreatedDate
         {
             get;
             set;

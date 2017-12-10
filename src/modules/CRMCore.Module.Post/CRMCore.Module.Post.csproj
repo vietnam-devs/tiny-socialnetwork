@@ -16,5 +16,6 @@
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Features\" />
 	  <Folder Include="Features\GetPosts\" />
+	  <Folder Include="Features\CreateCommment\" />
 	</ItemGroup>
 </Project>

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using CRMCore.Framework.Entities;
 using CRMCore.Module.Data;
 using CRMCore.Module.Data.Extensions;
+using CRMCore.Module.Post.Features.CreateCommment;
 using CRMCore.Module.Post.Features.GetPosts;
 using CRMCore.Module.Post.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -21,12 +23,14 @@ namespace CRMCore.Module.Post.Features
     public class PostController : Controller
     {
         private readonly IEfRepositoryAsync<Models.Post> _postRepo;
+        private readonly IEfRepositoryAsync<Models.PostComment> _postCommentRepo;
         private readonly IOptions<PagingOption> _pagingOption;
 
         public PostController(IUnitOfWorkAsync unitOfWork,
                               IOptions<PagingOption> pagingOption)
         {
             _postRepo = unitOfWork.Repository<Models.Post>() as IEfRepositoryAsync<Models.Post>;
+            _postCommentRepo = unitOfWork.Repository<Models.PostComment>() as IEfRepositoryAsync<Models.PostComment>;
             _pagingOption = pagingOption;
         }
 
@@ -34,15 +38,6 @@ namespace CRMCore.Module.Post.Features
         public async Task<PaginatedItem<GetPostsResponse>> Get([FromQuery] GetPostsRequest request)
         {
             var criterion = new Criterion(request.Page, _pagingOption.Value.PageSize, _pagingOption.Value, "Created", "desc");
-            //var response = await _postRepo.QueryAsync(criterion, x => new GetPostsResponse
-            //{
-            //    Id = x.Id,
-            //    Title = x.Title,
-            //    OwnerName = x.OwnerName,
-            //    Description = x.Content,
-            //    CreatedDate = x.Created,
-            //    CommentIds = x.Comments.Select(c=>c.Id).ToList()
-            //}, x => x.Comments);
 
             var posts = await _postRepo.QueryAsync(criterion, x => x, x => x.Comments);
 
@@ -60,17 +55,12 @@ namespace CRMCore.Module.Post.Features
                                 Id = c.Id,
                                 PostId = c.PostId,
                                 Comment = c.Comment,
-                                OwnerName = c.OwnerName
+                                OwnerName = c.OwnerName,
+                                CreatedDate = c.Created
                             }).ToList()
             }).ToList();
 
             return new PaginatedItem<GetPostsResponse>(posts.TotalItems, posts.TotalPages, result);
-        }
-
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         [HttpPost]
@@ -80,7 +70,7 @@ namespace CRMCore.Module.Post.Features
             {
                 Content = model.Description,
                 Title = model.Title,
-
+                OwnerId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value),
                 OwnerName = User.Identity.Name
             };
 
@@ -93,6 +83,28 @@ namespace CRMCore.Module.Post.Features
                 Description = post.Content,
                 OwnerName = post.OwnerName,
                 CreatedDate = post.Created
+            };
+        }
+
+        [HttpPost("{postId}/comment")]
+        public async Task<CreateCommentResponse> CreatePostComment(Guid postId, [FromBody]CreateCommentRequest model)
+        {
+            var comment = new Models.PostComment
+            {
+                Comment = model.Comment,
+                OwnerId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value),
+                OwnerName = User.Identity.Name,
+                PostId = postId
+            };
+
+            await _postCommentRepo.AddAsync(comment);
+
+            return new CreateCommentResponse
+            {
+                Id = comment.Id,
+                Comment = comment.Comment,
+                PostId = comment.PostId,
+                OwnerName = comment.OwnerName
             };
         }
 
