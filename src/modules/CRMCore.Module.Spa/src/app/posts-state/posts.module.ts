@@ -7,7 +7,7 @@ import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
 
-import { NewsFeedComponent, NewsFeedDetailsComponent } from './containers';
+import { NewsFeedComponent, NewsFeedDetailsComponent, AddPostComponent } from './containers';
 import { reducers } from './store/reducers';
 import { PostEffects } from './store/effects/posts.effect';
 import {
@@ -15,7 +15,6 @@ import {
   PostNewsFeedMenuComponent,
   PostChatOnlineComponent,
   PostFollowUserComponent,
-  AddPostComponent,
   PostListComponent,
   SearchPostComponent,
   PostAddCommmentComponent,

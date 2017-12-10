@@ -19,7 +19,7 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
   constructor(private _location: Location, private store: Store<fromPost.State>, route: ActivatedRoute) {
 
     this.actionsSubscription = route.params
-      .map(params => new postActions.Select(params.id))
+      .map(params => new postActions.Get(params.id))
       .subscribe(store);
   }
 

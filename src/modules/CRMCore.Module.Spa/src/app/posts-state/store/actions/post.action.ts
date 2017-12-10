@@ -2,52 +2,48 @@ import { Action } from '@ngrx/store';
 
 import { PaginatedItem } from '../../../shared/models/paginateditem.model';
 import { Post, Comment } from '../../models';
-
-export const LOAD = '[Post] Load';
-export const LOAD_STARTED = '[Post] Load Started';
-export const LOAD_SUCCESS = '[Post] Load Success';
-export const LOAD_FAIL = '[Post] Load Fail';
-export const SELECT = '[Post] Select';
-export const ADD_COMMENT = '[Post] Add Comment';
+import * as ActionType from './post-constant-type.action';
 
 interface Load extends Action {
-  type: typeof LOAD;
+  type: typeof ActionType.LOAD;
 }
 
 interface LoadStarted extends Action {
-  type: typeof LOAD_STARTED;
+  type: typeof ActionType.LOAD_STARTED;
 }
 
 interface LoadSuccess extends Action {
-  type: typeof LOAD_SUCCESS;
+  type: typeof ActionType.LOAD_SUCCESS;
   payload: any;
 }
 
 interface LoadFail extends Action {
-  type: typeof LOAD_FAIL;
+  type: typeof ActionType.LOAD_FAIL;
   payload: any;
 }
 
-export class Select implements Action {
-  readonly type = SELECT;
+export class Get implements Action {
+  readonly type = ActionType.GET_POST;
 
   constructor(public payload: string) {}
 }
 
 export class AddComment implements Action {
-  readonly type = ADD_COMMENT;
+  readonly type = ActionType.ADD_COMMENT;
 
   constructor(public payload: Comment) {}
 }
 
 export const PostActionCreators = {
-  load: (): Action => <Load>{ type: LOAD },
+  load: (): Action => (<Load>{ type: ActionType.LOAD }),
 
-  loadStarted: (): Action => <LoadStarted>{ type: LOAD_STARTED },
+  loadStarted: (): Action => (<LoadStarted>{ type: ActionType.LOAD_STARTED }),
 
-  loadSuccess: (payload: any): Action => <LoadSuccess>{ type: LOAD_SUCCESS, payload },
+  loadSuccess: (payload: any): Action => (<LoadSuccess>{ type: ActionType.LOAD_SUCCESS, payload }),
 
-  loadFail: (payload: any): Action => <any>{ type: LOAD_FAIL, payload }
+  loadFail: (payload: any): Action => (<any>{ type: ActionType.LOAD_FAIL, payload })
 };
 
-export type Actions = Load | LoadStarted | LoadSuccess | LoadFail | Select | AddComment;
+export type Actions = Load | LoadStarted | LoadSuccess | LoadFail | Get | AddComment;
+
+

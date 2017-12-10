@@ -11,7 +11,8 @@ import { Effect, Actions } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { normalize, schema } from 'normalizr';
 
-import {PostActionCreators, LOAD} from '../actions/post.action';
+import {PostActionCreators} from '../actions/post.action';
+import * as ActionType from '../actions/post-constant-type.action';
 import { PostService } from '../../services/post.service';
 import { PostState } from '../reducers';
 import  {postSchema} from '../../models/schema';
@@ -20,7 +21,7 @@ import  {postSchema} from '../../models/schema';
 export class PostEffects {
   @Effect()
   loadPosts$: Observable<Action> = this.actions$
-    .ofType(LOAD)
+    .ofType(ActionType.LOAD)
     .withLatestFrom(this.store)
     .map((latest: any[]) => latest[1])
     .filter((store: any) => !store.PostFeature.posts.loading)
@@ -33,7 +34,7 @@ export class PostEffects {
 
   @Effect()
   loadPostsStarted$: Observable<Action> = this.actions$
-    .ofType(LOAD)
+    .ofType(ActionType.LOAD)
     .withLatestFrom(this.store)
     .map((latest: any[]) => latest[1])
     .filter((store: any) => !store.PostFeature.posts.loading)

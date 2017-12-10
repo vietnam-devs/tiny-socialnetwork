@@ -1,4 +1,5 @@
 import * as postAction from '../actions/post.action';
+import * as ActionType from '../actions/post-constant-type.action';
 import { Post, Comment } from '../../models';
 // import { stat } from 'fs';
 
@@ -25,13 +26,13 @@ export function reducer(
   action: postAction.Actions
 ): State {
   switch (action.type) {
-    case postAction.LOAD_STARTED: {
+    case ActionType.LOAD_STARTED: {
       return {
           ...state,
          loading: true
       };
     }
-    case postAction.LOAD_SUCCESS: {
+    case ActionType.LOAD_SUCCESS: {
       return {
         ...state,
         currentPage: state.currentPage + 1,
@@ -42,14 +43,14 @@ export function reducer(
       };
     }
 
-    case postAction.SELECT: {
+    case ActionType.GET_POST: {
       return {
         ...state,
         selectedPostId: action.payload,
       };
     }
 
-    case postAction.ADD_COMMENT: {
+    case ActionType.ADD_COMMENT: {
       return AddComment(state, action);
     }
     default: {
@@ -59,6 +60,7 @@ export function reducer(
 }
 
 function AddComment(state: State, action) {
+  debugger;
   const {payload} = action;
   const {postId, commentId, comment, ownerName } = payload;
   // Look up the correct post, to simplify the rest of the code
