@@ -29,8 +29,8 @@ export class PostAddCommmentComponent implements OnInit {
   onSubmit({ value, valid }: { value: Comment, valid: boolean }) {
     console.log(value.comment, valid);
     if (valid) {
-      this.store.dispatch(new postActions.AddComment(
-        { postId: this.post.id, commentId: this.newGuid(), comment: value.comment, ownerName: 'user444'}));
+      // this.store.dispatch(new postActions.PostActionCreators.addComment(
+      //   { postId: this.post.id, commentId: this.newGuid(), comment: value.comment, ownerName: 'user444'}));
 
       this.onReset();
     }
