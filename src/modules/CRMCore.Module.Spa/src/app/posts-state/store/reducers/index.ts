@@ -41,6 +41,7 @@ export interface PostState {
     return ids.map(id => entities[id]);
   });
 
+  export const getCommentEntities = createSelector(getPostEntitiesState, fromPost.getComments);
 
 
   export const getSelectedPost = createSelector(
@@ -51,15 +52,12 @@ export interface PostState {
     }
   );
 
-  export const getComments = createSelector(
-    getPostEntitiesState,
-    fromPost.getComments
-  );
+  
 
   export const getPostComments = createSelector(
     getPostEntities,
     getSelectedPostId,
-    getComments,
+    getCommentEntities,
     (entities, selectedId, comments) => {
       return entities[selectedId].comments.map(comment => comments[comment]);
     }
