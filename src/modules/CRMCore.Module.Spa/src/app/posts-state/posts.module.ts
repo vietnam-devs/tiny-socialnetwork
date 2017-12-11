@@ -17,7 +17,7 @@ import {
   PostFollowUserComponent,
   PostItemComponent,
   SearchPostComponent,
-  PostCommmentItemComponent,
+ // PostCommmentItemComponent,
   //PostCommmentListComponent,
   //PostDetailsComponent
 } from './components';
@@ -33,7 +33,7 @@ const components = [
   PostChatOnlineComponent,
   PostFollowUserComponent,
   SearchPostComponent,
-  PostCommmentItemComponent,
+ // PostCommmentItemComponent,
   //PostCommmentListComponent,
   //PostDetailsComponent
 ];
