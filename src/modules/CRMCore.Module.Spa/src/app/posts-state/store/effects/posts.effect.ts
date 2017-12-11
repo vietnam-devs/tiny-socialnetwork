@@ -3,6 +3,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
@@ -16,9 +17,17 @@ import * as ActionType from '../actions/post-constant-type.action';
 import { PostService } from '../../services/post.service';
 import { PostState } from '../reducers';
 import  {postSchema} from '../../models/schema';
+import * as fromPost from '../../store/reducers';
+import { Post } from '../../models/post.model';
 
 @Injectable()
 export class PostEffects {
+   constructor(
+    private actions$: Actions,
+    private store: Store<PostState>,
+    private postService: PostService,
+  ) {}
+
   @Effect()
   loadPosts$: Observable<Action> = this.actions$
     .ofType(ActionType.LOAD)
@@ -40,9 +49,11 @@ export class PostEffects {
     .filter((store: any) => !store.PostFeature.posts.loading)
     .map(()=>PostActionCreators.loadStarted());
 
-  constructor(
-    private actions$: Actions,
-    private store: Store<PostState>,
-    private postService: PostService,
-  ) {}
+   @Effect()
+    addPost$ = this.actions$
+    .ofType(ActionType.ADD_POST)
+    .switchMap((post : any) =>
+      this.postService.createPost(post.payload)
+        .map(res => PostActionCreators.addPostSucess(res))
+         .catch(error => of( PostActionCreators.addPostFail(error))));  
 }

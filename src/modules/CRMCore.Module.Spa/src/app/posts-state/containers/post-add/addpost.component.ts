@@ -3,20 +3,23 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
+import * as fromPost from '../../store/reducers';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { PostActionCreators } from '../../store/actions/post.action';
 
 @Component({
     selector: 'add-post',
     templateUrl: './addpost.component.html',
     styleUrls: ['./style.css']
 })
+
 export class AddPostComponent  implements OnInit {
   @Input() toggleAddPost;
-  @Output() postCreatedEvent = new EventEmitter();
-
   post: Post;
   postForm: FormGroup;
 
-  constructor(private postService: PostService) {
+  constructor(private postService: PostService, private store: Store<fromPost.State>) {
     this.post = new Post();
   }
 
@@ -27,12 +30,10 @@ export class AddPostComponent  implements OnInit {
         });
     }
 
-  createPost() {
-    this.postService.createPost(this.post)
-      .subscribe((res) => {
-        this.postCreatedEvent.emit(res);        
-        this.reset();
-      })
+  createPost() {    
+      this.store.dispatch(PostActionCreators.addPost(this.post)); 
+       this.store.dispatch(PostActionCreators.load());    
+      this.reset();
   }
 
   reset() {

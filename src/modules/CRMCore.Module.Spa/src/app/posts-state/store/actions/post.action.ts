@@ -22,6 +22,22 @@ interface LoadFail extends Action {
   payload: any;
 }
 
+interface AddPost extends Action {
+  type: typeof ActionType.ADD_POST;
+  payload: Post;
+}
+
+
+interface AddPostFail extends Action {
+  type: typeof ActionType.ADD_POST_FAIL;
+  payload: any;
+}
+
+interface AddPostSuccess extends Action {
+  type: typeof ActionType.ADD_POST_SUCCESS;
+  payload: Post;
+}
+
 export class Get implements Action {
   readonly type = ActionType.GET_POST;
 
@@ -34,6 +50,13 @@ export class AddComment implements Action {
   constructor(public payload: Comment) {}
 }
 
+
+export class AddPost1 implements Action {
+  readonly type = ActionType.ADD_POST;
+
+  constructor(public payload: Post) {}
+}
+
 export const PostActionCreators = {
   load: (): Action => (<Load>{ type: ActionType.LOAD }),
 
@@ -41,9 +64,24 @@ export const PostActionCreators = {
 
   loadSuccess: (payload: any): Action => (<LoadSuccess>{ type: ActionType.LOAD_SUCCESS, payload }),
 
-  loadFail: (payload: any): Action => (<any>{ type: ActionType.LOAD_FAIL, payload })
+  loadFail: (payload: any): Action => (<any>{ type: ActionType.LOAD_FAIL, payload }),
+
+  addPost: (payload: any): Action => (<AddPost>{ type: ActionType.ADD_POST, payload }),
+
+  addPostSucess: (payload: any): Action => (<AddPostSuccess>{ type: ActionType.ADD_POST_SUCCESS, payload }),
+
+  addPostFail: (payload: any): Action => (<any>{ type: ActionType.ADD_POST_FAIL, payload })
 };
 
-export type Actions = Load | LoadStarted | LoadSuccess | LoadFail | Get | AddComment;
+export type Actions = Load 
+                      | LoadStarted 
+                      | LoadSuccess
+                      | LoadFail 
+                      | Get 
+                      | AddComment 
+                      | AddPost
+                      | AddPostSuccess 
+                      | AddPostFail
+                      | AddPost1;
 
 

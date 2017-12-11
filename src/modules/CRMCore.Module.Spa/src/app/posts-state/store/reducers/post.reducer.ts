@@ -49,10 +49,18 @@ export function reducer(
         selectedPostId: action.payload,
       };
     }
+    case ActionType.ADD_POST_SUCCESS:
+    {
+      return {
+           ...state,  
+            posts : {...state.posts}    
+      }
+    }
 
     case ActionType.ADD_COMMENT: {
       return AddComment(state, action);
     }
+
     default: {
       return state;
     }
@@ -60,7 +68,6 @@ export function reducer(
 }
 
 function AddComment(state: State, action) {
-  debugger;
   const {payload} = action;
   const {postId, commentId, comment, ownerName } = payload;
   // Look up the correct post, to simplify the rest of the code
