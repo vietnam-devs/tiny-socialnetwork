@@ -5,5 +5,5 @@ export * from './post-follow-user/post-follow-user.component';
 export * from './post-item/post-item.component';
 export * from './post-search/searchpost.component';
 //export * from './post-details/post-details.component';
-export * from './post-comment-item/post-comment-item.component';
+//export * from './post-comment-item/post-comment-item.component';
 //export * from './post-comment';
