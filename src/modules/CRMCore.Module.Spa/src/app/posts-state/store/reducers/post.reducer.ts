@@ -1,9 +1,9 @@
 import * as postAction from '../actions/post.action';
 import * as ActionType from '../actions/post-constant-type.action';
 import { Post, Comment } from '../../models';
-import { stat } from 'fs';
+
 import { debug } from 'util';
-// import { stat } from 'fs';
+
 
 export interface State {
   currentPage: number;

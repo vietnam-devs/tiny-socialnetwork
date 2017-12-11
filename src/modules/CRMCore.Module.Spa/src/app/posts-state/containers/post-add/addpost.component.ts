@@ -1,4 +1,4 @@
-import { Component , Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component , Input, Output, OnInit, EventEmitter  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { PostService } from '../../services/post.service';
@@ -23,6 +23,7 @@ export class AddPostComponent  implements OnInit {
     this.post = new Post();
   }
 
+ 
   ngOnInit() {
         this.postForm = new FormGroup({
             title: new FormControl(this.post.title, Validators.required),
@@ -31,8 +32,8 @@ export class AddPostComponent  implements OnInit {
     }
 
   createPost() {    
-      console.log(this.post);
-      this.store.dispatch(PostActionCreators.addPost(this.post)); 
+      var  newPost = {...new Post(), ...this.post};
+      this.store.dispatch(PostActionCreators.addPost(newPost)); 
       this.reset();
   }
 
