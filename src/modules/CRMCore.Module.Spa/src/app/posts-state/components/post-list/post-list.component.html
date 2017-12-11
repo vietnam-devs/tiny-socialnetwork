@@ -3,16 +3,19 @@
     <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
     <div class="post-detail">
       <div class="user-info">
+         <div  class="text-align-right">
+        <div id="wrapper">
+            <div class="visible"> <a href="" class="fa fa-trash fa-lg mt-4" data-toggle="tooltip" title="Remove this" (click) ="deletePost(post)"></a>   </div> 
+          </div>
+      </div>
+      
         <h5>
           <a href="timeline.html" class="profile-link">Alexis Clark</a>          
         </h5>
         <p class="text-muted">Posted on {{post.createdDate | date:'short':'GMT-7'}}</p>
-      </div>
-      <div  class="line-divider text-align-right">
-       <div id="wrapper">
-        <div class="visible"> <a href="#" class="fa fa-close fa-lg mt-4" data-toggle="tooltip" title="Remove this" (click) ="deletePost(post)"></a>   </div> 
-        </div>
-      </div>
+     
+      </div>    
+      <div  class="line-divider"></div>
        
       <div class="post-text">      
          <a class="link-accent" [routerLink]="[post.id]">{{post.title}}</a>
