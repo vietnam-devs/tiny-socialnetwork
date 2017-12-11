@@ -66,11 +66,12 @@ namespace CRMCore.Module.Post.Features
         [HttpPost]
         public async Task<PostViewModel> Post([FromBody]PostInputModel model)
         {
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value);
             var post = new Models.Post
             {
                 Content = model.Description,
                 Title = model.Title,
-                OwnerId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value),
+                OwnerId = userId,
                 OwnerName = User.Identity.Name
             };
 
@@ -89,10 +90,11 @@ namespace CRMCore.Module.Post.Features
         [HttpPost("{postId}/comment")]
         public async Task<CreateCommentResponse> CreatePostComment(Guid postId, [FromBody]CreateCommentRequest model)
         {
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value);
             var comment = new Models.PostComment
             {
                 Comment = model.Comment,
-                OwnerId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value),
+                OwnerId = userId,
                 OwnerName = User.Identity.Name,
                 PostId = postId
             };

@@ -26,7 +26,7 @@ namespace CRMCore.DBMigration.Console.Seeder
             try
             {
                 await ImportUsers(context, logger, contentRootPath);
-                for (int i = 0; i < 100; i++)
+                for (int i = 0; i < 10; i++)
                 {
                     await ImportPosts(context.Set<Post>().Count() + 1, context, logger, contentRootPath);
                 }

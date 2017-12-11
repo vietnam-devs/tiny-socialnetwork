@@ -27,7 +27,6 @@ interface AddPost extends Action {
   payload: Post;
 }
 
-
 interface AddPostFail extends Action {
   type: typeof ActionType.ADD_POST_FAIL;
   payload: any;
@@ -38,23 +37,24 @@ interface AddPostSuccess extends Action {
   payload: Post;
 }
 
-export class Get implements Action {
-  readonly type = ActionType.GET_POST;
-
-  constructor(public payload: string) {}
+interface GetPostById extends Action {
+  type: typeof ActionType.GET_POST_BY_ID;
+  payload: string;
 }
 
-export class AddComment implements Action {
-  readonly type = ActionType.ADD_COMMENT;
-
-  constructor(public payload: Comment) {}
+interface AddComment extends Action {
+  type: typeof ActionType.ADD_COMMENT;
+  payload: Comment;
 }
 
+interface RemovePost extends Action {
+  type: typeof ActionType.REMOVE_POST;
+  payload: string;
+}
 
-export class AddPost1 implements Action {
-  readonly type = ActionType.ADD_POST;
-
-  constructor(public payload: Post) {}
+interface RemovePostSuccess extends Action {
+  type: typeof ActionType.REMOVE_POST_SUCCESS;
+  payload: string;
 }
 
 export const PostActionCreators = {
@@ -68,20 +68,29 @@ export const PostActionCreators = {
 
   addPost: (payload: any): Action => (<AddPost>{ type: ActionType.ADD_POST, payload }),
 
-  addPostSucess: (payload: any): Action => (<AddPostSuccess>{ type: ActionType.ADD_POST_SUCCESS, payload }),
+  addPostSucess: (payload: Post): Action => (<AddPostSuccess>{ type: ActionType.ADD_POST_SUCCESS, payload }),
 
-  addPostFail: (payload: any): Action => (<any>{ type: ActionType.ADD_POST_FAIL, payload })
+  addPostFail: (payload: any): Action => (<any>{ type: ActionType.ADD_POST_FAIL, payload }),
+
+  removePost: (payload: string): Action => (<RemovePost>{ type: ActionType.REMOVE_POST, payload }),
+
+  removePostSuccess: (payload: string): Action => (<RemovePostSuccess>{ type: ActionType.REMOVE_POST_SUCCESS, payload }),
+
+  getPostById: (payload: string): Action => (<GetPostById>{ type: ActionType.GET_POST_BY_ID, payload }),
+
+  addComment: (payload: Comment): Action => (<AddComment>{ type: ActionType.ADD_COMMENT, payload })
 };
 
 export type Actions = Load 
                       | LoadStarted 
                       | LoadSuccess
                       | LoadFail 
-                      | Get 
+                      | GetPostById
                       | AddComment 
                       | AddPost
                       | AddPostSuccess 
                       | AddPostFail
-                      | AddPost1;
+                      | RemovePost
+                      | RemovePostSuccess;
 
 

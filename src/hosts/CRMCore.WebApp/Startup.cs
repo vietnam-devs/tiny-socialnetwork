@@ -42,7 +42,7 @@ namespace CRMCore.WebApp
                     x.Resolve<ApplicationDbContext>(),
                     x.Resolve<IServiceProvider>()))
                 .As(typeof(IUnitOfWorkAsync))
-                .SingleInstance();
+                .InstancePerLifetimeScope();
 
             builder.Populate(services);
             return builder.Build().Resolve<IServiceProvider>();

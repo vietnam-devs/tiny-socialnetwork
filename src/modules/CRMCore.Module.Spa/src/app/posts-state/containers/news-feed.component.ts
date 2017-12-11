@@ -17,10 +17,7 @@ import { PostActionCreators } from '../store/actions/post.action';
 })
 export class NewsFeedComponent implements OnInit {
   posts$: Observable<Post[]>;
-
-  posts: Post[] = [];
   searchTerm: string;
-  page: number;
   toggleAddPost: boolean;
 
   constructor(
@@ -37,9 +34,6 @@ export class NewsFeedComponent implements OnInit {
   listenSearchEvent(searchTerm: string) {
     this.searchTerm = searchTerm;
   }
-  postCreatedListen(post: Post) {
-    this.posts.push(post);
-  }
 
   loadPosts(): void {
     this.store.dispatch(PostActionCreators.load());
@@ -51,5 +45,9 @@ export class NewsFeedComponent implements OnInit {
 
   handleToggleAddPost() {
     this.toggleAddPost = !this.toggleAddPost;
+  }
+
+  onDeletePost(postId: string){
+    this.store.dispatch(PostActionCreators.removePost(postId));
   }
 }

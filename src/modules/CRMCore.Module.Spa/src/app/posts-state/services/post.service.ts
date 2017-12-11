@@ -20,9 +20,9 @@ export class PostService {
   getPosts(page: number): Observable<PaginatedItem<Post>> {
     return this.http
       .get<PaginatedItem<Post>>(`${this.postUrl}?Page=${page}`)
-      .map((res) => {
+      .map(res => {
         return res;
-      })      
+      });
   }
 
   editPost(post: Post): Observable<Post> {
@@ -30,11 +30,9 @@ export class PostService {
     return this.http.put<Post>(editUrl, post);
   }
 
-  deletePost(id: string): Observable<Post> {
+  deletePost(id: string): Observable<string> {
     let deleteUrl = `${this.postUrl}/${id}`;
-    return this.http.delete<Post>(deleteUrl).map(res => {
-      return res;
-    });
+    return this.http.delete<string>(deleteUrl);
   }
 
   createPost(post: Post): Observable<Post> {

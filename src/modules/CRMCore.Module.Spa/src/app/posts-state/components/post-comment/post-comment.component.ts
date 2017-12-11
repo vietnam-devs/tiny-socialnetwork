@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { Comment } from '../../models';
 
 @Component({
-  selector: 'app-post-comment-list',
-  templateUrl: './post-comment-list.component.html'
+  selector: 'post-comment-item',
+  templateUrl: './post-comment-item.component.html'
 })
-export class PostCommmentListComponent implements OnInit {
-  @Input() comments: Comment[];
+export class PostCommmentItemComponent implements OnInit {
+  @Input() comment: Comment;
 
   ngOnInit(): void {
   }

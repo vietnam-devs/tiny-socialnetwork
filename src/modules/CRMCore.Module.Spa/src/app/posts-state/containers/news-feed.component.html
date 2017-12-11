@@ -7,7 +7,6 @@
         <post-follow-user></post-follow-user>
       </div>
       <div class="col-md-9 col-xs-12">
-
         <div class="float-right">
           <search-post (searchEvent)="listenSearchEvent($event)"></search-post>
         </div>
@@ -23,9 +22,10 @@
           [immediateCheck]="true" 
           [scrollWindow]="true"
           (scrolled)="onScrollDown()">
-          <post-list [posts]="posts$ | async" [searchTerm]="searchTerm"></post-list>
+          <div class="post-content" *ngFor="let post of posts$ | async | filter : searchTerm">
+            <post-item [post]="post" 
+              (onDeletePostEvent) = "onDeletePost($event)"></post-item>
+          </div>
         </div>
       </div>
-
-
     </div>

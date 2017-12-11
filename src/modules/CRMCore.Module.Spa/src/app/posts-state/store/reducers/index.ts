@@ -35,12 +35,13 @@ export interface PostState {
     fromPost.getPostIds
   );
 
-  export const getComments = createSelector(
-    getPostEntitiesState,
-    fromPost.getComments
-  );
-
   export const getPostEntities = createSelector(getPostEntitiesState, fromPost.getPosts);
+
+  export const getPostCollection = createSelector(getPostEntities, getPostIdsCollection, (entities, ids) => {
+    return ids.map(id => entities[id]);
+  });
+
+
 
   export const getSelectedPost = createSelector(
     getPostEntities,
@@ -48,6 +49,11 @@ export interface PostState {
     (entities, selectedId) => {
       return selectedId && entities[selectedId];
     }
+  );
+
+  export const getComments = createSelector(
+    getPostEntitiesState,
+    fromPost.getComments
   );
 
   export const getPostComments = createSelector(
@@ -59,6 +65,4 @@ export interface PostState {
     }
   );
 
-  export const getPostCollection = createSelector(getPostEntities, getPostIdsCollection, (entities, ids) => {
-    return ids.map(id => entities[id]);
-  });
+

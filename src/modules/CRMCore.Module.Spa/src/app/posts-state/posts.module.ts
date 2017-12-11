@@ -15,18 +15,17 @@ import {
   PostNewsFeedMenuComponent,
   PostChatOnlineComponent,
   PostFollowUserComponent,
-  PostListComponent,
+  PostItemComponent,
   SearchPostComponent,
-  PostAddCommmentComponent,
-  PostCommmentListComponent,
-  PostDetailsComponent,
-  PostItemComponent
+  PostCommmentItemComponent,
+  //PostCommmentListComponent,
+  //PostDetailsComponent
 } from './components';
 
 const components = [
   AddPostComponent,
   AddPostComponent,
-  PostListComponent,
+  PostItemComponent,
   NewsFeedComponent,
   NewsFeedDetailsComponent,
   PostProfileComponent,
@@ -34,10 +33,9 @@ const components = [
   PostChatOnlineComponent,
   PostFollowUserComponent,
   SearchPostComponent,
-  PostAddCommmentComponent,
-  PostCommmentListComponent,
-  PostDetailsComponent,
-  PostItemComponent,
+  PostCommmentItemComponent,
+  //PostCommmentListComponent,
+  //PostDetailsComponent
 ];
 @NgModule({
   declarations: [components],

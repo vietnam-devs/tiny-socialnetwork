@@ -31,8 +31,8 @@ export class AddPostComponent  implements OnInit {
     }
 
   createPost() {    
+      console.log(this.post);
       this.store.dispatch(PostActionCreators.addPost(this.post)); 
-       this.store.dispatch(PostActionCreators.load());    
       this.reset();
   }
 
