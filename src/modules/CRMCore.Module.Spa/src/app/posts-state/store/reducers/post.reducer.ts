@@ -54,8 +54,8 @@ export function reducer(
     }
 
     case ActionType.ADD_POST_SUCCESS: {
-      let newPost: { [id: string]: Post } = {};
-      newPost[action.payload.id] = action.payload;
+      let newPost: { [id: string]: Post } = {}
+      newPost[action.payload.id] = {...new Post(),  ...action.payload};
       return {
         ...state,
         posts: { ...newPost, ...state.posts },

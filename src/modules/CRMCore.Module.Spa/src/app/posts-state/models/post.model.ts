@@ -7,7 +7,8 @@ export class Post {
 
     constructor(){
         this.title = ""
-        this.description = ""       
+        this.description = ""
+        this.comments = []       
     }
 }
 
