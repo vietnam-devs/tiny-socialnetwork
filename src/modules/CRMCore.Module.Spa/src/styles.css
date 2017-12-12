@@ -175,8 +175,7 @@ html, body {
     position: relative;
 }
 
-.container-1{
-  width: 300px;
+.container-1{ 
   vertical-align: middle;
   white-space: nowrap;
   position: relative;
