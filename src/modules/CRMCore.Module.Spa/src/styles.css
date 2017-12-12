@@ -1337,6 +1337,19 @@ visibility:visible !important;
     overflow: hidden;
     position: relative;
   }
+   .post-content-comment{   
+    overflow: hidden;
+    position: relative;
+    margin-left: 85px;
+    margin-right: 14px;
+    margin-bottom: 10px;
+    border-top: 0.5px dashed #ccc;
+  }
+p.italic {
+    font-style: italic;
+    font-size: 12px;
+    margin-left: 53px;
+}
   .post-add{
     width: 100%;
     border: 1px solid white;

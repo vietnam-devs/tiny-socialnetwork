@@ -8,13 +8,13 @@ import { Post } from '../../models/post.model';
   styleUrls: ['./style.css']
 })
 export class PostItemComponent {
+  @Input() detailMode: boolean;
   @Input() post: Post;
   @Output() onDeletePostEvent = new EventEmitter();
 
   constructor() {}
 
   deletePost(postId: string){
-    console.log(postId);
     this.onDeletePostEvent.emit(postId);
   }
 }

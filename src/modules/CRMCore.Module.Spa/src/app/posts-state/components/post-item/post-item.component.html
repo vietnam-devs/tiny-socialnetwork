@@ -2,7 +2,7 @@
   <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
   <div class="post-detail">
     <div class="user-info">
-      <div class="text-align-right">
+      <div *ngIf="!detailMode" class="text-align-right">
         <div id="wrapper">
           <div class="visible">
             <a style="cursor: pointer" class="fa fa-trash fa-lg mt-4" data-toggle="tooltip" title="Remove this" (click)="deletePost(post.id)"></a>
@@ -18,13 +18,21 @@
     </div>
     <div class="line-divider"></div>
 
+    <div *ngIf="detailMode; else viewMode">
+      <div class="post-text">
+        <a class="link-accent">{{post.title}}</a>
+        <p>{{post.description }}</p>
+      </div>        
+      <div class="none-line-divider"></div>
+     </div>
+    <ng-template #viewMode>
     <div class="post-text">
       <a class="link-accent" [routerLink]="[post.id]">{{post.title}}</a>
       <p>{{post.description | words : 10 : '...'}}</p>
-    </div>
+    </div>  
     <a [routerLink]="[post.id]" class="button button--smaller button--chromeless u-baseColor--buttonNormal">Read more…</a>
     <div class="none-line-divider"></div>
     <post-clap></post-clap>
-
+     </ng-template>
   </div>
 </div>
