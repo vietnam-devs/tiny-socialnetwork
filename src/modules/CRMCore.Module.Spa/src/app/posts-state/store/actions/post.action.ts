@@ -47,6 +47,11 @@ interface AddComment extends Action {
   payload: Comment;
 }
 
+interface AddCommentSuccess extends Action {
+  type: typeof ActionType.ADD_COMMENT_SUCCESS;
+  payload: Comment;
+}
+
 interface RemovePost extends Action {
   type: typeof ActionType.REMOVE_POST;
   payload: string;
@@ -78,17 +83,20 @@ export const PostActionCreators = {
 
   getPostById: (payload: string): Action => (<GetPostById>{ type: ActionType.GET_POST_BY_ID, payload }),
 
-  addComment: (payload: Comment): Action => (<AddComment>{ type: ActionType.ADD_COMMENT, payload })
+  addComment: (payload: Comment): Action => (<AddComment>{ type: ActionType.ADD_COMMENT, payload }),
+
+  addCommentSuccess: (payload: Comment): Action => (<AddCommentSuccess>{ type: ActionType.ADD_COMMENT_SUCCESS, payload })
 };
 
-export type Actions = Load 
-                      | LoadStarted 
+export type Actions = Load
+                      | LoadStarted
                       | LoadSuccess
-                      | LoadFail 
+                      | LoadFail
                       | GetPostById
-                      | AddComment 
+                      | AddComment
+                      | AddCommentSuccess
                       | AddPost
-                      | AddPostSuccess 
+                      | AddPostSuccess
                       | AddPostFail
                       | RemovePost
                       | RemovePostSuccess;

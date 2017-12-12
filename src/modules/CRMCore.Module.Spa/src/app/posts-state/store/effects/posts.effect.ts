@@ -18,7 +18,7 @@ import { PostService } from '../../services/post.service';
 import { PostState } from '../reducers';
 import { postSchema } from '../../models/schema';
 import * as fromPost from '../../store/reducers';
-import { Post } from '../../models/post.model';
+import { Post, Comment } from '../../models';
 
 @Injectable()
 export class PostEffects {
@@ -67,5 +67,15 @@ export class PostEffects {
       var id =postId;
       return this.postService.deletePost(postId)
         .map( () => PostActionCreators.removePostSuccess(id));
-    })
+    });
+
+  @Effect()
+  addComment$ = this.actions$
+    .ofType(ActionType.ADD_COMMENT)
+    .map(toPayload)
+    .switchMap((comment: Comment) =>
+      this.postService
+        .addComment(comment)
+        .map(res => PostActionCreators.addCommentSuccess(res))
+    );
 }

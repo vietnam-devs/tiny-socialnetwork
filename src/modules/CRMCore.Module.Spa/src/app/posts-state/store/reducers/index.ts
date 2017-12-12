@@ -52,7 +52,6 @@ export interface PostState {
     }
   );
 
-  
 
   export const getPostComments = createSelector(
     getPostEntities,

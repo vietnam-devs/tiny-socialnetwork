@@ -70,7 +70,7 @@ export function reducer(
       };
     }
 
-    case ActionType.ADD_COMMENT: {
+    case ActionType.ADD_COMMENT_SUCCESS: {
       return AddComment(state, action);
     }
 
@@ -82,7 +82,7 @@ export function reducer(
 
 function AddComment(state: State, action) {
   const { payload } = action;
-  const { postId, commentId, comment, ownerName } = payload;
+  const { postId, id, comment, ownerName, createdDate } = payload;
   // Look up the correct post, to simplify the rest of the code
   const post = state.posts[postId];
 
@@ -91,16 +91,17 @@ function AddComment(state: State, action) {
     // Update our Post object with a new "comments" array
     posts: {
       ...state.posts,
-      [postId]: { ...post, comments: post.comments.concat(commentId) }
+      [postId]: { ...post, comments: post.comments.concat(id) }
     },
     comments: {
       ...state.comments,
-      [commentId]: {
-        id: commentId,
+      [id]: {
+        id: id,
         postId: postId,
         comment: comment,
         ownerId: '00000000-0000-0000-0000-000000000000',
-        ownerName: ownerName
+        ownerName: ownerName,
+        createdDate: createdDate
       }
     }
   };

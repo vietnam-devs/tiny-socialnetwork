@@ -17,10 +17,8 @@ import {
   PostFollowUserComponent,
   PostItemComponent,
   SearchPostComponent,
-  PostCommmentItemComponent
- // PostCommmentItemComponent,
-  //PostCommmentListComponent,
-  //PostDetailsComponent
+  PostCommmentItemComponent,
+  PostAddCommmentComponent
 } from './components';
 
 const components = [
@@ -34,10 +32,8 @@ const components = [
   PostChatOnlineComponent,
   PostFollowUserComponent,
   SearchPostComponent,
-  PostCommmentItemComponent
- // PostCommmentItemComponent,
-  //PostCommmentListComponent,
-  //PostDetailsComponent
+  PostCommmentItemComponent,
+  PostAddCommmentComponent,
 ];
 @NgModule({
   declarations: [components],

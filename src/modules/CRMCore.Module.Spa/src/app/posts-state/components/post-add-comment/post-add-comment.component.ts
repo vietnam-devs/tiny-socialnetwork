@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter  } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -6,14 +6,15 @@ import { Store } from '@ngrx/store';
 import { Post, Comment } from '../../models';
 import * as postActions from '../../store/actions/post.action';
 import * as fromPost from '../../store/reducers';
-
+import { PostActionCreators } from '../../store/actions/post.action';
 
 @Component({
-  selector: 'app-post-add-comment',
+  selector: 'post-add-comment',
   templateUrl: './post-add-comment.component.html'
 })
 export class PostAddCommmentComponent implements OnInit {
   @Input() post: Post;
+  @Output() addComment = new EventEmitter<Comment>();
 
   newComment: FormGroup;
 
@@ -29,9 +30,8 @@ export class PostAddCommmentComponent implements OnInit {
   onSubmit({ value, valid }: { value: Comment, valid: boolean }) {
     console.log(value.comment, valid);
     if (valid) {
-      // this.store.dispatch(new postActions.PostActionCreators.addComment(
-      //   { postId: this.post.id, commentId: this.newGuid(), comment: value.comment, ownerName: 'user444'}));
-
+      value.postId = this.post.id;
+      this.addComment.emit(value);
       this.onReset();
     }
   }
@@ -39,13 +39,6 @@ export class PostAddCommmentComponent implements OnInit {
   onReset() {
     this.newComment.reset({
       'comment': ''
-    });
-  }
-
-  newGuid() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random()* 16 | 0, v = c === 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
     });
   }
 }

@@ -16,7 +16,11 @@
         <span class="fix-editor">&nbsp;</span>
       </div>
       <div class="col-md-8">
-        <post-item [post]="post"></post-item>
+        <post-item [post]="post$ | async"></post-item>
+        <div class="post-content" *ngFor='let comment of comments$ | async'>
+          <post-comment [comment]="comment"></post-comment>
+        </div>
+        <post-add-comment [post]="post$ | async" (addComment)="onAddComment($event)"></post-add-comment>
       </div>
     </div>
   </div>
