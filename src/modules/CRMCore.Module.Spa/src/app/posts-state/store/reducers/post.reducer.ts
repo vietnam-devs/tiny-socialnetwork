@@ -116,4 +116,6 @@ export const getPosts = (state: State) => state.posts;
 
 export const getComments = (state: State) => state.comments;
 
+export const getClaps = (state: State) => state.claps;
+
 export const getSelectedId = (state: State) => state.selectedPostId;

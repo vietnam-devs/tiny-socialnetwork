@@ -1,7 +1,7 @@
 <div class="post-container">
   <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
   <div class="post-detail">
-    <div class="user-info">
+    <div class="user-info user-post">
       <div *ngIf="!detailMode" class="text-align-right">
         <div id="wrapper">
           <div class="visible">
@@ -11,7 +11,7 @@
       </div>
 
       <h5>
-        <a href="timeline.html" class="profile-link">Alexis Clark</a>
+        <a href="timeline.html" class="profile-link">{{post.ownerName}}</a>
       </h5>
       <p class="text-muted">Posted on {{post.createdDate | date:'short':'GMT-7'}}</p>
 
@@ -22,14 +22,14 @@
       <div class="post-text">
         <a class="link-accent">{{post.title}}</a>
         <p>{{post.description }}</p>
-      </div>        
+      </div>
       <div class="none-line-divider"></div>
      </div>
     <ng-template #viewMode>
     <div class="post-text">
       <a class="link-accent" [routerLink]="[post.id]">{{post.title}}</a>
-      <p>{{post.description | words : 10 : '...'}}</p>
-    </div>  
+      <p>{{ post.description | words : 10 : '...' }}</p>
+    </div>
     <a [routerLink]="[post.id]" class="button button--smaller button--chromeless u-baseColor--buttonNormal">Read more…</a>
     <div class="none-line-divider"></div>
     <post-clap [NumberOfClaps] = "post.claps.length"></post-clap>

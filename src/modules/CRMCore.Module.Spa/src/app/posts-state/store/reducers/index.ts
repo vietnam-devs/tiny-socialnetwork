@@ -43,6 +43,7 @@ export interface PostState {
 
   export const getCommentEntities = createSelector(getPostEntitiesState, fromPost.getComments);
 
+  export const getClapsEntities = createSelector(getPostEntitiesState, fromPost.getClaps);
 
   export const getSelectedPost = createSelector(
     getPostEntities,
@@ -59,6 +60,15 @@ export interface PostState {
     getCommentEntities,
     (entities, selectedId, comments) => {
       return entities[selectedId].comments.map(comment => comments[comment]);
+    }
+  );
+
+  export const getPostClaps = createSelector(
+    getPostEntities,
+    getSelectedPostId,
+    getClapsEntities,
+    (entities, selectedId, claps) => {
+      return entities[selectedId].claps.map(clap => claps[clap]);
     }
   );
 

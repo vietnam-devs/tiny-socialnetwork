@@ -11,11 +11,11 @@
       </div>
       <div class="icon-wrapper">
         <div class="custom-icon">
-          <post-clap></post-clap>
+          <post-clap [NumberOfClaps] = "numberOfClaps"></post-clap>
         </div>
         <span class="fix-editor">&nbsp;</span>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 news-feed-details">
         <post-item [detailMode] = "true" [post]="post$ | async"></post-item>
         <div class="post-content" *ngFor='let comment of comments$ | async'>
           <post-comment [comment]="comment"></post-comment>

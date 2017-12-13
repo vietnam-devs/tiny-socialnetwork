@@ -175,7 +175,7 @@ html, body {
     position: relative;
 }
 
-.container-1{ 
+.container-1{
   vertical-align: middle;
   white-space: nowrap;
   position: relative;
@@ -1337,7 +1337,7 @@ visibility:visible !important;
     overflow: hidden;
     position: relative;
   }
-   .post-content-comment{   
+   .post-content-comment{
     overflow: hidden;
     position: relative;
     margin-left: 85px;
@@ -1405,7 +1405,10 @@ p.italic {
     min-width: 0;
   }
 
-
+  .news-feed-details .user-post {
+    margin-left: 55px;
+    position: relative;
+  }
   /*==================================================
     Nearby People CSS
     ==================================================*/
