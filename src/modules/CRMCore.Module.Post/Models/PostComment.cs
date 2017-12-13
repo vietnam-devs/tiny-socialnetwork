@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using CRMCore.Framework.Entities;
 
 namespace CRMCore.Module.Post.Models
@@ -24,6 +26,13 @@ namespace CRMCore.Module.Post.Models
         }
 
         public string OwnerName
+        {
+            get;
+            set;
+        }
+
+        [ForeignKey("EntityId")]
+        public List<Clap> Claps
         {
             get;
             set;

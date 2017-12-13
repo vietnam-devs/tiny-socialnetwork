@@ -1,6 +1,6 @@
 import * as postAction from '../actions/post.action';
 import * as ActionType from '../actions/post-constant-type.action';
-import { Post, Comment } from '../../models';
+import { Post, Comment, Clap } from '../../models';
 
 import { debug } from 'util';
 
@@ -11,6 +11,7 @@ export interface State {
   postIds: string[];
   posts: { [id: string]: Post };
   comments: { [id: string]: Comment };
+  claps: { [id: string]: Clap };
   selectedPostId: string | null;
 }
 
@@ -20,6 +21,7 @@ const initialState: State = {
   postIds: [],
   posts: {},
   comments: {},
+  claps: {},
   selectedPostId: null
 };
 
@@ -42,6 +44,7 @@ export function reducer(
         loading: false,
         posts: { ...state.posts, ...action.payload.entities.posts },
         comments: { ...state.comments, ...action.payload.entities.comments },
+        claps: { ...state.claps, ...action.payload.entities.claps },
         postIds: [...state.postIds, ...action.payload.result]
       };
     }

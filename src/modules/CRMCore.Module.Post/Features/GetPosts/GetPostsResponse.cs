@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CRMCore.Module.Post.Features.GetClap;
 
 namespace CRMCore.Module.Post.Features.GetPosts
 {
@@ -36,6 +37,12 @@ namespace CRMCore.Module.Post.Features.GetPosts
         }
 
         public List<GetPostCommentResponse> Comments
+        {
+            get;
+            set;
+        }
+
+        public List<GetClapResponse> Claps
         {
             get;
             set;

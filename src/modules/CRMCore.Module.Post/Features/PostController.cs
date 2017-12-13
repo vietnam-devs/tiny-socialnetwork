@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using CRMCore.Framework.Entities;
 using CRMCore.Module.Data;
 using CRMCore.Module.Data.Extensions;
-using CRMCore.Module.Post.Features.Clap;
+using CRMCore.Module.Post.Features.CreateClap;
 using CRMCore.Module.Post.Features.CreateCommment;
+using CRMCore.Module.Post.Features.GetClap;
 using CRMCore.Module.Post.Features.GetPosts;
 using CRMCore.Module.Post.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -59,6 +60,14 @@ namespace CRMCore.Module.Post.Features
                 OwnerName = x.OwnerName,
                 Description = x.Content,
                 CreatedDate = x.Created,
+                Claps = x.Claps
+                         .Where(c => c.EntityId == x.Id)
+                         .Select(c => new GetClapResponse
+                         {
+                             EntityId = c.EntityId,
+                             Id = c.Id,
+                             OwnerName = c.OwnerName
+                         }).ToList(),
                 Comments = x.Comments
                             .Where(c => c.PostId == x.Id)
                             .Select(c => new GetPostCommentResponse
@@ -151,7 +160,7 @@ namespace CRMCore.Module.Post.Features
         }
 
         [HttpPost("clap")]
-        public async Task<IActionResult> Clap([FromBody]ClapRequest model)
+        public async Task<IActionResult> Clap([FromBody]CreateClapRequest model)
         {
             var clap = new Models.Clap
             {
