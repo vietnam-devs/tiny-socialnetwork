@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace CRMCore.DBMigration.Console.Data.Migrations.CRMCore
 {
-    public partial class initDB : Migration
+    public partial class initdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,40 @@ namespace CRMCore.DBMigration.Console.Data.Migrations.CRMCore
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "crm_Claps",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    EntityId = table.Column<Guid>(nullable: false),
+                    OwnerId = table.Column<Guid>(nullable: false),
+                    OwnerName = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    Updated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_crm_Claps", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "crm_Posts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    OwnerId = table.Column<Guid>(nullable: false),
+                    OwnerName = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    Updated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_crm_Posts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +190,29 @@ namespace CRMCore.DBMigration.Console.Data.Migrations.CRMCore
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "crm_PostComments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Comment = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false),
+                    OwnerId = table.Column<Guid>(nullable: false),
+                    OwnerName = table.Column<string>(nullable: true),
+                    PostId = table.Column<Guid>(nullable: false),
+                    Updated = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_crm_PostComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_crm_PostComments_crm_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "crm_Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +249,11 @@ namespace CRMCore.DBMigration.Console.Data.Migrations.CRMCore
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_crm_PostComments_PostId",
+                table: "crm_PostComments",
+                column: "PostId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +274,19 @@ namespace CRMCore.DBMigration.Console.Data.Migrations.CRMCore
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "crm_Claps");
+
+            migrationBuilder.DropTable(
+                name: "crm_PostComments");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "crm_Posts");
         }
     }
 }

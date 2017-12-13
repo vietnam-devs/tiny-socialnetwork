@@ -26,5 +26,11 @@ namespace CRMCore.Module.Post.Features.CreateCommment
             get;
             set;
         }
+
+        public DateTime CreatedDate
+        {
+            get;
+            set;
+        }
     }
 }

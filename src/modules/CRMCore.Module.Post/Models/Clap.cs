@@ -3,9 +3,21 @@ using CRMCore.Framework.Entities;
 
 namespace CRMCore.Module.Post.Models
 {
-    public class PostLike: EntityBase
+    public enum EntityType
     {
-        public Guid PostId
+        Post = 0,
+        Comment =1
+    }
+
+    public class Clap: EntityBase
+    {
+        public Guid EntityId
+        {
+            get;
+            set;
+        }
+
+        public EntityType Type
         {
             get;
             set;

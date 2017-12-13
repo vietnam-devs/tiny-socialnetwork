@@ -42,7 +42,7 @@ namespace CRMCore.DBMigration.Console.Seeder
             var importetPosts = GetPostsFromFile(startIdx, contentRootPath, logger);
             IList<ApplicationUser> users = context.Users.ToList();
             IList<PostComment> commnets = new List<PostComment>();
-            IList<PostLike> likes = new List<PostLike>();
+            IList<Clap> likes = new List<Clap>();
 
             foreach (var post in importetPosts)
             {
@@ -60,9 +60,10 @@ namespace CRMCore.DBMigration.Console.Seeder
                         OwnerId = users[commentRnd].Id,
                         OwnerName = users[commentRnd].Email,
                     });
-                    likes.Add(new PostLike()
+                    likes.Add(new Clap()
                     {
-                        PostId = post.Id,
+                        EntityId = post.Id,
+                        Type = EntityType.Post,
                         OwnerId = users[likeRnd].Id,
                         OwnerName = users[likeRnd].Email
                     });
@@ -72,7 +73,7 @@ namespace CRMCore.DBMigration.Console.Seeder
 
             await context.Set<Post>().AddRangeAsync(importetPosts);
             await context.Set<PostComment>().AddRangeAsync(commnets);
-            await context.Set<PostLike>().AddRangeAsync(likes);
+            await context.Set<Clap>().AddRangeAsync(likes);
 
             await context.SaveChangesAsync();
         }

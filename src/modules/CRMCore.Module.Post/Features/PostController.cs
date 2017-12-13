@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CRMCore.Framework.Entities;
 using CRMCore.Module.Data;
 using CRMCore.Module.Data.Extensions;
+using CRMCore.Module.Post.Features.Clap;
 using CRMCore.Module.Post.Features.CreateCommment;
 using CRMCore.Module.Post.Features.GetPosts;
 using CRMCore.Module.Post.ViewModels;
@@ -24,6 +25,7 @@ namespace CRMCore.Module.Post.Features
     {
         private readonly IEfRepositoryAsync<Models.Post> _postRepo;
         private readonly IEfRepositoryAsync<Models.PostComment> _postCommentRepo;
+        private readonly IEfRepositoryAsync<Models.Clap> _clapRepo;
         private readonly IOptions<PagingOption> _pagingOption;
 
         public PostController(IUnitOfWorkAsync unitOfWork,
@@ -31,7 +33,16 @@ namespace CRMCore.Module.Post.Features
         {
             _postRepo = unitOfWork.Repository<Models.Post>() as IEfRepositoryAsync<Models.Post>;
             _postCommentRepo = unitOfWork.Repository<Models.PostComment>() as IEfRepositoryAsync<Models.PostComment>;
+            _clapRepo = unitOfWork.Repository<Models.Clap>() as IEfRepositoryAsync<Models.Clap>;
             _pagingOption = pagingOption;
+        }
+
+        private Guid CurrentUserId
+        {
+            get
+            {
+                return Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value);
+            }
         }
 
         [HttpGet()]
@@ -39,7 +50,7 @@ namespace CRMCore.Module.Post.Features
         {
             var criterion = new Criterion(request.Page, _pagingOption.Value.PageSize, _pagingOption.Value, "Created", "desc");
 
-            var posts = await _postRepo.QueryAsync(criterion, x => x, x => x.Comments);
+            var posts = await _postRepo.QueryAsync(criterion, x => x, x => x.Comments, x => x.Claps);
 
             var result = posts.Items.Select(x => new GetPostsResponse
             {
@@ -66,12 +77,11 @@ namespace CRMCore.Module.Post.Features
         [HttpPost]
         public async Task<PostViewModel> Post([FromBody]PostInputModel model)
         {
-            var userId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value);
             var post = new Models.Post
             {
                 Content = model.Description,
                 Title = model.Title,
-                OwnerId = userId,
+                OwnerId = CurrentUserId,
                 OwnerName = User.Identity.Name
             };
 
@@ -90,11 +100,10 @@ namespace CRMCore.Module.Post.Features
         [HttpPost("{postId}/comment")]
         public async Task<CreateCommentResponse> CreatePostComment(Guid postId, [FromBody]CreateCommentRequest model)
         {
-            var userId = Guid.Parse(User.Claims.FirstOrDefault(x => x.Type == "sub").Value);
             var comment = new Models.PostComment
             {
                 Comment = model.Comment,
-                OwnerId = userId,
+                OwnerId = CurrentUserId,
                 OwnerName = User.Identity.Name,
                 PostId = postId
             };
@@ -106,7 +115,8 @@ namespace CRMCore.Module.Post.Features
                 Id = comment.Id,
                 Comment = comment.Comment,
                 PostId = comment.PostId,
-                OwnerName = comment.OwnerName
+                OwnerName = comment.OwnerName,
+                CreatedDate = comment.Created
             };
         }
 
@@ -139,5 +149,22 @@ namespace CRMCore.Module.Post.Features
 
             return new NoContentResult();
         }
+
+        [HttpPost("clap")]
+        public async Task<IActionResult> Clap([FromBody]ClapRequest model)
+        {
+            var clap = new Models.Clap
+            {
+                EntityId = model.EntityId,
+                Type = model.Type,
+                OwnerId = CurrentUserId,
+                OwnerName = User.Identity.Name
+            };
+
+            await _clapRepo.AddAsync(clap);
+
+            return new NoContentResult();
+        }
+
     }
 }

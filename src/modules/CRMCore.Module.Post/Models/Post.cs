@@ -35,5 +35,11 @@ namespace CRMCore.Module.Post.Models
             get;
             set;
         }
+
+        //public List<Clap> Claps
+        //{
+        //    get;
+        //    set;
+        //}
     }
 }

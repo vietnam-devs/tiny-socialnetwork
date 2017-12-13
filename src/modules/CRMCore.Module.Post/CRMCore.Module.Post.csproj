@@ -17,5 +17,6 @@
 	  <Folder Include="Features\" />
 	  <Folder Include="Features\GetPosts\" />
 	  <Folder Include="Features\CreateCommment\" />
+	  <Folder Include="Features\Clap\" />
 	</ItemGroup>
 </Project>
