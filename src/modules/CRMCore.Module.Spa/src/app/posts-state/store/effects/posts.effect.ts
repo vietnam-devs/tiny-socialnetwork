@@ -21,6 +21,8 @@ import { postSchema } from '../../models/schema';
 import * as fromPost from '../../store/reducers';
 import { Post, Comment, AddClapRequest } from '../../models';
 
+import { ClapActionTypes, AddClapSuccess } from '../actions/clap.action';
+
 @Injectable()
 export class PostEffects {
   constructor(
@@ -53,7 +55,9 @@ export class PostEffects {
     .map(() => PostActionCreators.loadStarted());
 
   @Effect()
-  addPost$ = this.actions$.ofType(ActionType.ADD_POST).switchMap((post: any) =>
+  addPost$ = this.actions$
+  .ofType(ActionType.ADD_POST)
+  .switchMap((post: any) =>
     this.postService
       .createPost(post.payload)
       .map(res => PostActionCreators.addPostSucess(res))
@@ -65,7 +69,7 @@ export class PostEffects {
     .ofType(ActionType.REMOVE_POST)
     .map(toPayload)
     .switchMap((postId: string) => {
-      var id = postId;
+      const id = postId;
       return this.postService
         .deletePost(postId)
         .map(() => PostActionCreators.removePostSuccess(id));
@@ -83,12 +87,12 @@ export class PostEffects {
 
   @Effect()
   addClap$ = this.actions$
-    .ofType(ActionType.ADD_CLAP)
+    .ofType(ClapActionTypes.ADD_CLAP)
     .map(toPayload)
     .switchMap((clap: AddClapRequest) => {
-      var clapReq = clap;
+      const clapReq = clap;
       return this.postService
         .addClap(clapReq)
-        .map(res => PostActionCreators.addClapSuccess(res));
+        .map(res => new AddClapSuccess(res));
     });
 }

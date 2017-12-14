@@ -10,6 +10,8 @@ import { PaginatedItem } from '../../shared/models/paginateditem.model';
 import * as fromPost from '../store/reducers';
 import { PostActionCreators } from '../store/actions/post.action';
 
+import * as ClapActions from '../store/actions/clap.action';
+
 @Component({
   selector: 'app-news-feed',
   templateUrl: './news-feed.component.html',
@@ -59,7 +61,7 @@ export class NewsFeedComponent implements OnInit {
   }
 
   onClapPost(postId: string) {
-    this.store.dispatch(PostActionCreators.addClap({
+    this.store.dispatch(new ClapActions.AddClap({
       entityId: postId,
       entityType: 'Post'
     }));

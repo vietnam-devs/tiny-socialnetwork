@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Comment, AddClapRequest } from '../../models';
+import { Comment } from '../../models';
 
 export enum CommentActionTypes {
   ADD_COMMENT = '[Comment] Add Comment',

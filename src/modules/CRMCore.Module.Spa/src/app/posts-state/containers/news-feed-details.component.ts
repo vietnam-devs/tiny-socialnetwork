@@ -12,6 +12,8 @@ import { PostActionCreators } from '../store/actions/post.action';
 import { AddComment } from '../store/actions/comment.action';
 import { Post, Comment, Clap } from '../models';
 
+import * as ClapActions from '../store/actions/clap.action';
+
 @Component({
     templateUrl: './news-feed-details.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,7 +57,7 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
   }
 
   onClapPost() {
-    this.store.dispatch(PostActionCreators.addClap({
+    this.store.dispatch(new ClapActions.AddClap({
       entityId: this.postId,
       entityType: this.clapType
     }));

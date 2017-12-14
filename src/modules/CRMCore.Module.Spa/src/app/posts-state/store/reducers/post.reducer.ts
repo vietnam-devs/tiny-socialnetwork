@@ -2,6 +2,8 @@ import * as postAction from '../actions/post.action';
 import * as ActionType from '../actions/post-constant-type.action';
 import { CommentActions, CommentActionTypes } from '../actions/comment.action';
 
+import { ClapActions, ClapActionTypes } from '../actions/clap.action';
+
 import { Post, Comment, Clap } from '../../models';
 
 import { debug } from 'util';
@@ -12,7 +14,6 @@ export interface State {
   loading: boolean;
   postIds: string[];
   posts: { [id: string]: Post };
-  claps: { [id: string]: Clap };
   selectedPostId: string | null;
 }
 
@@ -21,13 +22,12 @@ const initialState: State = {
   loading: false,
   postIds: [],
   posts: {},
-  claps: {},
   selectedPostId: null
 };
 
 export function reducer(
   state = initialState,
-  action: postAction.Actions | CommentActions
+  action: postAction.Actions | CommentActions | ClapActions
 ): State {
   switch (action.type) {
     case ActionType.LOAD_STARTED: {
@@ -43,7 +43,6 @@ export function reducer(
         currentPage: state.currentPage + 1,
         loading: false,
         posts: { ...state.posts, ...action.payload.entities.posts },
-        claps: { ...state.claps, ...action.payload.entities.claps },
         postIds: [...state.postIds, ...action.payload.result]
       };
     }
@@ -56,7 +55,7 @@ export function reducer(
     }
 
     case ActionType.ADD_POST_SUCCESS: {
-      let newPost: { [id: string]: Post } = {};
+      const newPost: { [id: string]: Post } = {};
       newPost[action.payload.id] = { ...new Post(), ...action.payload };
       return {
         ...state,
@@ -86,18 +85,14 @@ export function reducer(
       };
     }
 
-    case ActionType.ADD_CLAP_SUCCESS: {
-      const post = state.posts[action.payload.entityId];
+    case ClapActionTypes.ADD_CLAP_SUCCESS: {
+      const newPost = state.posts[action.payload.entityId];
 
       return {
         ...state,
         posts: {
           ...state.posts,
-          [action.payload.entityId]: {...post, claps: post.claps.concat(action.payload.id)}
-        },
-        claps: {
-          ...state.claps,
-          [action.payload.id] : action.payload
+          [action.payload.entityId]: {...newPost, claps: newPost.claps.concat(action.payload.id)}
         }
       };
     }
@@ -111,7 +106,5 @@ export function reducer(
 export const getPostIds = (state: State) => state.postIds;
 
 export const getPosts = (state: State) => state.posts;
-
-export const getClaps = (state: State) => state.claps;
 
 export const getSelectedId = (state: State) => state.selectedPostId;

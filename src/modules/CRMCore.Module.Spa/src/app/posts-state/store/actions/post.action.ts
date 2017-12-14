@@ -52,15 +52,6 @@ interface RemovePostSuccess extends Action {
   payload: string;
 }
 
-interface AddClap extends Action {
-  type: typeof ActionType.ADD_CLAP;
-  payload: AddClapRequest;
-}
-
-interface AddClapSuccess extends Action {
-  type: typeof ActionType.ADD_CLAP_SUCCESS;
-  payload: Clap;
-}
 
 export const PostActionCreators = {
   load: (): Action => (<Load>{ type: ActionType.LOAD }),
@@ -82,10 +73,6 @@ export const PostActionCreators = {
   removePostSuccess: (payload: string): Action => (<RemovePostSuccess>{ type: ActionType.REMOVE_POST_SUCCESS, payload }),
 
   getPostById: (payload: string): Action => (<GetPostById>{ type: ActionType.GET_POST_BY_ID, payload }),
-
-  addClap: (payload: AddClapRequest): Action => (<AddClap>{ type: ActionType.ADD_CLAP, payload }),
-
-  addClapSuccess: (payload: Clap): Action => (<AddClapSuccess>{ type: ActionType.ADD_CLAP_SUCCESS, payload }),
 };
 
 export type Actions = Load
@@ -97,8 +84,6 @@ export type Actions = Load
                       | AddPostSuccess
                       | AddPostFail
                       | RemovePost
-                      | RemovePostSuccess
-                      | AddClap
-                      | AddClapSuccess;
+                      | RemovePostSuccess;
 
 
