@@ -57,4 +57,11 @@ export class NewsFeedComponent implements OnInit {
   getCommentById(commentId: string) {
     return this.comment$.map(comment => comment[commentId]);
   }
+
+  onClapPost(postId: string) {
+    this.store.dispatch(PostActionCreators.addClap({
+      entityId: postId,
+      entityType: 'Post'
+    }));
+  }
 }

@@ -10,11 +10,17 @@ import { Post } from '../../models/post.model';
 export class PostItemComponent {
   @Input() detailMode: boolean;
   @Input() post: Post;
-  @Output() onDeletePostEvent = new EventEmitter();
+
+  @Output() deletePostEvent = new EventEmitter();
+  @Output() clapEvent = new EventEmitter();
 
   constructor() {}
 
-  deletePost(postId: string){
-    this.onDeletePostEvent.emit(postId);
+  onDeletePost(postId: string) {
+    this.deletePostEvent.emit(postId);
+  }
+
+  onClap(postId: string) {
+    this.clapEvent.emit(postId);
   }
 }

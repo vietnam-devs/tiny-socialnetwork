@@ -11,7 +11,7 @@
       </div>
       <div class="icon-wrapper">
         <div class="custom-icon">
-          <post-clap [NumberOfClaps] = "numberOfClaps" [EntityId]="postId" [ClapType]="Post"></post-clap>
+          <post-clap [NumberOfClaps] = "numberOfClaps" (clapEvent)="onClapPost()"></post-clap>
         </div>
         <span class="fix-editor">&nbsp;</span>
       </div>

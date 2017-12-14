@@ -23,7 +23,8 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
 
   numberOfClaps: number;
   postId: string;
-  // post: Post  ;
+  clapType: string;
+
   constructor(private _location: Location, private store: Store<fromPost.State>, route: ActivatedRoute) {
     this.post$ = store.select(fromPost.getSelectedPost);
     this.comments$ = store.select(fromPost.getPostComments);
@@ -38,6 +39,7 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.clapType = 'Post';
     this.claps$.subscribe(clap => {
       this.numberOfClaps = clap.length;
     });
@@ -49,6 +51,13 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
 
   onAddComment(comment: Comment) {
     this.store.dispatch(PostActionCreators.addComment(comment));
+  }
+
+  onClapPost() {
+    this.store.dispatch(PostActionCreators.addClap({
+      entityId: this.postId,
+      entityType: this.clapType
+    }));
   }
 
   onBack() {
