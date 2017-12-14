@@ -160,7 +160,7 @@ namespace CRMCore.Module.Post.Features
         }
 
         [HttpPost("clap")]
-        public async Task<IActionResult> Clap([FromBody]CreateClapRequest model)
+        public async Task<GetClapResponse> Clap([FromBody]CreateClapRequest model)
         {
             var clap = new Models.Clap
             {
@@ -172,7 +172,11 @@ namespace CRMCore.Module.Post.Features
 
             await _clapRepo.AddAsync(clap);
 
-            return new NoContentResult();
+            return new GetClapResponse(){
+                EntityId = clap.EntityId,
+                Id = clap.Id,
+                OwnerName = clap.OwnerName
+            };
         }
 
     }

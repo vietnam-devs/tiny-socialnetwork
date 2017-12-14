@@ -3,7 +3,7 @@ import * as ActionType from '../actions/post-constant-type.action';
 import { Post, Comment, Clap } from '../../models';
 
 import { debug } from 'util';
-
+import { post } from 'selenium-webdriver/http';
 
 export interface State {
   currentPage: number;
@@ -57,12 +57,12 @@ export function reducer(
     }
 
     case ActionType.ADD_POST_SUCCESS: {
-      let newPost: { [id: string]: Post } = {}
-      newPost[action.payload.id] = {...new Post(),  ...action.payload};
+      let newPost: { [id: string]: Post } = {};
+      newPost[action.payload.id] = { ...new Post(), ...action.payload };
       return {
         ...state,
         posts: { ...newPost, ...state.posts },
-        postIds: [ action.payload.id, ...state.postIds,]
+        postIds: [action.payload.id, ...state.postIds]
       };
     }
 
@@ -75,6 +75,22 @@ export function reducer(
 
     case ActionType.ADD_COMMENT_SUCCESS: {
       return AddComment(state, action);
+    }
+
+    case ActionType.ADD_CLAP_SUCCESS: {
+      const post = state.posts[action.payload.entityId];
+    
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [action.payload.entityId]: {...post, claps: post.claps.concat(action.payload.id)}
+        },
+        claps: {
+          ...state.claps,
+          [action.payload.id] : action.payload
+        }
+      };
     }
 
     default: {

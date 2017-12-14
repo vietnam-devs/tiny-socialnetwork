@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { PaginatedItem } from '../../../shared/models/paginateditem.model';
-import { Post, Comment } from '../../models';
+import { Post, Comment, AddClapRequest, Clap } from '../../models';
 import * as ActionType from './post-constant-type.action';
 
 interface Load extends Action {
@@ -62,6 +62,16 @@ interface RemovePostSuccess extends Action {
   payload: string;
 }
 
+interface AddClap extends Action {
+  type: typeof ActionType.ADD_CLAP;
+  payload: AddClapRequest;
+}
+
+interface AddClapSuccess extends Action {
+  type: typeof ActionType.ADD_CLAP_SUCCESS;
+  payload: Clap;
+}
+
 export const PostActionCreators = {
   load: (): Action => (<Load>{ type: ActionType.LOAD }),
 
@@ -85,7 +95,11 @@ export const PostActionCreators = {
 
   addComment: (payload: Comment): Action => (<AddComment>{ type: ActionType.ADD_COMMENT, payload }),
 
-  addCommentSuccess: (payload: Comment): Action => (<AddCommentSuccess>{ type: ActionType.ADD_COMMENT_SUCCESS, payload })
+  addCommentSuccess: (payload: Comment): Action => (<AddCommentSuccess>{ type: ActionType.ADD_COMMENT_SUCCESS, payload }),
+
+  addClap: (payload: AddClapRequest): Action => (<AddClap>{ type: ActionType.ADD_CLAP, payload }),
+
+  addClapSuccess: (payload: Clap): Action => (<AddClapSuccess>{ type: ActionType.ADD_CLAP_SUCCESS, payload }),
 };
 
 export type Actions = Load
@@ -99,6 +113,8 @@ export type Actions = Load
                       | AddPostSuccess
                       | AddPostFail
                       | RemovePost
-                      | RemovePostSuccess;
+                      | RemovePostSuccess
+                      | AddClap
+                      | AddClapSuccess;
 
 

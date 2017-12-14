@@ -1,6 +1,11 @@
 export class Clap {
-    clapId: string;
-    entityId: string;
-    ownerName: string;
-  }
-  
+  id: string;
+  entityId: string;
+  entityType: string;
+  ownerName: string;
+}
+
+export class AddClapRequest {
+  entityId: string;
+  entityType: string;
+}

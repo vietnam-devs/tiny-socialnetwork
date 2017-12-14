@@ -22,6 +22,7 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
   claps$: Observable<Clap[]>;
 
   numberOfClaps: number;
+  postId: string;
   // post: Post  ;
   constructor(private _location: Location, private store: Store<fromPost.State>, route: ActivatedRoute) {
     this.post$ = store.select(fromPost.getSelectedPost);
@@ -29,7 +30,10 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
     this.claps$ = store.select(fromPost.getPostClaps);
 
     this.actionsSubscription = route.params
-      .map(params => PostActionCreators.getPostById(params.id))
+      .map(params => {
+        this.postId = params.id;
+        return PostActionCreators.getPostById(params.id);
+      })
       .subscribe(store);
   }
 

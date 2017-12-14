@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { Post, Comment } from '../models';
+import { Post, Comment, AddClapRequest, Clap } from '../models';
 import { ConfigService } from '../../core/services/config.service';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
 
@@ -41,5 +41,9 @@ export class PostService {
 
   addComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(`${this.postUrl}/${comment.postId}/comment`, comment);
+  }
+
+  addClap(clap: AddClapRequest): Observable<Clap> {
+    return this.http.post<Clap>(`${this.postUrl}/clap`, clap);
   }
 }

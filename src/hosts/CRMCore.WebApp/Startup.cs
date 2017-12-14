@@ -1,7 +1,4 @@
 ﻿using AspNetCore.RouteAnalyzer;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using CRMCore.Framework.Entities;
 using CRMCore.Framework.MvcCore.Extensions;
 using CRMCore.Module.Data;
 using CRMCore.Module.Data.Impl;
@@ -20,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using System.IO;
 using IdentityServer4.AccessTokenValidation;
+using CRMCore.Module.Data.Extensions;
 
 namespace CRMCore.WebApp
 {
@@ -29,25 +27,25 @@ namespace CRMCore.WebApp
         public static readonly string IdentityPrefix = "/idsrv";
     }
 
-    public static class ServiceCollectionExtensions
-    {
-        public static IServiceProvider InitServices(this IServiceCollection services, IConfiguration configuration)
-        {
-            var builder = new ContainerBuilder();
+    //public static class ServiceCollectionExtensions
+    //{
+    //    public static IServiceProvider InitServices(this IServiceCollection services, IConfiguration configuration)
+    //    {
+    //        var builder = new ContainerBuilder();
 
-            builder.RegisterGeneric(typeof(EfRepositoryAsync<>))
-                .As(typeof(IEfRepositoryAsync<>));
+    //        builder.RegisterGeneric(typeof(EfRepositoryAsync<>))
+    //            .As(typeof(IEfRepositoryAsync<>));
 
-            builder.Register(x => new EfUnitOfWork(
-                    x.Resolve<ApplicationDbContext>(),
-                    x.Resolve<IServiceProvider>()))
-                .As(typeof(IUnitOfWorkAsync))
-                .InstancePerLifetimeScope();
+    //        builder.Register(x => new EfUnitOfWork(
+    //                x.Resolve<ApplicationDbContext>(),
+    //                x.Resolve<IServiceProvider>()))
+    //            .As(typeof(IUnitOfWorkAsync))
+    //            .InstancePerLifetimeScope();
 
-            builder.Populate(services);
-            return builder.Build().Resolve<IServiceProvider>();
-        }
-    }
+    //        builder.Populate(services);
+    //        return builder.Build().Resolve<IServiceProvider>();
+    //    }
+    //}
 
     public class Startup
     {
@@ -112,7 +110,9 @@ namespace CRMCore.WebApp
                     o.CacheDuration = TimeSpan.FromMinutes(10); //default
                 });
 
-            return services.InitServices(Configuration);
+            services.AddGenericDataModule();
+
+            return services.BuildServiceProvider(false);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

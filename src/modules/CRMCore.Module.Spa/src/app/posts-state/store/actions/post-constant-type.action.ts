@@ -19,3 +19,6 @@ export const REMOVE_POST_FAIL = "[Post] Remove Post Fail";
 export const ADD_COMMENT = '[Post] Add Comment';
 export const ADD_COMMENT_SUCCESS = '[Post] Add Comment Success';
 export const ADD_COMMENT_FAIL = '[Post] Add Comment Fail';
+
+export const ADD_CLAP = '[Clap] Add Clap';
+export const ADD_CLAP_SUCCESS = '[Clap] Add Clap Success';

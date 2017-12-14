@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { PostService } from '../services/post.service';
-import { Post, Comment } from '../models';
+import { Post, Comment, Clap } from '../models';
 import { debug } from 'util';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
 import * as fromPost from '../store/reducers';

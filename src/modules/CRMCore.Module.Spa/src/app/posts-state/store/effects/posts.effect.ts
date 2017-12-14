@@ -18,7 +18,7 @@ import { PostService } from '../../services/post.service';
 import { PostState } from '../reducers';
 import { postSchema } from '../../models/schema';
 import * as fromPost from '../../store/reducers';
-import { Post, Comment } from '../../models';
+import { Post, Comment, AddClapRequest } from '../../models';
 
 @Injectable()
 export class PostEffects {
@@ -64,9 +64,10 @@ export class PostEffects {
     .ofType(ActionType.REMOVE_POST)
     .map(toPayload)
     .switchMap((postId: string) => {
-      var id =postId;
-      return this.postService.deletePost(postId)
-        .map( () => PostActionCreators.removePostSuccess(id));
+      var id = postId;
+      return this.postService
+        .deletePost(postId)
+        .map(() => PostActionCreators.removePostSuccess(id));
     });
 
   @Effect()
@@ -78,4 +79,15 @@ export class PostEffects {
         .addComment(comment)
         .map(res => PostActionCreators.addCommentSuccess(res))
     );
+
+  @Effect()
+  addClap$ = this.actions$
+    .ofType(ActionType.ADD_CLAP)
+    .map(toPayload)
+    .switchMap((clap: AddClapRequest) => {
+      var clapReq = clap;
+      return this.postService
+        .addClap(clapReq)
+        .map(res => PostActionCreators.addClapSuccess(res));
+    });
 }
