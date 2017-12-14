@@ -9,6 +9,7 @@ import * as postActions from '../store/actions/post.action';
 import * as fromPost from '../store/reducers';
 import { Store } from '@ngrx/store';
 import { PostActionCreators } from '../store/actions/post.action';
+import { AddComment } from '../store/actions/comment.action';
 import { Post, Comment, Clap } from '../models';
 
 @Component({
@@ -50,7 +51,7 @@ export class NewsFeedDetailsComponent implements OnInit, OnDestroy {
   }
 
   onAddComment(comment: Comment) {
-    this.store.dispatch(PostActionCreators.addComment(comment));
+    this.store.dispatch(new AddComment(comment));
   }
 
   onClapPost() {

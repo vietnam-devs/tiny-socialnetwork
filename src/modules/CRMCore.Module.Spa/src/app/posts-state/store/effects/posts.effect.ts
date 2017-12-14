@@ -14,6 +14,7 @@ import { normalize, schema } from 'normalizr';
 
 import { PostActionCreators } from '../actions/post.action';
 import * as ActionType from '../actions/post-constant-type.action';
+import { CommentActionTypes, AddCommentSuccess } from '../actions/comment.action';
 import { PostService } from '../../services/post.service';
 import { PostState } from '../reducers';
 import { postSchema } from '../../models/schema';
@@ -72,12 +73,12 @@ export class PostEffects {
 
   @Effect()
   addComment$ = this.actions$
-    .ofType(ActionType.ADD_COMMENT)
+    .ofType(CommentActionTypes.ADD_COMMENT)
     .map(toPayload)
     .switchMap((comment: Comment) =>
       this.postService
         .addComment(comment)
-        .map(res => PostActionCreators.addCommentSuccess(res))
+        .map(res => new AddCommentSuccess(res))
     );
 
   @Effect()

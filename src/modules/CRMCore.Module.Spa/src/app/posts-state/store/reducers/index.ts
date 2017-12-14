@@ -1,12 +1,14 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromRoot from '../../../reducers';
 import * as fromPost from './post.reducer';
+import * as fromComment from './comment.reducer';
 import { Post, Comment } from '../../models';
 import { Observable } from 'rxjs/Observable';
 import { combineReducers } from '@ngrx/store/src/utils';
 
 export interface PostState {
    posts: fromPost.State;
+   comments: fromComment.State;
   }
 
 
@@ -15,7 +17,8 @@ export interface PostState {
   }
 
   export const reducers = {
-    posts: fromPost.reducer
+    posts: fromPost.reducer,
+    comments: fromComment.reducer
   };
 
   export const getPostsState = createFeatureSelector<PostState>('PostFeature');
@@ -23,6 +26,11 @@ export interface PostState {
   export const getPostEntitiesState = createSelector(
     getPostsState,
     state => state.posts
+  );
+
+  export const getCommentEntitiesState = createSelector(
+    getPostsState,
+    state => state.comments
   );
 
   export const getSelectedPostId = createSelector(
@@ -41,7 +49,7 @@ export interface PostState {
     return ids.map(id => entities[id]);
   });
 
-  export const getCommentEntities = createSelector(getPostEntitiesState, fromPost.getComments);
+  export const getCommentEntities = createSelector(getCommentEntitiesState, fromComment.getComments);
 
   export const getClapsEntities = createSelector(getPostEntitiesState, fromPost.getClaps);
 

@@ -1,5 +1,7 @@
 import * as postAction from '../actions/post.action';
 import * as ActionType from '../actions/post-constant-type.action';
+import { CommentActions, CommentActionTypes } from '../actions/comment.action';
+
 import { Post, Comment, Clap } from '../../models';
 
 import { debug } from 'util';
@@ -10,7 +12,6 @@ export interface State {
   loading: boolean;
   postIds: string[];
   posts: { [id: string]: Post };
-  comments: { [id: string]: Comment };
   claps: { [id: string]: Clap };
   selectedPostId: string | null;
 }
@@ -20,14 +21,13 @@ const initialState: State = {
   loading: false,
   postIds: [],
   posts: {},
-  comments: {},
   claps: {},
   selectedPostId: null
 };
 
 export function reducer(
   state = initialState,
-  action: postAction.Actions
+  action: postAction.Actions | CommentActions
 ): State {
   switch (action.type) {
     case ActionType.LOAD_STARTED: {
@@ -43,7 +43,6 @@ export function reducer(
         currentPage: state.currentPage + 1,
         loading: false,
         posts: { ...state.posts, ...action.payload.entities.posts },
-        comments: { ...state.comments, ...action.payload.entities.comments },
         claps: { ...state.claps, ...action.payload.entities.claps },
         postIds: [...state.postIds, ...action.payload.result]
       };
@@ -73,13 +72,23 @@ export function reducer(
       };
     }
 
-    case ActionType.ADD_COMMENT_SUCCESS: {
-      return AddComment(state, action);
+    case CommentActionTypes.ADD_COMMENT_SUCCESS: {
+      const postId  = action.payload.postId;
+      const commentId = action.payload.id;
+      const newPost = state.posts[postId];
+
+      return {
+        ...state,
+        posts: {
+          ...state.posts,
+          [postId]: { ...newPost, comments: newPost.comments.concat(commentId) }
+        }
+      };
     }
 
     case ActionType.ADD_CLAP_SUCCESS: {
       const post = state.posts[action.payload.entityId];
-    
+
       return {
         ...state,
         posts: {
@@ -99,38 +108,9 @@ export function reducer(
   }
 }
 
-function AddComment(state: State, action) {
-  const { payload } = action;
-  const { postId, id, comment, ownerName, createdDate } = payload;
-  // Look up the correct post, to simplify the rest of the code
-  const post = state.posts[postId];
-
-  return {
-    ...state,
-    // Update our Post object with a new "comments" array
-    posts: {
-      ...state.posts,
-      [postId]: { ...post, comments: post.comments.concat(id) }
-    },
-    comments: {
-      ...state.comments,
-      [id]: {
-        id: id,
-        postId: postId,
-        comment: comment,
-        ownerId: '00000000-0000-0000-0000-000000000000',
-        ownerName: ownerName,
-        createdDate: createdDate
-      }
-    }
-  };
-}
-
 export const getPostIds = (state: State) => state.postIds;
 
 export const getPosts = (state: State) => state.posts;
-
-export const getComments = (state: State) => state.comments;
 
 export const getClaps = (state: State) => state.claps;
 

@@ -42,16 +42,6 @@ interface GetPostById extends Action {
   payload: string;
 }
 
-interface AddComment extends Action {
-  type: typeof ActionType.ADD_COMMENT;
-  payload: Comment;
-}
-
-interface AddCommentSuccess extends Action {
-  type: typeof ActionType.ADD_COMMENT_SUCCESS;
-  payload: Comment;
-}
-
 interface RemovePost extends Action {
   type: typeof ActionType.REMOVE_POST;
   payload: string;
@@ -93,10 +83,6 @@ export const PostActionCreators = {
 
   getPostById: (payload: string): Action => (<GetPostById>{ type: ActionType.GET_POST_BY_ID, payload }),
 
-  addComment: (payload: Comment): Action => (<AddComment>{ type: ActionType.ADD_COMMENT, payload }),
-
-  addCommentSuccess: (payload: Comment): Action => (<AddCommentSuccess>{ type: ActionType.ADD_COMMENT_SUCCESS, payload }),
-
   addClap: (payload: AddClapRequest): Action => (<AddClap>{ type: ActionType.ADD_CLAP, payload }),
 
   addClapSuccess: (payload: Clap): Action => (<AddClapSuccess>{ type: ActionType.ADD_CLAP_SUCCESS, payload }),
@@ -107,8 +93,6 @@ export type Actions = Load
                       | LoadSuccess
                       | LoadFail
                       | GetPostById
-                      | AddComment
-                      | AddCommentSuccess
                       | AddPost
                       | AddPostSuccess
                       | AddPostFail
