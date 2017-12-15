@@ -11,13 +11,13 @@ export class PostItemComponent {
   @Input() detailMode: boolean;
   @Input() post: Post;
 
-  @Output() deletePostEvent = new EventEmitter();
+  @Output() onDeletePostEvent = new EventEmitter();
   @Output() clapEvent = new EventEmitter();
 
   constructor() {}
 
   onDeletePost(postId: string) {
-    this.deletePostEvent.emit(postId);
+    this.onDeletePostEvent.emit(postId);
   }
 
   onClap(postId: string) {
