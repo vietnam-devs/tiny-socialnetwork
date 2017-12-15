@@ -11,6 +11,7 @@ export class Post {
         this.title = '';
         this.description = '';
         this.comments = [];
+        this.claps = [];
     }
 }
 
