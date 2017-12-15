@@ -142,7 +142,7 @@ html, body {
     font-family: medium-content-sans-serif-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;    }
   .button--chromeless,
   .button--link {
-      border-width: 0;
+      border: none;
       padding: 2;
       text-align: left;
       vertical-align: baseline;
@@ -150,7 +150,32 @@ html, body {
       background-color: #f8f8f8;
       margin-left: 9px;
       margin-right: 9px;
+      
   }
+  .button--clap {
+      border: none;
+      padding: 2;
+      text-align: left;
+      vertical-align: baseline;
+      white-space: normal;
+      background-color: #f8f8f8;
+      margin-left: 9px;
+      margin-right: 9px;
+      border-radius: 18px;
+      box-shadow: 0 6px #4CAF50;
+  }
+  .button--clap:hover {background-color: #3e8e41;border: none;}
+  .clap {
+        padding-top: 12px !important;
+       font-family: fantasy;
+  }
+
+.button--clap:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+   border: none;
+}
  .svgIcon--25px {
     line-height: 25px;
     height: 25px;
@@ -278,6 +303,7 @@ html, body {
   height: 5px !important;
 
 }
+
 
 #wrapper .visible {
 position:relative;
