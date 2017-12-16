@@ -7,7 +7,7 @@ import { PostService } from '../services/post.service';
 import { SignalRService } from '../services/signalR.service';
 import { Post, Comment, Clap } from '../models';
 import { debug } from 'util';
-import { PaginatedItem } from '../../shared/models/paginateditem.model';
+import { PaginatedItem } from '../../shared-state/models/paginateditem.model';
 import * as fromPost from '../store/reducers';
 import { PostActionCreators } from '../store/actions/post.action';
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Post, Comment, AddClapRequest, Clap } from '../models';
 import { ConfigService } from '../../core/services/config.service';
-import { PaginatedItem } from '../../shared/models/paginateditem.model';
+import { PaginatedItem } from '../../shared-state/models/paginateditem.model';
 
 @Injectable()
 export class PostService {

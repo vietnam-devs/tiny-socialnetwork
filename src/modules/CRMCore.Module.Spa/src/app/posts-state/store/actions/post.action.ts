@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { PaginatedItem } from '../../../shared/models/paginateditem.model';
+import { PaginatedItem } from '../../../shared-state/models/paginateditem.model';
 import { Post, Comment, AddClapRequest, Clap } from '../../models';
 import * as ActionType from './post-constant-type.action';
 

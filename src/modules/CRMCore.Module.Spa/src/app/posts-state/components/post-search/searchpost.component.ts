@@ -1,5 +1,5 @@
 import { Component ,Output , EventEmitter } from '@angular/core';
-import { SharedService } from '../../../shared/services/sharedService';
+import { SharedService } from '../../../shared-state/services/sharedService';
 
 @Component({
     selector: 'search-post',

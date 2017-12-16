@@ -4,7 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
 import { PostsRoutingModule } from './posts-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../shared-state/shared.module';
 import { PostService } from './services/post.service';
 import { SignalRService } from './services/signalR.service';
 
