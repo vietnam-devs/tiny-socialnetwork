@@ -40,14 +40,15 @@ namespace CRMCore.Module.Identity.Extensions
             .AddOperationalStore(operationalStoreOptionsAction)
             .AddProfileService<IdentityWithAdditionalClaimsProfileService>();
 
-            var env = services.BuildServiceProvider().GetService<IHostingEnvironment>();
-            if(env.IsDevelopment()){
-                identityServerBuilder.AddDeveloperSigningCredential();
-            }
-            else{
-                var options = services.BuildServiceProvider().GetService<IConfiguration>().GetSection("Certificate");
-                identityServerBuilder.AddCertificateFromFile(options);
-            }
+            //var env = services.BuildServiceProvider().GetService<IHostingEnvironment>();
+            //if(env.IsProduction()){
+            //    var options = services.BuildServiceProvider().GetService<IConfiguration>().GetSection("Certificate");
+            //    identityServerBuilder.AddCertificateFromFile(options);
+            //}
+            //else{
+            //    identityServerBuilder.AddDeveloperSigningCredential();
+            //}
+            identityServerBuilder.AddDeveloperSigningCredential();
 
             return services;
         }
