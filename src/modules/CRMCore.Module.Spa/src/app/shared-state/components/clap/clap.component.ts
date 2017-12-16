@@ -6,10 +6,10 @@ import * as fromPost from '../../../reducers';
 
 
 @Component({
-    selector: 'post-clap',
-    templateUrl: './post-clap.component.html'
+    selector: 'clap',
+    templateUrl: './clap.component.html'
 })
-export class PostClapComponent  {
+export class ClapComponent  {
     @Input() NumberOfClaps: number;
     @Output() clapEvent = new EventEmitter();
 

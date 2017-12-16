@@ -6,12 +6,12 @@ import { FilterPipe } from './pipe';
 import { CommonModule  } from '@angular/common';
 import { TruncateModule } from 'ng2-truncate';
 import { SharedService } from './services/sharedService';
-import { PostClapComponent } from './components/post-clap/post-clap.component';
+import { ClapComponent } from './components/clap/clap.component';
 
 @NgModule({
     declarations: [     
       FilterPipe ,
-      PostClapComponent  
+      ClapComponent  
     ],
     imports: [
       FormsModule,
@@ -24,7 +24,7 @@ import { PostClapComponent } from './components/post-clap/post-clap.component';
       SharedService
     ],
     exports: [
-      PostClapComponent  ,
+      ClapComponent  ,
       ReactiveFormsModule,      
       FormsModule,
       CommonModule,

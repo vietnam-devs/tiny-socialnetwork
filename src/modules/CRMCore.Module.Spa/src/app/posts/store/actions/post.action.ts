@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-import { PaginatedItem } from '../../../shared_state/models/paginateditem.model';
+import { PaginatedItem } from '../../../shared/models/paginateditem.model';
 import { Post } from '../../models/post.model';
 
 export const LOAD = '[Post] Load';

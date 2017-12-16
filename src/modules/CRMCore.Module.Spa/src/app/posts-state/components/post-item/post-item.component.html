@@ -32,7 +32,7 @@
     </div>
     <a [routerLink]="[post.id]" class="button button--smaller button--chromeless u-baseColor--buttonNormal">Read more…</a>
     <div class="none-line-divider"></div>
-    <post-clap [NumberOfClaps] = "post.claps.length" (clapEvent)="onClap(post.id)" ></post-clap>
+    <clap [NumberOfClaps] = "post.claps.length" (clapEvent)="onClap(post.id)" ></clap>
      </ng-template>
   </div>
 </div>
