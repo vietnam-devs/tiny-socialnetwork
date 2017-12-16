@@ -35,7 +35,6 @@ export const getComments = (state: State) => state.entities;
 function AddComment(state: State, action) {
   const { payload } = action;
   const { postId, id, comment, ownerName, createdDate } = payload;
-
   return {
     ...state,
     // Update our Post object with a new "comments" array

@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
+import { SignalRService } from './services/signalR.service';
 
 import { NewsFeedComponent, NewsFeedDetailsComponent, AddPostComponent } from './containers';
 import { reducers } from './store/reducers';
@@ -50,6 +51,6 @@ const components = [
     StoreModule.forFeature('PostFeature', reducers),
     EffectsModule.forFeature([PostEffects])
   ],
-  providers: [PostService]
+  providers: [PostService, SignalRService]
 })
 export class PostsModule {}

@@ -55,6 +55,9 @@ export function reducer(
     }
 
     case ActionType.ADD_POST_SUCCESS: {
+      if(state.posts[action.payload.id] != null) {
+        return state;
+      }
       const newPost: { [id: string]: Post } = {};
       newPost[action.payload.id] = { ...new Post(), ...action.payload };
       return {
@@ -74,25 +77,29 @@ export function reducer(
     case CommentActionTypes.ADD_COMMENT_SUCCESS: {
       const postId  = action.payload.postId;
       const commentId = action.payload.id;
-      const newPost = state.posts[postId];
-
+      const post = state.posts[postId];
+      if(post.comments.indexOf(action.payload.id) >= 0){
+        return state;
+      }
       return {
         ...state,
         posts: {
           ...state.posts,
-          [postId]: { ...newPost, comments: newPost.comments.concat(commentId) }
+          [postId]: { ...post, comments: post.comments.concat(commentId) }
         }
       };
     }
 
     case ClapActionTypes.ADD_CLAP_SUCCESS: {
-      const newPost = state.posts[action.payload.entityId];
-
+      const post = state.posts[action.payload.entityId];
+      if(post.claps.indexOf(action.payload.id) >= 0){
+        return state;
+      }
       return {
         ...state,
         posts: {
           ...state.posts,
-          [action.payload.entityId]: {...newPost, claps: newPost.claps.concat(action.payload.id)}
+          [action.payload.entityId]: {...post, claps: post.claps.concat(action.payload.id)}
         }
       };
     }

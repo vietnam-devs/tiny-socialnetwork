@@ -24,7 +24,9 @@ export function reducer(
 
     case ClapActionTypes.ADD_CLAP_SUCCESS: {
       return {
-        ...state, entities: {...state.entities,
+        ...state, 
+        entities: {
+          ...state.entities,
           [action.payload.id] : action.payload
         }
       };

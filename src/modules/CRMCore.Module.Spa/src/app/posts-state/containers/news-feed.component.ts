@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { PostService } from '../services/post.service';
+import { SignalRService } from '../services/signalR.service';
 import { Post, Comment, Clap } from '../models';
 import { debug } from 'util';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
@@ -26,6 +27,7 @@ export class NewsFeedComponent implements OnInit {
 
   constructor(
     private postService: PostService,
+    private signalRService: SignalRService,
     private store: Store<fromPost.State>
   ) {
     this.posts$ = store.select(fromPost.getPostCollection);

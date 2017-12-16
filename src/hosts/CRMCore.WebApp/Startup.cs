@@ -1,8 +1,4 @@
 ﻿using AspNetCore.RouteAnalyzer;
-using CRMCore.Framework.MvcCore.Extensions;
-using CRMCore.Module.Data;
-using CRMCore.Module.Data.Impl;
-using CRMCore.Module.Identity.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,14 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using System.IO;
 using IdentityServer4.AccessTokenValidation;
 using CRMCore.Module.Data.Extensions;
+
+using CRMCore.Framework.MvcCore.Extensions;
+using CRMCore.Module.Data;
+using CRMCore.Module.Data.Impl;
+using CRMCore.Module.Identity.Extensions;
+using CRMCore.Module.Post.Hubs;
 
 namespace CRMCore.WebApp
 {
@@ -26,26 +26,6 @@ namespace CRMCore.WebApp
         public static readonly string ApiPrefix = "/api";
         public static readonly string IdentityPrefix = "/idsrv";
     }
-
-    //public static class ServiceCollectionExtensions
-    //{
-    //    public static IServiceProvider InitServices(this IServiceCollection services, IConfiguration configuration)
-    //    {
-    //        var builder = new ContainerBuilder();
-
-    //        builder.RegisterGeneric(typeof(EfRepositoryAsync<>))
-    //            .As(typeof(IEfRepositoryAsync<>));
-
-    //        builder.Register(x => new EfUnitOfWork(
-    //                x.Resolve<ApplicationDbContext>(),
-    //                x.Resolve<IServiceProvider>()))
-    //            .As(typeof(IUnitOfWorkAsync))
-    //            .InstancePerLifetimeScope();
-
-    //        builder.Populate(services);
-    //        return builder.Build().Resolve<IServiceProvider>();
-    //    }
-    //}
 
     public class Startup
     {
@@ -77,6 +57,8 @@ namespace CRMCore.WebApp
             services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString));
 
             services.AddMvcModules();
+            services.AddSignalR();
+
             services.AddRouteAnalyzer();
 
             services.RegisterIdentityAndID4(
@@ -137,6 +119,10 @@ namespace CRMCore.WebApp
             app.UseAuthentication();
             app.UseIdentityServer();
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<PostMessageHub>("postMessageHub");
+            });
 
             app.Use((context, next) =>
             {

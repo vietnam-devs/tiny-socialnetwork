@@ -10,9 +10,11 @@ using CRMCore.Module.Post.Features.CreateClap;
 using CRMCore.Module.Post.Features.CreateCommment;
 using CRMCore.Module.Post.Features.GetClap;
 using CRMCore.Module.Post.Features.GetPosts;
+using CRMCore.Module.Post.Hubs;
 using CRMCore.Module.Post.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,13 +31,18 @@ namespace CRMCore.Module.Post.Features
         private readonly IEfRepositoryAsync<Models.Clap> _clapRepo;
         private readonly IOptions<PagingOption> _pagingOption;
 
+        private readonly IHubContext<PostMessageHub> _postMessageHubContext;
+
         public PostController(IUnitOfWorkAsync unitOfWork,
-                              IOptions<PagingOption> pagingOption)
+                              IOptions<PagingOption> pagingOption,
+                              IHubContext<PostMessageHub> postMessageHubContext)
         {
             _postRepo = unitOfWork.Repository<Models.Post>() as IEfRepositoryAsync<Models.Post>;
             _postCommentRepo = unitOfWork.Repository<Models.PostComment>() as IEfRepositoryAsync<Models.PostComment>;
             _clapRepo = unitOfWork.Repository<Models.Clap>() as IEfRepositoryAsync<Models.Clap>;
             _pagingOption = pagingOption;
+
+            _postMessageHubContext = postMessageHubContext;
         }
 
         private Guid CurrentUserId
@@ -96,7 +103,7 @@ namespace CRMCore.Module.Post.Features
 
             await _postRepo.AddAsync(post);
 
-            return new PostViewModel()
+            var response = new PostViewModel()
             {
                 Id = post.Id,
                 Title = post.Title,
@@ -104,6 +111,10 @@ namespace CRMCore.Module.Post.Features
                 OwnerName = post.OwnerName,
                 CreatedDate = post.Created
             };
+
+            await _postMessageHubContext.Clients.All.InvokeAsync("AddPostSuccess", response);
+
+            return response;
         }
 
         [HttpPost("{postId}/comment")]
@@ -119,7 +130,7 @@ namespace CRMCore.Module.Post.Features
 
             await _postCommentRepo.AddAsync(comment);
 
-            return new CreateCommentResponse
+            var response = new CreateCommentResponse
             {
                 Id = comment.Id,
                 Comment = comment.Comment,
@@ -127,6 +138,10 @@ namespace CRMCore.Module.Post.Features
                 OwnerName = comment.OwnerName,
                 CreatedDate = comment.Created
             };
+
+            await _postMessageHubContext.Clients.All.InvokeAsync("AddCommentSuccess", response);
+
+            return response;
         }
 
         [HttpPut("{id}")]
@@ -156,6 +171,8 @@ namespace CRMCore.Module.Post.Features
             }
             await _postRepo.DeleteAsync(post);
 
+            await _postMessageHubContext.Clients.All.InvokeAsync("DeletePostSuccess", id);
+
             return new NoContentResult();
         }
 
@@ -172,11 +189,16 @@ namespace CRMCore.Module.Post.Features
 
             await _clapRepo.AddAsync(clap);
 
-            return new GetClapResponse(){
+            var response = new GetClapResponse()
+            {
                 EntityId = clap.EntityId,
                 Id = clap.Id,
                 OwnerName = clap.OwnerName
             };
+
+            await _postMessageHubContext.Clients.All.InvokeAsync("AddClapSuccess", response);
+
+            return response;
         }
 
     }
