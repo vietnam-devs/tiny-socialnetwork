@@ -12,11 +12,11 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'add-post',
-    templateUrl: './addpost.component.html',
+    templateUrl: './post-add.component.html',
     styleUrls: ['./style.css']
 })
 
-export class AddPostComponent  implements OnInit {
+export class AddPostComponent implements OnInit {
   @Input() toggleAddPost;
   post: Post;
   postForm: FormGroup;

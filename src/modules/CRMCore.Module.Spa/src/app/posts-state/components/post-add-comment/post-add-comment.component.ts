@@ -27,8 +27,7 @@ export class PostAddCommmentComponent implements OnInit {
     });
   }
 
-  onSubmit({ value, valid }: { value: Comment, valid: boolean }) {
-    console.log(value.comment, valid);
+  onSubmit({ value, valid }: { value: Comment, valid: boolean }) { 
     if (valid) {
       value.postId = this.post.id;
       this.addComment.emit(value);
