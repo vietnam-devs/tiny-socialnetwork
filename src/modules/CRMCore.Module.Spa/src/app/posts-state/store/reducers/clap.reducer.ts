@@ -1,6 +1,4 @@
-import { ClapActions, ClapActionTypes } from '../actions/clap.action';
-import * as postActions from '../actions/post.action';
-import * as PostActionTypes from '../actions/post-constant-type.action';
+import * as fromAction  from '../actions';
 import { Clap } from '../../models';
 
 export interface State {
@@ -11,18 +9,15 @@ const initialState: State = {
   entities: {}
 };
 
-
 export function reducer(
   state = initialState,
-  action: ClapActions | postActions.Actions
+  action: fromAction.ClapAction | fromAction.PostAction
 ): State {
   switch (action.type) {
-
-    case PostActionTypes.LOAD_SUCCESS: {
+    case fromAction.LOAD_SUCCESS: {
       return {...state, entities: { ...state.entities, ...action.payload.entities.claps }};
     }
-
-    case ClapActionTypes.ADD_CLAP_SUCCESS: {
+    case fromAction.ADD_CLAP_SUCCESS: {
       return {
         ...state, 
         entities: {
@@ -31,12 +26,11 @@ export function reducer(
         }
       };
     }
-
     default: {
       return state;
     }
   }
 }
 
-
 export const getClaps = (state: State) => state.entities;
+

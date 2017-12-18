@@ -1,12 +1,14 @@
 import { Component , Input, Output, OnInit, EventEmitter  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { Store } from '@ngrx/store';
+import * as fromAction from '../../store/actions';
+import * as fromReducer from '../../store/reducers';
+
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
-import * as fromPost from '../../store/reducers';
-import { Store } from '@ngrx/store';
+
 import { Observable } from 'rxjs/Observable';
-import { PostActionCreators } from '../../store/actions/post.action';
 
 @Component({
     selector: 'add-post',
@@ -19,10 +21,9 @@ export class AddPostComponent  implements OnInit {
   post: Post;
   postForm: FormGroup;
 
-  constructor(private postService: PostService, private store: Store<fromPost.State>) {
+  constructor(private postService: PostService, private store: Store<fromReducer.State>) {
     this.post = new Post();
   }
-
  
   ngOnInit() {
         this.postForm = new FormGroup({
@@ -33,7 +34,7 @@ export class AddPostComponent  implements OnInit {
 
   createPost() {    
       var  newPost = {...new Post(), ...this.post};
-      this.store.dispatch(PostActionCreators.addPost(newPost)); 
+      this.store.dispatch( new fromAction.AddPost(newPost)); 
       this.reset();
   }
 

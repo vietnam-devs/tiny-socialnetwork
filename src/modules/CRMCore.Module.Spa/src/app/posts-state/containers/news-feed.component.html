@@ -21,7 +21,7 @@
         <div infinite-scroll [infiniteScrollDistance]="2" [immediateCheck]="true" [scrollWindow]="true" (scrolled)="onScrollDown()">
           <div class="post-content" *ngFor="let post of posts$ | async | filter : searchTerm">
             <post-item [detailMode] = "false" [post]="post" (onDeletePostEvent)="onDeletePost($event)" (clapEvent)="onClapPost($event)"></post-item>
-            <div class="post-content-comment" *ngFor='let comment of post.comments.slice(0,1)'>
+             <div class="post-content-comment" *ngFor='let comment of post.comments.slice(0,1)'>
               <post-comment [comment]="getCommentById(comment) | async">
               </post-comment>
             </div>

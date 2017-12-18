@@ -1,89 +1,91 @@
 import { Action } from '@ngrx/store';
+import { Post } from '../../models';
+/*--------------------------------------------------LOAD POST--------------------------------------------------- */
+// action constants
+export const LOAD = '[Post] Load';
+export const LOAD_STARTED = '[Post] Load Started';
+export const LOAD_SUCCESS = '[Post] Load Success';
+export const LOAD_FAIL = '[Post] Load Fail';
 
-import { PaginatedItem } from '../../../shared-state/models/paginateditem.model';
-import { Post, Comment, AddClapRequest, Clap } from '../../models';
-import * as ActionType from './post-constant-type.action';
+// action creators
+export class Load implements Action {
+  readonly type = LOAD;
+};
+export class LoadStarted implements Action {
+  readonly type = LOAD_STARTED;
+};
+export class LoadSuccess implements Action {
+  readonly type = LOAD_SUCCESS;
+  constructor(public payload: any) {}
+};
+export class LoadFail implements Action {
+  readonly type = LOAD_FAIL;
+  constructor(public payload:any) {}
+};
+/*---------------------------------------------------ADD POST-------------------------------------------------- */
+// action constants
+export const ADD_POST = '[Post] Add Post';
+export const ADD_POST_SUCCESS = '[Post] Add Post Success';
+export const ADD_POST_FAIL = '[Post] Add Post Fail';
 
-interface Load extends Action {
-  type: typeof ActionType.LOAD;
-}
-
-interface LoadStarted extends Action {
-  type: typeof ActionType.LOAD_STARTED;
-}
-
-interface LoadSuccess extends Action {
-  type: typeof ActionType.LOAD_SUCCESS;
-  payload: any;
-}
-
-interface LoadFail extends Action {
-  type: typeof ActionType.LOAD_FAIL;
-  payload: any;
-}
-
-interface AddPost extends Action {
-  type: typeof ActionType.ADD_POST;
-  payload: Post;
-}
-
-interface AddPostFail extends Action {
-  type: typeof ActionType.ADD_POST_FAIL;
-  payload: any;
-}
-
-interface AddPostSuccess extends Action {
-  type: typeof ActionType.ADD_POST_SUCCESS;
-  payload: Post;
-}
-
-interface GetPostById extends Action {
-  type: typeof ActionType.GET_POST_BY_ID;
-  payload: string;
-}
-
-interface RemovePost extends Action {
-  type: typeof ActionType.REMOVE_POST;
-  payload: string;
-}
-
-interface RemovePostSuccess extends Action {
-  type: typeof ActionType.REMOVE_POST_SUCCESS;
-  payload: string;
-}
-
-
-export const PostActionCreators = {
-  load: (): Action => (<Load>{ type: ActionType.LOAD }),
-
-  loadStarted: (): Action => (<LoadStarted>{ type: ActionType.LOAD_STARTED }),
-
-  loadSuccess: (payload: any): Action => (<LoadSuccess>{ type: ActionType.LOAD_SUCCESS, payload }),
-
-  loadFail: (payload: any): Action => (<any>{ type: ActionType.LOAD_FAIL, payload }),
-
-  addPost: (payload: any): Action => (<AddPost>{ type: ActionType.ADD_POST, payload }),
-
-  addPostSucess: (payload: Post): Action => (<AddPostSuccess>{ type: ActionType.ADD_POST_SUCCESS, payload }),
-
-  addPostFail: (payload: any): Action => (<any>{ type: ActionType.ADD_POST_FAIL, payload }),
-
-  removePost: (payload: string): Action => (<RemovePost>{ type: ActionType.REMOVE_POST, payload }),
-
-  removePostSuccess: (payload: string): Action => (<RemovePostSuccess>{ type: ActionType.REMOVE_POST_SUCCESS, payload }),
-
-  getPostById: (payload: string): Action => (<GetPostById>{ type: ActionType.GET_POST_BY_ID, payload }),
+// action creators
+export class AddPost implements Action {
+  readonly type = ADD_POST;
+  constructor(public payload:Post) {}
+};
+export class AddPostSuccess implements Action {
+  readonly type = ADD_POST_SUCCESS;
+  constructor(public payload:Post) {}
+};
+export class AddPostFail implements Action {
+  readonly type = ADD_POST_FAIL;
+  constructor(public payload:any) {}
 };
 
-export type Actions = Load
+/*---------------------------------------------------REMOVE POST-------------------------------------------------- */
+ // action constants
+export const REMOVE_POST = '[Post] Remove Post';
+export const REMOVE_POST_SUCCESS = 'Post] Remove Post Success';
+export const REMOVE_POST_FAIL = '[Post] Remove Post Fail';
+
+// action creators
+export class RemovePost implements Action {
+  readonly type = REMOVE_POST;
+  constructor(public payload:string) {}
+};
+export class RemovePostSuccess implements Action {
+  readonly type = REMOVE_POST_SUCCESS;
+  constructor(public payload:string) {}
+};
+export class RemovePostFail implements Action {
+  readonly type = REMOVE_POST_SUCCESS;
+  constructor(public payload:string) {}
+};
+
+/*---------------------------------------------------GET POST-------------------------------------------------- */
+// action constants
+export const GET_POST_BY_ID = '[Post] Get Post By ID';
+export const GET_POST_BY_ID_SUCCESS = '[Post] Get Post By ID Success';
+export const GET_POST_BY_ID_FAIL = '[Post] Get Post By ID Fail';
+
+// action creators
+export class GetPostById implements Action {
+  readonly type = GET_POST_BY_ID;
+  constructor(public payload:string) {}
+};
+
+
+/*---------------------------------------------------ACTION TYPE-------------------------------------------------- */
+
+export type PostAction = Load
                       | LoadStarted
                       | LoadSuccess
-                      | LoadFail
-                      | GetPostById
+                      | LoadFail                     
                       | AddPost
                       | AddPostSuccess
                       | AddPostFail
                       | RemovePost
-                      | RemovePostSuccess;
+                      | RemovePostSuccess
+                      | GetPostById ;
 
 

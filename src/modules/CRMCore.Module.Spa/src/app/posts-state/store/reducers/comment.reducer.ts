@@ -1,8 +1,4 @@
-import { CommentActions, CommentActionTypes } from '../actions/comment.action';
-import * as postActions from '../actions/post.action';
-
-import * as PostActionTypes from '../actions/post-constant-type.action';
-
+import * as fromAction  from '../actions';
 import { Post, Comment } from '../../models';
 
 export interface State {
@@ -15,13 +11,13 @@ const initialState: State = {
 
 export function reducer(
   state = initialState,
-  action: CommentActions | postActions.Actions
+  action: fromAction.CommentAction | fromAction.PostAction
 ): State {
   switch (action.type) {
-    case PostActionTypes.LOAD_SUCCESS: {
+    case fromAction.LOAD_SUCCESS: {
       return {...state, entities: { ...state.entities, ...action.payload.entities.comments }};
     }
-    case CommentActionTypes.ADD_COMMENT_SUCCESS: {
+    case fromAction.ADD_COMMENT_SUCCESS: {
       return AddComment(state, action);
     }
     default: {

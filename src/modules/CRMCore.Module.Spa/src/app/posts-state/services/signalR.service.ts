@@ -6,8 +6,9 @@ import { ConfigService } from '../../core/services/config.service';
 import { Clap, Post, Comment } from '../models';
 import * as fromPost from '../store/reducers';
 import { AddClapSuccess } from '../store/actions/clap.action';
-import { PostActionCreators } from '../store/actions/post.action';
+//import { PostActionCreators } from '../store/actions/post.action';
 import { AddCommentSuccess } from '../store/actions/comment.action';
+import * as fromAction from '../store/actions'
 
 @Injectable()
 export class SignalRService {
@@ -35,20 +36,22 @@ export class SignalRService {
   }
 
   private registerOnServerEvents(): void {
-    this._hubConnection.on('AddClapSuccess', (data: Clap) => {
+  /*  this._hubConnection.on('AddClapSuccess', (data: Clap) => {
       this.store.dispatch(new AddClapSuccess(data));
     });
+    */
 
     this._hubConnection.on('AddPostSuccess', (data: Post) => {
-      this.store.dispatch(PostActionCreators.addPostSucess(data));
+      this.store.dispatch(new fromAction.AddPostSuccess(data));
     });
 
-    this._hubConnection.on('AddCommentSuccess', (data: Comment) => {
+   /* this._hubConnection.on('AddCommentSuccess', (data: Comment) => {
       this.store.dispatch(new AddCommentSuccess(data));
     });
 
     this._hubConnection.on('DeletePostSuccess', (data: string) => {
       this.store.dispatch(PostActionCreators.removePostSuccess(data));
     });
+    */
   }
 }

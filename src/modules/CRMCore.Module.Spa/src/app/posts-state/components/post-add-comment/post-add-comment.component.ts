@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Post, Comment } from '../../models';
 import * as postActions from '../../store/actions/post.action';
 import * as fromPost from '../../store/reducers';
-import { PostActionCreators } from '../../store/actions/post.action';
+
 
 @Component({
   selector: 'post-add-comment',

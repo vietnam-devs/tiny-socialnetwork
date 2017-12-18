@@ -1,17 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import 'rxjs/add/operator/delay';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
 import { PostService } from '../services/post.service';
 import { SignalRService } from '../services/signalR.service';
 import { Post, Comment, Clap } from '../models';
-import { debug } from 'util';
 import { PaginatedItem } from '../../shared-state/models/paginateditem.model';
-import * as fromPost from '../store/reducers';
-import { PostActionCreators } from '../store/actions/post.action';
 
-import * as ClapActions from '../store/actions/clap.action';
+import * as fromReducer from '../store/reducers';
+import * as fromAction from '../store/actions';
+
 
 @Component({
   selector: 'app-news-feed',
@@ -28,10 +26,10 @@ export class NewsFeedComponent implements OnInit {
   constructor(
     private postService: PostService,
     private signalRService: SignalRService,
-    private store: Store<fromPost.State>
-  ) {
-    this.posts$ = store.select(fromPost.getPostCollection);
-    this.comment$ = store.select(fromPost.getCommentEntities);
+    private store: Store<fromReducer.State>
+  ) {    
+    this.posts$ = store.select(fromReducer.getPostCollection);
+    this.comment$ = store.select(fromReducer.getCommentEntities);
   }
 
   ngOnInit(): void {
@@ -43,7 +41,7 @@ export class NewsFeedComponent implements OnInit {
   }
 
   loadPosts(): void {
-    this.store.dispatch(PostActionCreators.load());
+    this.store.dispatch(new fromAction.Load);
   }
 
   onScrollDown() {
@@ -54,8 +52,8 @@ export class NewsFeedComponent implements OnInit {
     this.toggleAddPost = !this.toggleAddPost;
   }
 
-  onDeletePost(postId: string) {
-    this.store.dispatch(PostActionCreators.removePost(postId));
+  onDeletePost(postId: string) { 
+   this.store.dispatch(new fromAction.RemovePost(postId));
   }
 
   getCommentById(commentId: string) {
@@ -63,9 +61,10 @@ export class NewsFeedComponent implements OnInit {
   }
 
   onClapPost(postId: string) {
-    this.store.dispatch(new ClapActions.AddClap({
+    this.store.dispatch(new fromAction.AddClap({
       entityId: postId,
       entityType: 'Post'
     }));
   }
+  
 }
