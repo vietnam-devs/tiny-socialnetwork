@@ -40,7 +40,7 @@ export const getPostsState = createFeatureSelector<PostState>('PostFeature');
     fromPost.getSelectedId
   );
 
-
+  export const getPostLoaded = createSelector(getPostEntitiesState,fromPost.getPostLoaded);
   export const getSelectedPost = createSelector(
     getPostEntities,
     getSelectedPostId,

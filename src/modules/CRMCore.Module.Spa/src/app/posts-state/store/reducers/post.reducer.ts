@@ -4,6 +4,7 @@ import { Post } from '../../models'
 export interface State {
   currentPage: number;
   loading: boolean;
+  loaded: boolean;
   posts: { [id: string]: Post };
   selectedPostId: string | null;
 }
@@ -11,6 +12,7 @@ export interface State {
 const initialState: State = {
   currentPage: 1,
   loading: false,
+  loaded: false, 
   posts: {},
   selectedPostId: null
 };
@@ -32,8 +34,17 @@ export function reducer(
         ...state,
         currentPage: state.currentPage + 1,
         loading: false,
+        loaded: true,
        posts: { ...state.posts, ...action.payload.entities.posts }
     
+      };
+    }
+
+     case fromAction.LOAD_FAIL: {     
+      return {
+        ...state,       
+        loading: false,
+        loaded: false    
       };
     }
 
@@ -105,3 +116,5 @@ export function reducer(
 export const getPosts = (state: State) => state.posts;
 
 export const getSelectedId = (state: State) => state.selectedPostId;
+
+export const getPostLoaded = (state: State) => state.loaded;

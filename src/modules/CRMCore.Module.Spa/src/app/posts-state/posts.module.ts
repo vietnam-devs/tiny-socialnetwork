@@ -11,6 +11,9 @@ import { SignalRService } from './services/signalR.service';
 import { NewsFeedComponent, NewsFeedDetailsComponent, AddPostComponent } from './containers';
 import { reducers } from './store/reducers';
 import { PostEffects } from './store/effects/posts.effect';
+
+import {PostGuard} from './guards/post.guard';
+
 import {
   PostProfileComponent,
   PostNewsFeedMenuComponent,
@@ -51,6 +54,6 @@ const components = [
     StoreModule.forFeature('PostFeature', reducers),
     EffectsModule.forFeature([PostEffects])
   ],
-  providers: [PostService, SignalRService]
+  providers: [PostService, SignalRService,PostGuard]
 })
 export class PostsModule {}
