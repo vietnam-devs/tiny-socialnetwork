@@ -12,7 +12,7 @@ import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { normalize, schema } from 'normalizr';
 
-import * as formAction from '../actions';
+import * as fromAction from '../actions';
 import * as fromReducer from '../../store/reducers';
 
 import { PostService } from '../../services/post.service';
@@ -29,72 +29,69 @@ export class PostEffects {
   ) {}
 
   @Effect()
-   
+
   loadPosts$: Observable<Action> = this.actions$
-    .ofType(formAction.LOAD)
+    .ofType(fromAction.LOAD)
     .withLatestFrom(this.store)
     .map((latest: any[]) => latest[1])
     .filter((store: any) => !store.PostFeature.posts.loading)
-    .mergeMap(store => {      
+    .mergeMap(store => {
       return this.postService
         .getPosts(store.PostFeature.posts.currentPage)
         .map(res =>
-          new formAction.LoadSuccess(normalize(res.items, [postSchema]))
+          new fromAction.LoadSuccess(normalize(res.items, [postSchema]))
         )
-        .catch(error => of(new  formAction.LoadFail(error)));
+        .catch(error => of(new  fromAction.LoadFail(error)));
     });
 
   @Effect()
   loadPostsStarted$: Observable<Action> = this.actions$
-    .ofType(formAction.LOAD)
+    .ofType(fromAction.LOAD)
     .withLatestFrom(this.store)
     .map((latest: any[]) => latest[1])
     .filter((store: any) => !store.PostFeature.posts.loading)
-    .map(() => new formAction.LoadStarted());
+    .map(() => new fromAction.LoadStarted());
 
  @Effect()
   addPost$ = this.actions$
-  .ofType(formAction.ADD_POST)
+  .ofType(fromAction.ADD_POST)
   .switchMap((post: any) =>
     this.postService
       .createPost(post.payload)
-      .map(res => new formAction.AddPostSuccess(res))
-      .catch(error => of( new formAction.AddPostFail(error)))
+      .map(res => new fromAction.AddPostSuccess(res))
+      .catch(error => of( new fromAction.AddPostFail(error)))
   );
 
   @Effect()
   removePost$: Observable<Action> = this.actions$
-    .ofType(formAction.REMOVE_POST)
+    .ofType(fromAction.REMOVE_POST)
     .map(toPayload)
     .switchMap((postId: string) => {
       const id = postId;
       return this.postService
         .deletePost(postId)
-        .map(() => new formAction.RemovePostSuccess(id));
+        .map(() => new fromAction.RemovePostSuccess(id));
     });
 
 
   @Effect()
   addClap$ = this.actions$
-    .ofType(formAction.ADD_CLAP)
+    .ofType(fromAction.ADD_CLAP)
     .map(toPayload)
     .switchMap((clap: AddClapRequest) => {
       const clapReq = clap;
       return this.postService
         .addClap(clapReq)
-        .map(res => new formAction.AddClapSuccess(res));
+        .map(res => new fromAction.AddClapSuccess(res));
     });
 
   @Effect()
   addComment$ = this.actions$
-    .ofType(formAction.ADD_COMMENT)
+    .ofType(fromAction.ADD_COMMENT)
     .map(toPayload)
     .switchMap((comment: Comment) =>
       this.postService
         .addComment(comment)
-        .map(res => new formAction.AddCommentSuccess(res))
+        .map(res => new fromAction.AddCommentSuccess(res))
     );
-
-  
-    
 }
