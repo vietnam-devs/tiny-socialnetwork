@@ -1,0 +1,175 @@
+{
+  "import models": {
+    "prefix": "ac2-import",
+    "body": [
+      "import { Action } from '@ngrx/store';",
+      "import { Clap, AddClapRequest } from '../../models';"
+    ],
+    "description": "import Action and models"
+  },
+  "Create action types": {
+    "prefix": "ac2-types",
+    "body":[
+      "export const ADD_CLAP = '[Clap] Add Clap';",
+      "export const ADD_CLAP_SUCCESS = '[Clap] Add Clap Success';"
+    ],
+    "description": "Create some action types"
+  },
+  "Create actions": {
+    "prefix": "ac2-actions",
+    "body":[
+      "export class AddClap implements Action {",
+      "\treadonly type = ADD_CLAP;",
+      "\tconstructor(public payload: AddClapRequest) { }",
+      "}\n",
+      "export class AddClapSuccess implements Action {",
+      "\treadonly type = ADD_CLAP_SUCCESS;",
+      "\tconstructor(public payload: Clap) {}",
+      "}"
+    ]
+  },
+  "Export a type": {
+    "prefix": "ac2-exportType",
+    "body":[
+      "export type ClapAction = AddClap | AddClapSuccess;"
+    ]
+  },
+  "Reducer import": {
+    "prefix": "red2-import",
+    "body":[
+      "import * as fromAction  from '../actions';",
+      "import { Clap } from '../../models';"
+    ]
+  },
+  "Define an interface state": {
+    "prefix": "red2-define",
+    "body": [
+      "export interface State {",
+      "\tentities: { [id: string]: Clap };",
+      "}"
+    ]
+  },
+  "Initial the state": {
+    "prefix": "red2-initial",
+    "body":[
+      "const initialState: State = {",
+      "  entities: {}",
+      "};"
+    ]
+  },
+  "Create a reducer": {
+    "prefix": "red2-create",
+    "body":[
+      "export function reducer(",
+      "\t  state = initialState,",
+      "\t  action: fromAction.ClapAction | fromAction.PostAction",
+      "): State {",
+      "\t  switch (action.type) {",
+      "\t    case fromAction.LOAD_SUCCESS: {",
+      "\t      return {...state, entities: { ...state.entities, ...action.payload.entities.claps }};",
+      "\t    }",
+      "\t    case fromAction.ADD_CLAP_SUCCESS: {",
+      "\t      return {",
+      "\t        ...state,",
+      "\t        entities: {",
+      "\t          ...state.entities,",
+      "\t          [action.payload.id] : action.payload",
+      "\t        }",
+      "\t      };",
+      "\t    }",
+      "\t    default: {",
+      "\t      return state;",
+      "\t    }",
+      "\t  }",
+      "\t}"
+    ]
+  },
+  "Reducer export claps":
+  {
+    "prefix": "red2-ex-claps",
+    "body":[
+      "export const getClaps = (state: State) => state.entities;"
+    ]
+  },
+  "State import clap reducer": {
+    "prefix": "index-import",
+    "body":[
+      "import * as fromClap from './clap.reducer';"
+    ]
+  },
+  "State add selectors": {
+    "prefix": "index-selectors",
+    "body":[
+      "// create selector for claps",
+      "export const getClapEntitiesState = createSelector(getPostsState,",
+      "\t    state => state.claps",
+      ");\n",
+      "export const getClapsEntities = createSelector(getClapEntitiesState, fromClap.getClaps);\n",
+      "export const getPostClaps = createSelector(",
+      "\t    getPostEntities,",
+      "\t    getSelectedPostId,",
+      "\t    getClapsEntities,",
+      "\t    (entities, selectedId, claps) => {",
+      "\t      return entities[selectedId] && entities[selectedId].claps.map(clap => claps[clap]);",
+      "\t    }",
+      ");"
+    ]
+  },
+  "Effect add clap":{
+    "prefix": "eff-add",
+    "body":[
+      "@Effect()",
+      "addClap$ = this.actions$",
+      "  .ofType(formAction.ADD_CLAP)",
+      "  .map(toPayload)",
+      "  .switchMap((clap: AddClapRequest) => {",
+      "    const clapReq = clap;",
+      "    return this.postService",
+      "      .addClap(clapReq)",
+      "      .map(res => new formAction.AddClapSuccess(res));",
+      "  });"
+    ]
+  },
+  "Component declare Clap$":{
+    "prefix":"cm-dec",
+    "body":[
+      "claps$: Observable<Clap[]>;"
+    ]
+  },
+  "Component select Clap$":{
+    "prefix":"cm-select",
+    "body":[
+      "this.claps$ =  this.store.select(fromReducer.getPostClaps);\n",
+      "this.claps$.subscribe(clap => {",
+      "\tthis.numberOfClaps = clap ? clap.length : 0;",
+      "});"
+    ]
+  },
+  "Component import service":{
+    "prefix":"cm-sv-import",
+    "body":[
+        "import { PostService } from '../services/post.service';"
+    ]
+  },
+  "Component add clap by service":{
+    "prefix":"cm-sv-add",
+    "body":[
+      "this.postService.addClap({",
+      "  entityId: this.postId,",
+      "  entityType: this.clapType}",
+      ").subscribe(res => {",
+      "  this.store.dispatch(new fromAction.AddClapSuccess(res));",
+      "});"
+    ]
+  },
+  "Component add effect":{
+    "prefix":"cm-effect",
+    "body":[
+      "this.store.dispatch(new fromAction.AddClap({",
+      "\tentityId: this.postId,",
+      "\tentityType: this.clapType",
+      "}));"
+    ]
+  }
+
+}
