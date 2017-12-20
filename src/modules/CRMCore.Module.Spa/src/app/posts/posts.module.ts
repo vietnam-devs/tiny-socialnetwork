@@ -1,31 +1,32 @@
+// import modules
 import { NgModule } from '@angular/core';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-
-import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { PostsRoutingModule } from './posts-routing.module';
+
+// import services
 import { PostService } from './services/post.service';
 
-import {NewsFeedComponent, NewsFeedDetailsComponent} from './containers';
-import { reducers } from './store/reducers';
+// import component
+import {
+  NewsFeedComponent,
+  NewsFeedDetailsComponent,
+  AddPostComponent,
+} from './containers';
 
 import {
   PostProfileComponent,
   PostNewsFeedMenuComponent,
   PostChatOnlineComponent,
-  PostFollowUserComponent,
-  AddPostComponent,
-  PostListComponent,
+  PostFollowUserComponent, 
+  PostItemComponent,
   SearchPostComponent,
   PostAddCommmentComponent,
   PostCommmentListComponent
 } from './components';
 
 const components = [
-  AddPostComponent,
-  AddPostComponent,
-  PostListComponent,
+  AddPostComponent,  
+  PostItemComponent,
   NewsFeedComponent,
   NewsFeedDetailsComponent,
   PostProfileComponent,
@@ -41,15 +42,9 @@ const components = [
 
   imports: [
     PostsRoutingModule, 
-    SharedModule,
-    /**
-     * StoreModule.forFeature is used for composing state
-     * from feature modules. These modules can be loaded
-     * eagerly or lazily and will be dynamically added to
-     * the existing state.
-     */
-    StoreModule.forFeature('PostFeature', reducers),
+    SharedModule,    
   ],
+  
   providers: [PostService]  
 
 })

@@ -17,8 +17,8 @@ export const routes: Routes = [
   },
   {
     path: 'posts',
-   // loadChildren: './posts/posts.module#PostsModule'
-   loadChildren: './posts-state/posts.module#PostsModule'
+    loadChildren: './posts/posts.module#PostsModule'
+  // loadChildren: './posts-state/posts.module#PostsModule'
   }
 ];
 

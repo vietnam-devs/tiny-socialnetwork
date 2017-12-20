@@ -1,13 +1,14 @@
-<div class="post-content" *ngFor="let post of posts | filter : searchTerm">
-  <div class="post-container">
+<div class="post-container">
     <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
     <div class="post-detail">
       <div class="user-info">
 
          <div  class="text-align-right">
        <div id="wrapper">
-        <div class="visible"> <a href="#" class="fa fa-trash fa-lg mt-4" data-toggle="tooltip" title="Remove this" (click) ="deletePost(post)"></a>   </div> 
+          <div class="visible">
+         <a style="cursor: pointer" class="fa fa-trash fa-lg mt-4" data-toggle="tooltip" title="Remove this" (click)="deletePost(post)"></a>
         </div>
+         </div>
       </div>
 
         <h5>
@@ -22,10 +23,6 @@
         <p>{{post.description | words : 10 : '...'}}</p>
       </div>
        <a [routerLink]="[post.id]" class="button button--smaller button--chromeless u-baseColor--buttonNormal">Read more…</a>
-      <div class="none-line-divider"></div>  
-      <post-clap></post-clap>
-      
+      <div class="none-line-divider"></div>       
     </div>
   </div>
-</div>
-

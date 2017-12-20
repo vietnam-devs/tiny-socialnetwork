@@ -1,14 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
+// rxjs
 import 'rxjs/add/operator/delay';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
+// import services
 import { PostService } from '../services/post.service';
+
+// import model
 import { Post } from '../models/post.model';
-import { debug } from 'util';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
-import * as fromPost from '../store/reducers';
-import * as postAction from '../store/actions/post.action';
+
+
 
 @Component({
   selector: 'app-news-feed',
@@ -16,7 +18,6 @@ import * as postAction from '../store/actions/post.action';
   styleUrls: ['./style.css']
 })
 export class NewsFeedComponent implements OnInit {
-  posts$: Observable<Post[]>;
 
   posts: Post[] = [];
   searchTerm: string;
@@ -36,12 +37,16 @@ export class NewsFeedComponent implements OnInit {
   listenSearchEvent(searchTerm: string) {
     this.searchTerm = searchTerm;
   }
-  postCreatedListen(post: Post) {   
-     this.posts.push(post);    
-  }
 
+  postCreatedListenEvent(post: Post) {       
+     this.posts.unshift(post);    
+  };
 
-  loadPosts(): void {
+  deletePostListenEvent(post: Post) { 
+   this.posts.splice(this.posts.indexOf(post), 1);
+  };
+
+  loadPosts(): void {    
     this.page += 1;
     this.postService
       .getPosts(this.page)

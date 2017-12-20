@@ -5,8 +5,8 @@ import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
 
 @Component({
-    selector: 'add-post',
-    templateUrl: './addpost.component.html',
+    selector: 'post-add',
+    templateUrl: './post-add.component.html',
     styleUrls: ['./style.css']
 })
 export class AddPostComponent  implements OnInit {
