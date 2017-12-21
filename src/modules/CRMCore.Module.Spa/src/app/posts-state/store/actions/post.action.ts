@@ -58,7 +58,7 @@ export class RemovePostSuccess implements Action {
   constructor(public payload:string) {}
 };
 export class RemovePostFail implements Action {
-  readonly type = REMOVE_POST_SUCCESS;
+  readonly type = REMOVE_POST_FAIL;
   constructor(public payload:string) {}
 };
 
