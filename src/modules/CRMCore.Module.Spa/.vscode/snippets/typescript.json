@@ -170,6 +170,24 @@
       "\tentityType: this.clapType",
       "}));"
     ]
+  },
+  "Post reducer":{
+    "prefix": "pred2-add",
+    "body":[
+      "case fromAction.ADD_CLAP_SUCCESS: {",
+      "  const post = state.posts[action.payload.entityId];",
+      "  if(post.claps.indexOf(action.payload.id) >= 0){",
+      "    return state;",
+      "  }",
+      "  return {",
+      "    ...state,",
+      "    posts: {",
+      "      ...state.posts,",
+      "      [action.payload.entityId]: {...post, claps: post.claps.concat(action.payload.id)}",
+      "    }",
+      "  };",
+      "}"
+    ]
   }
 
 }
