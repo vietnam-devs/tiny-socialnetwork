@@ -69,7 +69,7 @@ export function reducer(
 
     case fromAction.REMOVE_POST_SUCCESS: {     
       const deletePost = state.posts[action.payload];    
-      const { [deletePost.id]: removed, ...result} = state.posts;
+      const { [deletePost && deletePost.id]: removed, ...result} = state.posts;
       return {
         ...state,
         posts: result
