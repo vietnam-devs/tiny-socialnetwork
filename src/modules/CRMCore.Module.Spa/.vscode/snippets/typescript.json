@@ -120,13 +120,13 @@
     "body":[
       "@Effect()",
       "addClap$ = this.actions$",
-      "  .ofType(formAction.ADD_CLAP)",
+      "  .ofType(fromAction.ADD_CLAP)",
       "  .map(toPayload)",
       "  .switchMap((clap: AddClapRequest) => {",
       "    const clapReq = clap;",
       "    return this.postService",
       "      .addClap(clapReq)",
-      "      .map(res => new formAction.AddClapSuccess(res));",
+      "      .map(res => new fromAction.AddClapSuccess(res));",
       "  });"
     ]
   },
