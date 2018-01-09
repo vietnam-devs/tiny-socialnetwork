@@ -1,15 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-// rxjs
-import 'rxjs/add/operator/delay';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-// import services
 import { PostService } from '../services/post.service';
-
-// import model
-import { Post } from '../models/post.model';
+import { SignalRService } from '../services/signalR.service';
+import { Post, Comment, Clap } from '../models';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
 
+import * as fromReducer from '../store/reducers';
+import * as fromAction from '../store/actions';
 
 
 @Component({
@@ -18,19 +17,22 @@ import { PaginatedItem } from '../../shared/models/paginateditem.model';
   styleUrls: ['./style.css']
 })
 export class NewsFeedComponent implements OnInit {
+  posts$: Observable<Post[]>;
+  comment$: Observable<{ [Id: string]: Comment }>;
 
-  posts: Post[] = [];
   searchTerm: string;
-  page: number;
   toggleAddPost: boolean;
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private signalRService: SignalRService,
+    private store: Store<fromReducer.State>
   ) {
-    this.page = 0;   
+    this.posts$ = store.select(fromReducer.getPostCollection);
+    this.comment$ = store.select(fromReducer.getCommentEntities);
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.loadPosts();
   }
 
@@ -38,30 +40,31 @@ export class NewsFeedComponent implements OnInit {
     this.searchTerm = searchTerm;
   }
 
-  postCreatedListenEvent(post: Post) {       
-     this.posts.unshift(post);    
-  };
-
-  deletePostListenEvent(post: Post) { 
-   this.posts.splice(this.posts.indexOf(post), 1);
-  };
-
-  loadPosts(): void {    
-    this.page += 1;
-    this.postService
-      .getPosts(this.page)
-      .subscribe((result: PaginatedItem<Post>) => {
-        if (result.items.length > 0) {
-          this.posts.push(...result.items);        
-        }
-      });
+  loadPosts(): void {
+    this.store.dispatch(new fromAction.Load);
   }
 
   onScrollDown() {
     this.loadPosts();
   }
 
-  handleToggleAddPost(){
+  handleToggleAddPost() {
     this.toggleAddPost = !this.toggleAddPost;
   }
+
+  onDeletePost(postId: string) {
+   this.store.dispatch(new fromAction.RemovePost(postId));
+  }
+
+  getCommentById(commentId: string) {
+    return this.comment$.map(comment => comment[commentId]);
+  }
+
+  onClapPost(postId: string) {
+    this.store.dispatch(new fromAction.AddClap({
+      entityId: postId,
+      entityType: 'Post'
+    }));
+  }
+
 }

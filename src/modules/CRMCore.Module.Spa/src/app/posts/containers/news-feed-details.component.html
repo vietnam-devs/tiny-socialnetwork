@@ -1,31 +1,27 @@
 <div id="page-contents">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3 static">
-          <post-profile></post-profile>
-          <post-news-feed-menu></post-news-feed-menu>
-          <post-follow-user></post-follow-user>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 static">
+        <post-profile></post-profile>
+        <post-news-feed-menu></post-news-feed-menu>
+        <post-follow-user></post-follow-user>
+      </div>
+      <div class="post-back-list">
+          <a class="post-back-btn" (click)="onBack()">❮ Back to list</a>
+      </div>
+      <div class="icon-wrapper">
+        <div class="custom-icon">
+          <clap [NumberOfClaps] = "numberOfClaps" (clapEvent)="onClapPost()"></clap>
         </div>
-        <div class="icon-wrapper"><div class="custom-icon"><post-clap></post-clap></div><span class="fix-editor">&nbsp;</span></div>
-        <div class="col-md-8">
-           <div class="post-detail">
-                    <div class="user-info">
-                        <img alt="" class="profile-photo-sm pull-left" src="http://placehold.it/300x300">
-                        <div>
-                          <h5>
-                            <a href="#" class="profile-link">Alexis Clark</a>
-                          </h5>
-                          <p class="text-muted">Posted on {{post.createdDate | date:'short':'GMT-7'}}</p>
-                        </div>
-                    </div>
-                    <div class="post-text">
-                        <p class="link-detail-accent">{{post.title}}</p>
-                            <p>{{post.description }}</p>
-                    </div>
-                </div>
-            <post-comment-list> </post-comment-list>
-            <post-add-comment></post-add-comment>
+        <span class="fix-editor">&nbsp;</span>
+      </div>
+      <div class="col-md-8 news-feed-details">
+        <post-item [detailMode] = "true" [post]="post$ | async"></post-item>
+        <div class="post-content" *ngFor='let comment of comments$ | async'>
+          <post-comment [comment]="comment"></post-comment>
         </div>
+        <post-add-comment [post]="post$ | async" (addComment)="onAddComment($event)"></post-add-comment>
       </div>
     </div>
   </div>
+</div>

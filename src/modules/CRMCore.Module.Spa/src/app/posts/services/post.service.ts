@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { Post } from '../models/post.model';
+import { Post, Comment, AddClapRequest, Clap } from '../models';
 import { ConfigService } from '../../core/services/config.service';
 import { PaginatedItem } from '../../shared/models/paginateditem.model';
 
@@ -18,11 +18,11 @@ export class PostService {
   }
 
   getPosts(page: number): Observable<PaginatedItem<Post>> {
-    
-    return this.http.get<PaginatedItem<Post>>(`${this.postUrl}?Page=${page}`)
-    .map(res => {
-      return res;
-    });
+    return this.http
+      .get<PaginatedItem<Post>>(`${this.postUrl}?Page=${page}`)
+      .map(res => {
+        return res;
+      });
   }
 
   editPost(post: Post): Observable<Post> {
@@ -30,14 +30,20 @@ export class PostService {
     return this.http.put<Post>(editUrl, post);
   }
 
-  deletePost(id: string): Observable<Post> {
+  deletePost(id: string): Observable<string> {
     let deleteUrl = `${this.postUrl}/${id}`;
-    return this.http.delete<Post>(deleteUrl).map(res => {
-      return res;
-    });
+    return this.http.delete<string>(deleteUrl);
   }
 
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(`${this.postUrl}`, post);
+  }
+
+  addComment(comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(`${this.postUrl}/${comment.postId}/comment`, comment);
+  }
+
+  addClap(clap: AddClapRequest): Observable<Clap> {
+    return this.http.post<Clap>(`${this.postUrl}/clap`, clap);
   }
 }

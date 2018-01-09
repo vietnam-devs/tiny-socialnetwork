@@ -3,23 +3,22 @@ import { SharedService } from '../../../shared/services/sharedService';
 
 @Component({
     selector: 'search-post',
-    templateUrl: './searchpost.component.html'    
+    templateUrl: './searchpost.component.html'
 })
 export class SearchPostComponent {
     @Output() searchEvent = new EventEmitter();
     searchTerm: string;
 
-    constructor(private sharedService: SharedService)
-    {     
+    constructor(private sharedService: SharedService) {
         this.sharedService.postsChanged.subscribe(
-            data => {                
-               if(data && this.searchTerm){
+            data => {
+               if(data && this.searchTerm) {
                   this.search();
                }
             });
     }
 
-    search(){
+    search() {
          this.searchEvent.emit(this.searchTerm);
     }
 

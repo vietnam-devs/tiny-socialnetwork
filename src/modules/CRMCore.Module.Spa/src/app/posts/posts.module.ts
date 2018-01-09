@@ -1,31 +1,33 @@
-// import modules
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 import { PostsRoutingModule } from './posts-routing.module';
-
-// import services
+import { SharedModule } from '../shared/shared.module';
 import { PostService } from './services/post.service';
+import { SignalRService } from './services/signalR.service';
 
-// import component
-import {
-  NewsFeedComponent,
-  NewsFeedDetailsComponent,
-  AddPostComponent,
-} from './containers';
+import { NewsFeedComponent, NewsFeedDetailsComponent, AddPostComponent } from './containers';
+import { reducers } from './store/reducers';
+import { PostEffects } from './store/effects/posts.effect';
+
+import {PostGuard} from './guards/post.guard';
 
 import {
   PostProfileComponent,
   PostNewsFeedMenuComponent,
   PostChatOnlineComponent,
-  PostFollowUserComponent, 
+  PostFollowUserComponent,
   PostItemComponent,
   SearchPostComponent,
-  PostAddCommmentComponent,
-  PostCommmentListComponent
+  PostCommmentItemComponent,
+  PostAddCommmentComponent
 } from './components';
 
 const components = [
-  AddPostComponent,  
+  AddPostComponent,
+  AddPostComponent,
   PostItemComponent,
   NewsFeedComponent,
   NewsFeedDetailsComponent,
@@ -34,18 +36,24 @@ const components = [
   PostChatOnlineComponent,
   PostFollowUserComponent,
   SearchPostComponent,
+  PostCommmentItemComponent,
   PostAddCommmentComponent,
-  PostCommmentListComponent  
 ];
 @NgModule({
   declarations: [components],
 
   imports: [
-    PostsRoutingModule, 
-    SharedModule,    
+    PostsRoutingModule,
+    SharedModule,
+    /**
+     * StoreModule.forFeature is used for composing state
+     * from feature modules. These modules can be loaded
+     * eagerly or lazily and will be dynamically added to
+     * the existing state.
+     */
+    StoreModule.forFeature('PostFeature', reducers),
+    EffectsModule.forFeature([PostEffects])
   ],
-  
-  providers: [PostService]  
-
+  providers: [PostService, SignalRService, PostGuard]
 })
 export class PostsModule {}

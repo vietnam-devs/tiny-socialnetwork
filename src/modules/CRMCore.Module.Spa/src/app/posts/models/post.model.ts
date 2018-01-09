@@ -1,11 +1,17 @@
 export class Post {
-    id:string;
+    id: string;
     title: string;
     description: string;
     createdDate: Date;
-    constructor(){
-        this.title = ""
-        this.description = ""       
+    comments: string[];
+    ownerName: string;
+    claps: string[];
+
+    constructor() {
+        this.title = '';
+        this.description = '';
+        this.comments = [];
+        this.claps = [];
     }
 }
 

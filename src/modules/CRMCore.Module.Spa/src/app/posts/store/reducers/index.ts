@@ -1,30 +1,14 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
-import * as fromRoot from '../../../reducers';
 import * as fromPost from './post.reducer';
+import * as fromComment from './comment.reducer';
+import * as fromClap from './clap.reducer';
 
-export interface PostState {
-   posts: fromPost.State
-  }
+export * from './post.selector';
 
-  
-  export interface State extends fromRoot.State {
-    'posts': PostState;
-  }
-  
-  export const reducers = {
-    posts: fromPost.reducer
+export const reducers = {
+    posts: fromPost.reducer,
+    comments: fromComment.reducer,
+    claps: fromClap.reducer,
   };
 
-  export const getPostsState = createFeatureSelector<PostState>('PostFeature');
 
-  export const getPostEntitiesState = createSelector(
-    getPostsState,
-    state => state.posts
-  );
-  
 
-  export const getPostCollection = createSelector(
-    getPostEntitiesState,
-    fromPost.getPosts
-  );
-  

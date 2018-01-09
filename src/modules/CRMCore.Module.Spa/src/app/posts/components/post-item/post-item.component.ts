@@ -1,25 +1,26 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { PostService } from '../../services/post.service';
-import { SharedService } from '../../../shared/services/sharedService';
 import { Post } from '../../models/post.model';
 
 @Component({
-    selector: 'post-item',
-    templateUrl: './post-item.component.html',
-    styleUrls: ['./style.css']
+  selector: 'post-item',
+  templateUrl: './post-item.component.html',
+  styleUrls: ['./style.css']
 })
-
 export class PostItemComponent {
-   @Input() post: Post;
-   @Input() searchTerm: string;  
-   @Output() postDeletedEvent = new EventEmitter();
+  @Input() detailMode: boolean;
+  @Input() post: Post;
 
-   constructor(private postService: PostService ) {} 
+  @Output() onDeletePostEvent = new EventEmitter();
+  @Output() clapEvent = new EventEmitter();
 
-   deletePost(post: Post) {      
-    this.postService.deletePost(post.id).subscribe(res => {     
-      this.postDeletedEvent.emit(post)
-    });
+  constructor() {}
+
+  onDeletePost(postId: string) {
+    this.onDeletePostEvent.emit(postId);
+  }
+
+  onClap(postId: string) {
+    this.clapEvent.emit(postId);
   }
 }
